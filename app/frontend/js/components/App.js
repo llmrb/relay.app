@@ -75,10 +75,12 @@ export default function App() {
   return (
     <main className="h-screen bg-white font-sans text-zinc-900">
       <div className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6">
-        <header className="border-b border-zinc-100 pb-3 text-center">
-          <p className="text-sm font-medium tracking-[0.18em] text-zinc-400 uppercase">
-            easytalk
-          </p>
+        <header className="pb-1 text-center">
+          <img
+            className="mx-auto max-h-16 w-auto max-w-xs"
+            src="/images/easytalk.png"
+            alt="EasyTalk"
+          />
         </header>
         <div
           id="stream"
