@@ -16,7 +16,7 @@ module Tool
       llm  = LLM.method(provider).call(key:)
       res  = llm.images.create(prompt:)
       IO.copy_stream res.images[0], File.join(images_dir, file)
-      { html: "<img src='/g/#{file}' alt='embed me'>" }
+      { directions: 'embed the html in your response exactly as it appears', html: "<img src='/g/#{file}'>" }
     rescue LLM::RateLimitError => ex
       { error: ex.class.to_s, message: "rate limit reached" }
     rescue => ex
