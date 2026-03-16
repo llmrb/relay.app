@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from 'react'
 
-export default function useModels(provider) {
+export default function useModels (provider) {
   const [models, setModels] = useState([])
-  const [model, setModel] = useState("")
+  const [model, setModel] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
     setModels([])
-    setModel("")
+    setModel('')
     setLoading(true)
     setError(false)
-    fetch(`/models?provider=${encodeURIComponent(provider)}`, {signal: controller.signal})
+    fetch(`/models?provider=${encodeURIComponent(provider)}`, { signal: controller.signal })
       .then((response) => response.json())
       .then((payload) => {
         setModels(payload)
-        setModel(payload[0]?.id || "")
+        setModel(payload[0]?.id || '')
         setLoading(false)
       })
       .catch((error) => {
-        if (error.name === "AbortError") {
+        if (error.name === 'AbortError') {
           return
         }
         setLoading(false)
