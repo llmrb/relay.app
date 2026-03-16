@@ -54,10 +54,7 @@ bundle exec rake build
 Start the server:
 
 ```sh
-set -a
-. ./.env
-set +a
-bundle exec falcon serve --bind http://localhost:9292
+bundle exec rake serve
 ```
 
 ## Sources
