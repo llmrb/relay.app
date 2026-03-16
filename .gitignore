@@ -1,5 +1,5 @@
 .env
 .bundle/gems
 node_modules/
-bundle.js*
+easytalk.js*
 public/g/

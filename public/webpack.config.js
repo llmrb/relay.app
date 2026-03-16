@@ -5,7 +5,7 @@ module.exports = {
   entry: path.resolve(__dirname, "index.js"),
   output: {
     path: __dirname,
-    filename: "bundle.js",
+    filename: "easytalk.js",
     clean: false
   },
   devtool: "source-map",
