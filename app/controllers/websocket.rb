@@ -38,6 +38,8 @@ module Controller
       end
       write(conn, event: "status", message: "Done")
       write(conn, event: "done", cost: sess.cost.to_s)
+    rescue LLM::NoSuchModelError
+      write(conn, event: "done", cost: "unknown")
     rescue StandardError => e
       pp e, e.message, e.backtrace
       write(conn, event: "status", message: "Error")

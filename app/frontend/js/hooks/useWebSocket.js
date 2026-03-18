@@ -47,7 +47,7 @@ export default function useWebSocket (provider, model, setModel, setCost) {
         break
       case 'done':
         finish()
-        setCost(`$${payload.cost}`)
+        payload.cost === 'unknown' ? setCost(payload.cost) : setCost(`$${payload.cost}`)
         setStatus('ready')
         break
       case 'error':
