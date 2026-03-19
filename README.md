@@ -44,18 +44,38 @@ Install Ruby gems:
 bundle install
 ```
 
+**Frontend**
+
 Build the frontend:
 
 ```sh
 bundle exec rake build
 ```
 
-**Serve**
+**Backend**
 
-Start the server:
+Start the API and WebSocket server:
 
 ```sh
-bundle exec rake serve
+bundle exec rake dev:backend
+```
+
+**Development**
+
+Run the backend and webpack dev server in separate shells:
+
+```sh
+bundle exec rake dev:backend
+bundle exec rake dev:frontend
+```
+
+Then open `http://localhost:9293`. The Ruby backend on `9292` only
+serves `/models` and `/ws`.
+
+Or run both processes together with Foreman:
+
+```sh
+bundle exec foreman start
 ```
 
 ## Sources

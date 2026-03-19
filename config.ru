@@ -6,7 +6,6 @@ Bundler.require(:default)
 Dir[File.join(__dir__, "app", "controllers", "*.rb")].sort.each { require(_1) }
 Dir[File.join(__dir__, "app", "tools", "*.rb")].sort.each { require(_1) }
 
-files     = Rack::Files.new(File.expand_path("public", __dir__))
 openai    = LLM.openai(key: ENV["OPENAI_SECRET"])
 gemini    = LLM.gemini(key: ENV["GEMINI_SECRET"])
 anthropic = LLM.anthropic(key: ENV["ANTHROPIC_SECRET"])
@@ -24,7 +23,11 @@ run lambda { |env|
   case env["PATH_INFO"]
   when "/models" then Controller::Models.new(env, llms).call
   when "/ws" then Controller::Websocket.new(env, llms).call
-  when "/" then files.call(env.merge("PATH_INFO" => "/index.html"))
-  else files.call(env)
+  else
+    [
+      404,
+      {"content-type" => "text/plain"},
+      ["Not Found\n"]
+    ]
   end
 }

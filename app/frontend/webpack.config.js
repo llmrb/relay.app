@@ -7,9 +7,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "..", "..", "public", "js"),
     filename: "realtalk.js",
-    clean: false
+    clean: false,
+    publicPath: "/js/"
   },
   devtool: "source-map",
+  watchOptions: {
+    poll: 1000,
+    aggregateTimeout: 200
+  },
   module: {
     rules: [
       {
@@ -37,6 +42,35 @@ module.exports = {
       "~": __dirname
     },
     extensions: [".js", ".jsx"]
+  },
+  devServer: {
+    host: "0.0.0.0",
+    port: 9293,
+    allowedHosts: "all",
+    static: {
+      directory: __dirname
+    },
+    client: {
+      webSocketURL: {
+        pathname: "/webpack"
+      }
+    },
+    webSocketServer: {
+      options: {
+        path: "/webpack"
+      }
+    },
+    proxy: [
+      {
+        context: ["/models"],
+        target: "http://127.0.0.1:9292"
+      },
+      {
+        context: ["/ws"],
+        target: "http://127.0.0.1:9292",
+        ws: true
+      }
+    ]
   },
   plugins: [
     new CopyPlugin({
