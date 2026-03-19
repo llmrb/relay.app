@@ -68,8 +68,7 @@ module Controller
     end
 
     def instructions
-      "URLs returned by the create-image tool must be shown inline as HTML "
-      "<img> tags and not as plaintext. You must comply with this directive."
+      File.read File.join(root, "app", "prompts", "system.md")
     end
 
     def initial_prompt(message)
