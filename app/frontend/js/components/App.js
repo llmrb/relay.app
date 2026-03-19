@@ -17,8 +17,10 @@ export default function App () {
   const [session, setSession] = useState({ provider: 'deepseek', model: '', cost: '' })
   const { loading: modelsLoading, model, models } = useModels({ session, setSession })
   const { entries, send, status, streaming } = useWebSocket({session, setSession})
+
   const streamRef = useRef(null)
   const inputRef = useRef(null)
+  const keysRef = useRef([])
 
   const scrollToBottom = () => {
     const stream = streamRef.current
@@ -27,8 +29,28 @@ export default function App () {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    if (!message) return
-    if (send(message)) setMessage('')
+    const text = message.trim()
+    if (!text) return false
+    if (send(text)) setMessage('')
+  }
+
+  const onMessageKeyDown = (event) => {
+    const keys = keysRef.current
+    if (event.nativeEvent.isComposing) return
+    if (!keys.includes(event.key)) keys.push(event.key)
+
+    const enters = keys.filter((key) => key === 'Enter')
+    const shifts = keys.filter((key) => key === 'Shift')
+
+    if (enters.length && !shifts.length) {
+      onSubmit(event)
+      keysRef.current = []
+    }
+  }
+
+  const onMessageKeyUp = (event) => {
+    const keys = keysRef.current
+    keysRef.current = keys.filter((key) => key !== event.key)
   }
 
   const onProviderChange = (event) => {
@@ -56,6 +78,13 @@ export default function App () {
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
+
+  useEffect(() => {
+    const input = inputRef.current
+    if (!input) return
+    input.style.height = '0px'
+    input.style.height = `${Math.min(input.scrollHeight, 240)}px`
+  }, [message])
 
   useEffect(() => {
     switch(session.provider) {
@@ -120,14 +149,16 @@ export default function App () {
           className='sticky bottom-0 flex flex-col gap-2 bg-gradient-to-b from-white/0 via-white/90 to-white pt-3 pb-1'
           onSubmit={onSubmit}
         >
-          <input
+          <textarea
             ref={inputRef}
-            className='h-13 w-full rounded-2xl border border-zinc-200 bg-white px-4 text-[15px] text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-zinc-300 focus:ring-4 focus:ring-zinc-900/10'
-            type='text'
+            rows={1}
+            className='max-h-60 min-h-14 w-full resize-none overflow-y-auto rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-[15px] text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-zinc-300 focus:ring-4 focus:ring-zinc-900/10'
             placeholder='Type a message'
             autoComplete='off'
             value={message}
             onChange={(event) => setMessage(event.target.value)}
+            onKeyDown={onMessageKeyDown}
+            onKeyUp={onMessageKeyUp}
           />
           <div className='flex justify-end'>
             <button
