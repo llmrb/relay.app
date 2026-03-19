@@ -1,5 +1,5 @@
 {
-  "name": "realtalk",
+  "name": "relay",
   "private": true,
   "scripts": {
     "build": "webpack",

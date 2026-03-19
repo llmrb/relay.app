@@ -1,6 +1,6 @@
 ## About
 
-RealTalk is a small chat app built with [llm.rb](https://github.com/llmrb/llm.rb).
+Relay is a small chat app built with [llm.rb](https://github.com/llmrb/llm.rb).
 It demonstrates streaming over WebSockets, tool calls, image generation,
 provider switching, model selection, and a small Active Record-backed
 server. The client lives under `app/client`, and the Rack server lives

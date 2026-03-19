@@ -6,7 +6,7 @@ module.exports = {
   entry: path.resolve(__dirname, "js/index.js"),
   output: {
     path: path.resolve(__dirname, "..", "..", "public", "js"),
-    filename: "realtalk.js",
+    filename: "relay.js",
     clean: false,
     publicPath: "/js/"
   },

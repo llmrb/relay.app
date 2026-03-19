@@ -7,8 +7,8 @@ export function Sidebar({session, models, modelsLoading, onProviderChange, onMod
       <a target='_blank' rel='noopener noreferrer' href='https://www.youtube.com/watch?v=CyzdOtyYnng'>
         <img
           className='max-h-16 w-auto max-w-[11rem] rounded-2xl [animation:spin_1.5s_linear_1]'
-          src='/images/realtalk.png'
-          alt='RealTalk'
+          src='/images/relay.png'
+          alt='Relay'
         />
       </a>
       <div className='flex w-full flex-col gap-3 text-sm text-zinc-500'>
