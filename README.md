@@ -44,22 +44,6 @@ Install Ruby gems:
 bundle install
 ```
 
-**Frontend**
-
-Build the frontend:
-
-```sh
-bundle exec rake build
-```
-
-**Backend**
-
-Start the API and WebSocket server:
-
-```sh
-bundle exec rake dev:backend
-```
-
 **Development**
 
 Run the backend and webpack dev server in separate shells:
