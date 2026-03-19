@@ -21,7 +21,7 @@ llms      = {
 
 run lambda { |env|
   case env["PATH_INFO"]
-  when "/models" then Server::Models.new(env, llms).call
+  when "/models" then Server::ListModels.new(env, llms).call
   when "/ws" then Server::Websocket.new(env, llms).call
   else [404, {"content-type" => "text/plain"}, ["Not Found\n"]]
   end

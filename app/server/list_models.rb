@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Server::Models < Server::Base
+class Server::ListModels < Server::Base
   ##
   # Returns the chat-capable models for the provider
   # @return [Array]
