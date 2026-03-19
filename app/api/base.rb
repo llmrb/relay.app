@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Controller
+module API
   class Base
     ##
     # @return [Rack::Request]
