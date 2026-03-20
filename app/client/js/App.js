@@ -107,9 +107,15 @@ export default function App () {
           })}
           {stream ? <StreamingMessage markdown={stream} /> : null}
         </div>
-        <p className='text-left text-sm text-zinc-500'>
-          Status: <span className='font-semibold text-zinc-700'>{status}</span>
-        </p>
+        <div className='grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-sm text-zinc-500'>
+          <p className='min-w-0'>
+            <span className='font-semibold text-zinc-700'>{status}</span>
+          </p>
+          <p className='text-center'>
+            <span className='font-semibold text-zinc-800'>{session.cost || '$0.00'}</span>
+          </p>
+          <div />
+        </div>
         <form
           className='sticky bottom-0 flex flex-col gap-2 bg-gradient-to-b from-white/0 via-white/90 to-white pt-3 pb-1'
           onSubmit={onSubmit}
