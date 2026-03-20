@@ -54,10 +54,11 @@ export default function useWebSocket ({session, setSession}) {
           if (current) { setEntries((prev) => [...prev, { kind: 'assistant', markdown: current }]) }
           return ''
         })
+        const { contextWindowUsage } = payload
         if (payload.cost === 'unknown') {
-          setSession((prev) => ({...prev, cost: payload.cost}))
+          setSession((prev) => ({...prev, cost: payload.cost, contextWindowUsage}))
         } else {
-          setSession((prev) => ({...prev, cost: `$${payload.cost}`}))
+          setSession((prev) => ({...prev, cost: `$${payload.cost}`, contextWindowUsage}))
         }
         setStatus('ready')
         break

@@ -25,6 +25,7 @@ export default function App () {
     contextWindow: '', contextWindowUsage: ''
   }
   const resetState = { cost: '', contextWindow: '', contextWindowUsage: '' }
+  const formatNumber = (value) => Number(value || 0).toLocaleString()
 
   const [message, setMessage] = useState('')
   const [session, setSession] = useState(defaults)
@@ -102,17 +103,24 @@ export default function App () {
           })}
           {stream ? <StreamingMessage markdown={stream} /> : null}
         </div>
-        <div className='grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-sm text-zinc-500'>
-          <p className='min-w-0'>
-            <span className='font-semibold text-zinc-700'>{status}</span>
+        <div className='grid grid-cols-3 gap-4 text-sm text-zinc-500'>
+          <p className='flex min-h-[2.75rem] min-w-0 flex-col justify-center text-left leading-tight'>
+            <span className='block text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500'>Status</span>
+            <span className='mt-1 block font-medium text-zinc-700'>{status}</span>
           </p>
-          <p className='text-center'>
-            <span className='font-semibold text-zinc-800'>{session.cost || '$0.00'}</span>
+          <p className='flex min-h-[2.75rem] flex-col justify-center text-center leading-tight'>
+            <span className='block text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500'>Context Window</span>
+            <span className='mt-1 block font-medium text-zinc-700'>
+              {formatNumber(session.contextWindowUsage)} / {formatNumber(session.contextWindow)} tokens
+            </span>
           </p>
-          <div />
+          <p className='flex min-h-[2.75rem] flex-col justify-center text-right leading-tight'>
+            <span className='block text-[11px] font-semibold uppercase tracking-[0.14em] text-zinc-500'>Cost</span>
+            <span className='mt-1 block font-medium text-zinc-700'>{session.cost || '$0.00'}</span>
+          </p>
         </div>
         <form
-          className='sticky bottom-0 flex flex-col gap-2 bg-gradient-to-b from-white/0 via-white/90 to-white pt-3 pb-1'
+          className='sticky bottom-0 flex flex-col gap-2 bg-gradient-to-b from-white/0 via-white/90 to-white pt-1 pb-1'
           onSubmit={onSubmit}
         >
           <TextArea inputRef={inputRef} message={message} setMessage={setMessage} onSubmit={onSubmit} />
