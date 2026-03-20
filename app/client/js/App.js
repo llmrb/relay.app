@@ -79,6 +79,17 @@ export default function App () {
     input.style.height = `${Math.min(input.scrollHeight, 240)}px`
   }, [message])
 
+  useEffect(() => {
+    switch(session.provider) {
+      case 'openai':
+        setSession((prev) => ({...prev, model: 'gpt-5.4'}))
+        break;
+      case 'google':
+        setSession((prev) => ({...prev, model: 'google-pro-latest'}))
+        break;
+    }
+  }, [session.provider])
+
   return (
     <main className='h-screen bg-white font-sans text-zinc-900'>
       <div className='mx-auto flex h-full min-h-0 w-full max-w-none gap-4 px-4 py-6 sm:px-6'>
