@@ -43,9 +43,19 @@ namespace :js do
   desc "Copy vendor JavaScript assets"
   task :vendor do
     mkdir_p File.join(__dir__, "public", "vendor")
-    cp File.join(__dir__, "node_modules", "htmx.org", "dist", "htmx.min.js"),
-      File.join(__dir__, "public", "vendor", "htmx.min.js")
-    cp File.join(__dir__, "node_modules", "htmx-ext-ws", "ws.js"),
-      File.join(__dir__, "public", "vendor", "htmx-ext-ws.js")
+    copy_js File.join("htmx.org", "dist", "htmx.min.js")
+    copy_js File.join("htmx-ext-ws", "ws.js"), "htmx-ext-ws.js"
+    copy_js File.join("marked", "lib", "marked.umd.js")
+  end
+
+  def copy_js(asset, destination = File.basename(asset))
+    copy_public asset, "js/vendor/#{destination}"
+  end
+
+  def copy_public(source, destination)
+    dirname = File.dirname File.join(__dir__, "public", destination)
+    basename = File.basename(destination)
+    mkdir_p(dirname)
+    cp File.join(__dir__, "node_modules", source), File.join(dirname, basename)
   end
 end

@@ -1,7 +1,7 @@
 <div
   id="chatbot-stream"
   hx-swap-oob="outerHTML"
-  class="min-h-0 flex-1 overflow-y-auto rounded-3xl border border-zinc-200 bg-zinc-50 p-4 text-[15px] leading-7 shadow-sm"
+  class="scrollbar-chat h-full min-h-24 min-w-0 flex-1 self-stretch overflow-y-auto rounded-3xl border border-zinc-200 bg-zinc-50 p-4 text-[15px] leading-7 shadow-sm"
 >
   <div class="space-y-4">
     <% messages.each do |message| %>
@@ -12,13 +12,17 @@
       <% elsif message[:role] == :user %>
         <div class="mt-3 flex justify-end first:mt-0">
           <div class="max-w-[75%] rounded-3xl rounded-br-lg bg-zinc-900 px-4 py-3 text-white leading-7 shadow-sm [&_*]:text-white">
-            <%= message[:content] %>
+            <div class="assistant-content" data-markdown>
+              <template><%= message[:content] %></template>
+            </div>
           </div>
         </div>
       <% else %>
         <div class="mt-3 flex first:mt-0">
           <div class="assistant-content max-w-[85%] rounded-3xl rounded-bl-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-zinc-900 leading-7 shadow-sm">
-            <%= message[:content] %>
+            <div data-markdown>
+              <template><%= message[:content] %></template>
+            </div>
           </div>
         </div>
       <% end %>

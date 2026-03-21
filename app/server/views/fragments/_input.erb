@@ -1,6 +1,6 @@
 <form
   id="chat-composer"
-  class="sticky bottom-0 flex flex-col gap-2 bg-gradient-to-b from-white/0 via-white/90 to-white pt-1 pb-1"
+  class="flex flex-col gap-2 bg-white pt-1 pb-1"
   hx-swap-oob="outerHTML"
   hx-on::after-settle="this.querySelector('textarea')?.focus()"
   ws-send

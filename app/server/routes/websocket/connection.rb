@@ -46,11 +46,11 @@ class Server::Routes::Websocket
     def read(conn, sess, message)
       return if message.to_s.empty?
       vars[:messages].concat [{role: "user", content: message}, {role: "assistant", content: +""}]
-      write(conn, fragment(:chat))
       write(conn, fragment(:status, status: "Thinking..."))
+      write(conn, fragment(:chat))
+      write(conn, fragment(:input))
       send(sess, message)
       invoke(sess, sess.functions, conn)
-      write(conn, fragment(:input))
       write(conn, fragment(:status, status: "Ready", context_window: context_window(sess), cost: format_cost(sess.cost)))
     rescue LLM::NoSuchRegistryError, LLM::NoSuchModelError
       write(conn, fragment(:status, cost: "unknown", status: "Ready"))

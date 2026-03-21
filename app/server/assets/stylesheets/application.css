@@ -21,6 +21,33 @@
     @apply rounded-3xl border border-zinc-200 bg-white shadow-sm;
   }
 
+  .scrollbar-chat {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #d4d4d8 transparent;
+  }
+
+  .scrollbar-chat::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-chat::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-chat::-webkit-scrollbar-thumb {
+    background: #d4d4d8;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+  }
+
+  .scrollbar-chat::-webkit-scrollbar-thumb:hover {
+    background: #b4b4bb;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+
   .assistant-content {
     @apply max-w-none whitespace-normal leading-7;
   }

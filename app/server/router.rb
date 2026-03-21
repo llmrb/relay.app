@@ -1,25 +1,16 @@
 # frozen_string_literal: true
 
 class Server::Router < Roda
+  ##
+  # Plugins
   plugin :common_logger
   plugin :partials,
     escape: true,
     layout: "layout",
     views: File.expand_path("views", __dir__)
 
-  include Server::Routes
-
-  def page_view(name, current_path:, title:)
-    view(
-      name,
-      layout_opts: {
-        locals: {
-          title:
-        }
-      }
-    )
-  end
-
+  ##
+  # Routes
   route do |r|
     r.on "api" do
       r.is "models" do
@@ -41,11 +32,17 @@ class Server::Router < Roda
 
     r.root do
       response['content-type'] = "text/html; charset=utf-8"
-      page_view("chat", current_path: "/", title: "Relay")
+      page("chat", title: "Relay")
     end
 
     r.get true do
       r.redirect "/"
     end
+  end
+
+  private
+  include Server::Routes
+  def page(name, **locals)
+    view(File.join("pages", name), layout_opts: {locals:})
   end
 end

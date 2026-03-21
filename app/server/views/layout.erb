@@ -9,12 +9,47 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48x48.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64x64.png">
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-pptouch-icon" href="/images/apple-touch-icon.png">
     <link rel="stylesheet" href="/stylesheets/application.css">
-    <script src="/vendor/htmx.min.js"></script>
-    <script src="/vendor/htmx-ext-ws.js"></script>
+    <script src="/js/vendor/htmx.min.js"></script>
+    <script src="/js/vendor/ws.js"></script>
+    <script src="/js/vendor/marked.umd.js"></script>
   </head>
   <body class="bg-white font-sans text-zinc-900">
     <%== yield %>
+    <script>
+      function followChat() {
+        const scroll = () => {
+          const stream = document.getElementById("chatbot-stream")
+          if (!stream) return
+          stream.scrollTop = stream.scrollHeight
+        }
+
+        scroll()
+        requestAnimationFrame(scroll)
+        setTimeout(scroll, 0)
+        setTimeout(scroll, 32)
+      }
+
+      function renderMarkdown(root = document) {
+        root.querySelectorAll("[data-markdown]").forEach((element) => {
+          const template = element.querySelector("template")
+          if (!template) return
+          element.innerHTML = marked.parse(template.innerHTML)
+        })
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderMarkdown()
+        followChat()
+      })
+      document.body.addEventListener("htmx:afterSwap", (event) => {
+        renderMarkdown(event.target)
+      })
+      document.body.addEventListener("htmx:oobAfterSwap", (event) => {
+        renderMarkdown(event.target)
+        followChat()
+      })
+    </script>
   </body>
 </html>

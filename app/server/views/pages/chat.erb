@@ -1,0 +1,15 @@
+<main class="h-screen bg-white font-sans text-zinc-900">
+  <div class="mx-auto flex h-full min-h-0 w-full max-w-none gap-4 px-4 py-6 sm:px-6">
+    <%== partial("partials/sidebar", locals: { show_controls: true }) %>
+    <div
+      id="chat-panel"
+      class="flex min-h-24 min-w-0 flex-1 flex-col gap-4"
+      hx-ext="ws"
+      ws-connect="/api/ws?provider=deepseek&model=deepseek-chat"
+    >
+      <%== partial("fragments/stream", locals: {messages: [{role: :system, content: "Welcome to Relay"}]}) %>
+      <%== partial("fragments/status", locals: {status: "Ready", context_window: "0 / 0 tokens", cost: "$0.00"}) %>
+      <%== partial("fragments/input") %>
+    </div>
+  </div>
+</main>
