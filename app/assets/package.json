@@ -1,0 +1,25 @@
+{
+  "name": "relay",
+  "private": true,
+  "scripts": {
+    "assets:build": "webpack --config ./webpack.config.js",
+    "assets:watch": "webpack --config ./webpack.config.js --watch",
+    "js:build": "webpack --config ./webpack.config.js",
+    "js:watch": "webpack --config ./webpack.config.js --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.1",
+    "css-loader": "^7.1.2",
+    "marked": "^17.0.5",
+    "mini-css-extract-plugin": "^2.9.4",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
+    "tailwindcss": "^4.1.1",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "htmx-ext-ws": "^2.0.4",
+    "htmx.org": "^2.0.8"
+  }
+}

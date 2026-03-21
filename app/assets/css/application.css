@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@source "../../../server/views/**/*.erb";
+@source "../../views/**/*.erb";
 
 @theme {
   --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;

@@ -28,6 +28,7 @@ module Relay::Database
       pool_timeout: settings.fetch("timeout", 5000) / 1000.0
     )
   end
-
-  Sequel::Model.db = connect!(env: ENV["RACK_ENV"] || "development")
 end
+
+Relay::DB = Relay::Database.connect!(env: ENV["RACK_ENV"] || "development")
+Sequel::Model.db = Relay::DB

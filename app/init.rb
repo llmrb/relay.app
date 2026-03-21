@@ -27,4 +27,3 @@ module Relay
   require_relative "init/sidekiq"
   require_relative "init/router"
 end
-

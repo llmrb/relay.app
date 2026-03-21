@@ -55,7 +55,7 @@ namespace :dev do
   desc "Start the dev environment"
   task :start do
     ch = xchan(:marshal)
-    tasks = %w[dev:server dev:sidekiq dev:css]
+    tasks = %w[dev:server dev:sidekiq dev:assets]
     pids = tasks.map do |task|
       fork do
         Rake::Task[task].invoke
@@ -82,41 +82,15 @@ namespace :dev do
        "bundle exec sidekiq -C app/config/sidekiq.yml -r ./app/init.rb"
   end
 
-  desc "Watch Tailwind CSS"
-  task :css do
-    sh "npm run css:watch"
-  end
-end
-
-namespace :css do
-  desc "Build Tailwind CSS"
-  task :build do
-    sh "npm run css:build"
+  desc "Watch frontend assets"
+  task :assets do
+    sh "npm --prefix app/assets run assets:watch"
   end
 end
 
 namespace :assets do
   desc "Build frontend assets"
-  task build: %i[css:build js:vendor]
-end
-
-namespace :js do
-  desc "Copy vendor JavaScript assets"
-  task :vendor do
-    mkdir_p File.join(__dir__, "public", "vendor")
-    copy_js File.join("htmx.org", "dist", "htmx.min.js")
-    copy_js File.join("htmx-ext-ws", "ws.js"), "htmx-ext-ws.js"
-    copy_js File.join("marked", "lib", "marked.umd.js")
-  end
-
-  def copy_js(asset, destination = File.basename(asset))
-    copy_public asset, "js/vendor/#{destination}"
-  end
-
-  def copy_public(source, destination)
-    dirname = File.dirname File.join(__dir__, "public", destination)
-    basename = File.basename(destination)
-    mkdir_p(dirname)
-    cp File.join(__dir__, "node_modules", source), File.join(dirname, basename)
+  task :build do
+    sh "npm --prefix app/assets run assets:build"
   end
 end
