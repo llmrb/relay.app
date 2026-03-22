@@ -22,12 +22,20 @@ require("htmx-ext-ws")
       setTimeout(scroll, 32)
     }
 
+    const syntaxHighlight = (el) =>{
+      hljs.highlightElement(el)
+    }
+
+    const modifyAnchors = (el) =>{
+      el.setAttribute("target", "_blank")
+      el.setAttribute("rel", "noreferrer noopener")
+    }
+
     const markdown = (root = document.body) => {
-      root.querySelectorAll("[data-markdown]").forEach((element) => {
-        element.innerHTML = marked.parse(element.dataset.markdownSource || "")
-        element.querySelectorAll("pre code").forEach((block) => {
-          hljs.highlightElement(block)
-        })
+      root.querySelectorAll("[data-markdown]").forEach((parentEl) => {
+        parentEl.innerHTML = marked.parse(parentEl.dataset.markdownSource || "")
+        parentEl.querySelectorAll("pre code").forEach(syntaxHighlight)
+        parentEl.querySelectorAll("a").forEach(modifyAnchors)
       })
     }
 
