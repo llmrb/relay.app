@@ -125,6 +125,10 @@ backed by `Relay::Cache::InMemoryCache`. This is useful for small,
 ephemeral caches such as model lists that can be reused across routes
 without treating them as persistent data.
 
+## Screencast
+
+[![Watch the Relay screencast](https://img.youtube.com/vi/WhAV3o3hEBw/maxresdefault.jpg)](https://www.youtube.com/watch?v=WhAV3o3hEBw)
+
 ## Sources
 
 * [GitHub.com](https://github.com/llmrb/relay)
