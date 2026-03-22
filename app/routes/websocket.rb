@@ -32,7 +32,7 @@ module Relay::Routes
     end
 
     def tools
-      [CreateImage, RelayKnowledge]
+      [CreateImage, RelayKnowledge, JukeBox]
     end
 
     def instructions

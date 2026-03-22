@@ -34,4 +34,25 @@ module Relay
   def self.assets_dir
     @assets_dir ||= File.realpath File.join(root, "app", "assets")
   end
+
+  ##
+  # @return [String]
+  # Returns the path to the app/views/resources directory
+  def self.resources_dir
+    @resources_dir ||=  File.realpath File.join(root, "app", "resources")
+  end
+
+  ##
+  # Returns the path to the app/views/ directory
+  # @return [String]
+  def self.views_dir
+    @views_dir ||= File.realpath File.join(root, "app", "views")
+  end
+
+  ##
+  # Returns the path to the app/views/fragments directory
+  # @return [String]
+  def self.fragments_dir
+    @fragments_dir ||= File.realpath File.join(views_dir, "fragments")
+  end
 end

@@ -22,10 +22,14 @@ environment.
 - 🛠️ Custom tool support via [app/tools/](app/tools)
 - 🖼️ Sample image-generation tool in [create_image.rb](./app/tools/create_image.rb)
 - 📚 Sample knowledge tool in [relay_knowledge.rb](./app/tools/relay_knowledge.rb)
+- 🎵 Sample jukebox tool in [juke_box.rb](./app/tools/juke_box.rb)
 
 The example tools show two useful patterns: delegating work to external
 providers, and exposing documentation-backed knowledge to the model
 through a tool.
+
+The jukebox tool gives the LLM a small built-in playlist. It can use
+`juke_box.rb` to pick a track and show a playable embed in the chat UI.
 
 ### Architecture
 

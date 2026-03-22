@@ -1,6 +1,7 @@
 <main class="h-screen bg-transparent font-sans text-zinc-900">
-  <div class="mx-auto flex h-full min-h-0 w-full max-w-none gap-4 px-4 py-6 sm:px-6">
+  <div class="mx-auto flex h-full min-h-0 w-full max-w-none flex-col gap-4 px-4 py-6 lg:flex-row sm:px-6">
     <%== partial("partials/sidebar", locals: { show_controls: true }) %>
     <%== partial("fragments/chat") %>
+    <%== partial("fragments/media_dock") %>
   </div>
 </main>
