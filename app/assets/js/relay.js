@@ -7,11 +7,11 @@ window.htmx = htmx
 window.marked = marked
 require("htmx-ext-ws")
 
-import { Dock } from "../js/dock"
+import { Jukebox } from "../js/jukebox"
 
 ;(function() {
   document.addEventListener("DOMContentLoaded", () => {
-    const dock = Dock()
+    const jukebox = Jukebox()
     const scroll = () => {
       const stream = document.getElementById("chatbot-stream")
       if (!stream) return
@@ -41,7 +41,7 @@ import { Dock } from "../js/dock"
         node.querySelectorAll("pre code").forEach(syntaxHighlight)
         node.querySelectorAll("a").forEach(modifyAnchors)
         if (index === nodes.length - 1)
-          dock.scan(node)
+          jukebox.scanForMusic(node)
       })
     }
 

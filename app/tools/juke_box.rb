@@ -9,7 +9,7 @@ module Relay::Tools
   # file and it can be edited to suit your own tastes.
   class JukeBox < Base
     name "jukebox"
-    description "Provides a list of music videos that can be embedded into the chat"
+    description "Provides a list of music videos that can be played"
 
     ##
     # @param [String] category
@@ -25,7 +25,7 @@ module Relay::Tools
     private
 
     def html(j)
-      data = File.read File.join(Relay.fragments_dir, "_jukebox.erb")
+      data = File.read File.join(Relay.fragments_dir, "jukebox", "_artist.erb")
       ERB.new(data).result_with_hash(j:)
     end
 
@@ -38,7 +38,10 @@ module Relay::Tools
     end
 
     def directions
-      ["embed the html in your response exactly as it appears"]
+      [
+        "embed a single 'artist' item to trigger the video being played",
+        "do not embed an iframe"
+      ]
     end
   end
 end
