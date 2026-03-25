@@ -9,7 +9,7 @@ module Relay
   # Returns mcp configuration
   # @return [LLM::Object]
   def self.mcp
-    path = File.join(resources_dir, "mcp.yml")
+    path = File.join(config_dir, "mcp.yml")
     @mcp ||= LLM::Object.from YAML.safe_load_file(path)
   end
 
@@ -62,6 +62,13 @@ module Relay
   # @return [String]
   def self.views_dir
     @views_dir ||= File.join(root, "app", "views")
+  end
+
+  ##
+  # Returns the path to the app/config directory
+  # @return [String]
+  def self.config_dir
+    @config_dir ||= File.join(root, "app", "config")
   end
 
   ##
