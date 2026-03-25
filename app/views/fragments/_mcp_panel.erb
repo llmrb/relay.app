@@ -1,0 +1,29 @@
+<aside id="mcp-list" class="theme-strong w-full shrink-0 text-sm">
+  <div class="flex flex-col gap-3">
+    <span class="label">MCP</span>
+    <ul>
+      <% Relay.mcp.stdio.each do |mcp| %>
+        <li class="py-2 first:pt-0 last:pb-0">
+          <div class="flex items-center justify-between gap-3">
+            <div class="theme-strong min-w-0 text-sm font-semibold tracking-tight"><%= mcp.name %></div>
+            <div class="group relative shrink-0">
+              <button type="button" class="detail-button">
+                Details
+              </button>
+              <div class="tooltip tooltip-card">
+                <div class="theme-accent text-xs font-semibold uppercase tracking-[0.16em]">
+                  About
+                </div>
+                <div class="theme-divider my-2"></div>
+                <div class="tooltip text-sm leading-6">
+                  <%= mcp.description %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <span class="theme-muted text-[11px]"><%= Relay.mcp.size %> servers available</span>
+  </div>
+</aside>

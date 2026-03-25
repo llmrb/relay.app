@@ -6,6 +6,14 @@ module Relay
   require_relative "relay/task"
 
   ##
+  # Returns mcp configuration
+  # @return [LLM::Object]
+  def self.mcp
+    path = File.join(resources_dir, "mcp.yml")
+    @mcp ||= LLM::Object.from YAML.safe_load_file(path)
+  end
+
+  ##
   # Returns an object that can be used to store application state
   # that should persist between requests.
   # @return [Relay::InMemoryCache]

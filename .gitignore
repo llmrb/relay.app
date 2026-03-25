@@ -3,6 +3,7 @@
 node_modules/
 public/
 tmp/
+app/config/mcp.yml
 db/*.sqlite3
 !public/.gitkeep
 !public/images/relay.png

@@ -10,14 +10,31 @@ module Relay::Routes
 
     def call
       Async::WebSocket::Adapters::Rack.open(request.env) do |conn|
+        mcps.each(&:start)
         stream = Stream.new(conn, self)
         params = { model:, stream:, tools: }
         llm.tracer = logger(llm)
         on_connect conn, llm, LLM::Session.new(llm, params)
+      ensure
+        mcps.each(&:stop)
       end || upgrade_required
     end
 
     private
+
+    ##
+    # Returns an array of MCP clients that can provide tools
+    # @return [Array<LLM::MCP>]
+    def mcps
+      @mcps ||= Relay.mcp.stdio.map { LLM.mcp(stdio: _1.config) }
+    end
+
+    ##
+    # Returns an array of tools
+    # @return [Array<LLM::Tool>]
+    def tools
+      [CreateImage, RelayKnowledge, JukeBox, *mcps.flat_map(&:tools)]
+    end
 
     def upgrade_required
       response.status = 426
@@ -29,10 +46,6 @@ module Relay::Routes
     def tool_status(functions)
       names = functions.map(&:name).uniq.join(", ")
       "Running #{names}…"
-    end
-
-    def tools
-      [CreateImage, RelayKnowledge, JukeBox]
     end
 
     def instructions
