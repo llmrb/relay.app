@@ -1,7 +1,6 @@
 name: Test
 
 on:
-  pull_request:
   push:
 
 jobs:
@@ -9,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RACK_ENV: test
-      SESSION_SECRET: test-session-secret
+      SESSION_SECRET: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
 
     steps:
       - name: Check out code
