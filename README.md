@@ -19,11 +19,11 @@ keeping the frontend light and the architecture Ruby-centric.
 ### Application
 
 - 🌊 Streaming chat over WebSockets
-- 🛠️ Custom tool support via [app/tools/](app/tools)
+- 🤖 Multiple provider support: OpenAI, Google, Anthropic, DeepSeek, xAI
+- 🛠️ Add your own tools to [app/tools/](app/tools)
+- 🧪 Sample tools: [create_image.rb](./app/tools/create_image.rb), [relay_knowledge.rb](./app/tools/relay_knowledge.rb), [juke_box.rb](./app/tools/juke_box.rb)
 - 🔌 Optional MCP server support via [app/config/mcp.yml.sample](app/config/mcp.yml.sample)
-- 🖼️ Sample image-generation tool in [create_image.rb](./app/tools/create_image.rb)
-- 📚 Sample knowledge tool in [relay_knowledge.rb](./app/tools/relay_knowledge.rb)
-- 🎵 Sample jukebox tool in [juke_box.rb](./app/tools/juke_box.rb)
+- 🔐 User authentication with session-backed sign-in
 
 ### Architecture
 
