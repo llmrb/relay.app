@@ -15,9 +15,7 @@ module Relay::Routes
         sign_in(user)
         r.redirect("/")
       else
-        response.status = 401
-        response["content-type"] = "text/plain"
-        "Unauthorized"
+        r.redirect("/sign-in")
       end
     end
 
