@@ -48,7 +48,9 @@ Relay is easy to start locally. Right now it only requires:
 - SQLite
 
 The architecture supports more, including Sidekiq and Redis, but those
-are optional for the current local setup.
+are optional for the current local setup. The following commands should
+get you setup with a local instance of Relay once the requirements mentioned
+above are met: 
 
     bundle install
     bundle exec rake db:setup
