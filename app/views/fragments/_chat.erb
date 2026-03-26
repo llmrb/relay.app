@@ -6,6 +6,6 @@
   ws-connect="/api/ws"
 >
   <%== partial("fragments/stream", locals: {messages: []}) %>
-  <%== partial("fragments/status", locals: {status: "Ready", context_window: "0 / 0 tokens", cost: "$0.00"}) %>
+  <%== partial("fragments/status", locals: {status: "Ready", context_window: {used: 0, max: 0, label: "0 / 0 tokens"}, cost: "$0.00"}) %>
   <%== partial("fragments/input") %>
 </div>

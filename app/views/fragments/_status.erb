@@ -9,7 +9,12 @@
   </p>
   <p class="flex min-h-[2.75rem] flex-col justify-center text-center leading-tight">
     <span class="label">Context Window</span>
-    <span class="mt-1 block font-medium text-zinc-100"><%= context_window %></span>
+    <progress
+      class="mt-2 h-2 w-full overflow-hidden rounded-full"
+      value="<%= context_window[:used] %>"
+      max="<%= [context_window[:max], 1].max %>"
+    ><%= context_window[:label] %></progress>
+    <span class="mt-1 block font-medium text-zinc-100"><%= context_window[:label] %></span>
   </p>
   <p class="flex min-h-[2.75rem] flex-col justify-center text-right leading-tight">
     <span class="label">Cost</span>

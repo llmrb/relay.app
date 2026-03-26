@@ -8,7 +8,7 @@ module Relay::Pages
     # @return [String]
     def call
       response["content-type"] = "text/html"
-      page("sign_in", title: "Sign In")
+      page("sign_in", title: "Relay: Sign In")
     end
   end
 end
