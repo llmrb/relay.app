@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/relay/test"
+require_relative "../setup"
 
 class BaseRouteTest < Relay::Test
   def test_root_path_redirects_to_sign_in

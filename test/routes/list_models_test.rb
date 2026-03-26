@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/relay/test"
+require_relative "../setup"
 
 class ListModelsRouteTest < Relay::Test
   def test_list_models_requires_authentication
