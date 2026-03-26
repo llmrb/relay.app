@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
+desc "Run tests"
 task :test do
-  require "test/unit"
-  require "test/unit/ui/console/testrunner"
+  abort "no tests found" if Dir["test/**/*_test.rb"].empty?
 
-  test_files = Dir["test/**/*_test.rb"]
-  if test_files.empty?
-    puts "No tests found."
-  else
-    test_files.each { |file| require File.expand_path(file) }
-  end
+  sh "bundle exec ruby -Itest -e 'Dir[""test/**/*_test.rb""].sort.each { |file| require File.expand_path(file) }'"
 end
