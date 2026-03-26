@@ -1,7 +1,7 @@
 const Timer = function() {
   const self = Object.create(null)
-  const statusElement = document.getElementById("chatbot-status")
-  self.span = statusElement?.querySelector(".font-medium.text-zinc-100")
+  self.parentEl = document.getElementById("chatbot-status")
+  self.span = self.parentEl?.querySelector(".font-medium.text-zinc-100")
   
   let interval = null
   let startTime = null
