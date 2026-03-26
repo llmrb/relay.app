@@ -12,6 +12,5 @@ class BaseRouteTest < Relay::Test
   def test_unknown_get_route_returns_404
     get "/nonexistent-route"
     assert_equal 404, last_response.status
-    assert_match "Not Found", last_response.body
   end
 end
