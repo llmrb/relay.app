@@ -146,19 +146,21 @@ is absent, Relay starts without any MCP servers.
 
 **Overview**
 
+The architecture is intentionally simple. HTMX keeps the client light,
+while server-rendered HTML keeps the application comfortable for
+Ruby-focused developers. Interactive chat runs over the WebSocket
+endpoint at `/api/ws`, and background work can be handled by Sidekiq
+when Redis is configured.
+
 Relay boots from `app/init.rb`, which loads environment variables,
-establishes the database connection, configures optional Sidekiq
-support, sets up the Roda router, and loads tools from `app/tools/`.
-Code under `app/` is autoloaded via Zeitwerk under the `Relay`
-namespace.
+connects to the database, configures optional Sidekiq support, sets up
+Roda routing, and loads tools from `app/tools/`. Code under `app/` is
+autoloaded via Zeitwerk under the `Relay` namespace. Frontend assets are
+built from `app/assets` with Webpack, and `rake dev:start` uses Relay's
+task monitor to run the web server, asset builds, and workers together
+in development.
 
-The web interface is server-rendered with Roda and partial templates,
-while interactive chat runs over a WebSocket endpoint at `/api/ws`.
-Frontend assets are built from `app/assets` via npm tasks. In
-development, `rake dev:start` uses Relay's task monitor to run asset
-builds, the web server, and Sidekiq together.
-
-Session state is used for lightweight per-user settings such as the
+Session state is useful for lightweight per-user settings such as the
 selected provider and model, while shared in-process cached values are
 stored in `Relay.cache`.
 
@@ -169,7 +171,7 @@ Some important notes:
 * `.env` is loaded automatically during boot when present.
 * HTTP routing is handled by Roda, with templates rendered from
   `app/views`.
-* Frontend assets are built from `app/assets` via npm tasks.
+* Webpack builds the JavaScript and CSS assets from `app/assets`.
 
 The codebase is organized by responsibility:
 
