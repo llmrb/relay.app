@@ -15,7 +15,9 @@ module Relay::Routes
         sign_in(user)
         r.redirect("/")
       else
-        r.redirect("/sign-in")
+        response.status = 401
+        response["content-type"] = "text/plain"
+        "Unauthorized"
       end
     end
 
@@ -25,7 +27,7 @@ module Relay::Routes
     # Finds the user for the submitted email address
     # @return [Relay::Models::User, nil]
     def find_user
-      User.where(email: params["email"]).first
+      User.where(email: params["email"] || params["username"]).first
     end
 
     ##
