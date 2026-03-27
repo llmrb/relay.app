@@ -4,6 +4,8 @@ module Relay::Pages
   ##
   # Base class for full-page renderers.
   class Base
+    include Relay::Models
+
     ##
     # @param [Roda] roda
     # @return [Relay::Pages::Base]
@@ -11,6 +13,36 @@ module Relay::Pages
       @roda = roda
     end
 
+    ##
+    # @return [String]
+    #  The requested provider, defaulting to deepseek
+    def provider
+      session["provider"] || "deepseek"
+    end
+
+    ##
+    # @return [String]
+    #  The requested model, defaulting to deepseek-chat
+    def model
+      session["model"] || "deepseek-chat"
+    end
+
+    ##
+    # @return [Relay::Models::Context]
+    #  The current context for the user, provider, and model
+    def ctx
+      @ctx ||= Context.find_or_create(user_id: user.id, provider:, model:)
+    end
+
+    ##
+    # @return [Relay::Models::User, nil]
+    def user
+      @user
+    end
+
+    ##
+    # @return [Roda::RodaRequest]
+    #  Alias the request object as `r` to match Roda route blocks.
     def r
       @roda.request
     end
@@ -23,7 +55,7 @@ module Relay::Pages
     # @param [Hash] locals
     # @return [String]
     def page(name, **locals)
-      view(File.join("pages", name), layout_opts: {locals:})
+      view(File.join("pages", name), locals:, layout_opts: {locals:})
     end
 
     ##

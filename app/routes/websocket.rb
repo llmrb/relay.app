@@ -5,6 +5,8 @@ module Relay::Routes
     require_relative "websocket/connection"
     require_relative "websocket/stream"
 
+    prepend Relay::Hooks::RequireUser
+
     include Connection
     include Relay::Tools
 
@@ -13,8 +15,7 @@ module Relay::Routes
         mcps.each(&:start)
         stream = Stream.new(conn, self)
         params = { model:, stream:, tools: }
-        llm.tracer = logger(llm)
-        on_connect conn, llm, LLM::Session.new(llm, params)
+        on_connect conn, llm, ctx, params
       ensure
         mcps.each(&:stop)
       end || upgrade_required

@@ -2,6 +2,8 @@
 
 module Relay::Routes
   class Base
+    include Relay::Models
+
     ##
     # @param [Hash] env
     #  The Rack env
@@ -28,7 +30,13 @@ module Relay::Routes
     # @return [LLM::Provider]
     #  The selected provider object
     def llm
-      llms[provider] || llms["openai"]
+      ctx.llm
+    end
+
+    ##
+    # @return [Relay::Models::Context]
+    def ctx
+      @ctx ||= Context.find_or_create(user_id: user.id, provider:, model:)
     end
 
     ##

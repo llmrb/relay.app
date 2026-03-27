@@ -10,13 +10,13 @@ class Relay::Routes::Websocket
     #  The WebSocket connection object
     # @param [LLM::Provider] llm
     #  The selected LLM provider
-    # @param [LLM::Session] sess
-    #  The current LLM session
+    # @param [Relay::Models::Context] ctx
+    #  The current context
     # @return [void]
-    def on_connect(conn, llm, sess)
-      write(conn, fragment(:status, status: "Ready", cost: "$0.00", context_window: context_window(sess)))
+    def on_connect(conn, llm, ctx, params)
+      write(conn, fragment(:status, status: "Ready", cost: "$0.00", context_window: context_window(ctx)))
       while (message = conn.read)
-        read conn, sess, parse_message(message)
+        read conn, ctx, parse_message(message), params
       end
     rescue EOFError
       nil
@@ -38,20 +38,21 @@ class Relay::Routes::Websocket
     # Reads an incoming message, sends it to the LLM session, and handles any function calls
     # @param [Async::WebSocket::Adapters::Rack] conn
     #  The WebSocket connection object
-    # @param [LLM::Session] sess
-    #  The current LLM session
+    # @param [Relay::Models::Context] ctx
+    #  The current context
     # @param [String] message
     #  The incoming message
     # @return [void]
-    def read(conn, sess, message)
+    def read(conn, ctx, message, params)
       return if message.to_s.empty?
       vars[:messages].concat [{role: :user, content: message}, {role: :assistant, content: +""}]
       write(conn, fragment(:status, status: "Thinking..."))
       write(conn, fragment(:chat))
       write(conn, fragment(:input))
-      send(sess, message)
-      invoke(sess, sess.functions, conn)
-      write(conn, fragment(:status, status: "Ready", context_window: context_window(sess), cost: format_cost(sess.cost)))
+      send(ctx, message, params)
+      invoke(ctx, ctx.functions, conn, params)
+      persist(ctx)
+      write(conn, fragment(:status, status: "Ready", context_window: context_window(ctx), cost: format_cost(ctx.cost)))
     rescue LLM::NoSuchRegistryError, LLM::NoSuchModelError
       write(conn, fragment(:status, cost: "unknown", status: "Ready"))
     rescue StandardError => e
@@ -61,32 +62,41 @@ class Relay::Routes::Websocket
 
     ##
     # Sends a message to the LLM session
-    # @param [LLM::Session] sess
-    #  The current LLM session
+    # @param [Relay::Models::Context] ctx
+    #  The current context
     # @param [String] message
     #  The message to send
     # @return [void]
-    def send(sess, message)
-      if sess.messages.empty?
-        sess.talk initial_prompt(message)
+    def send(ctx, message, params)
+      if ctx.messages.empty?
+        ctx.talk initial_prompt(message), params
       else
-        sess.talk(message)
+        ctx.talk(message, params)
       end
     end
 
     ##
     # Invokes any pending function calls in the LLM session
-    # @param [LLM::Session] sess
-    #  The current LLM session
+    # @param [Relay::Models::Context] ctx
+    #  The current context
     # @param [Async::WebSocket::Adapters::Rack] conn
     #  The WebSocket connection object
     # @return [void]
-    def invoke(sess, functions, conn)
+    def invoke(ctx, functions, conn, params)
       while functions.any?
         write(conn, fragment(:status, status: tool_status(functions)))
-        sess.talk functions.map(&:call)
-        functions = sess.functions
+        ctx.talk functions.map(&:call), params
+        functions = ctx.functions
       end
+    end
+
+    ##
+    # Persists the current context after a websocket turn completes
+    # @param [Relay::Models::Context] ctx
+    #  The current context
+    # @return [Relay::Models::Context]
+    def persist(ctx)
+      ctx.persist!
     end
 
     ##

@@ -11,8 +11,8 @@ when "development"
   use Rack::ETag
   use Rack::ConditionalGet
   use Rack::Head
-  use Rack::Config { Relay.loader.reload }
-  map "/sidekiq" { run Sidekiq::Web }
+  use Relay::Reloader
+  map("/sidekiq") { run Sidekiq::Web }
 end
 
 use Rack::Static, urls: ["/g", "/images", "/stylesheets", "/js"], root: "public"

@@ -39,7 +39,7 @@ module Relay::Routes
     # @return [String]
     #   Returns the default model
     def default_model
-      case llm.name
+      case (llm = llms[provider]).name
       when :openai then "gpt-5.4"
       when :xai then "grok-3"
       else llm.default_model

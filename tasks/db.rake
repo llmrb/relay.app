@@ -4,12 +4,19 @@ namespace :db do
   version = proc {
     migrator = Sequel::TimestampMigrator.new(Relay::DB, Relay.migrations_dir)
     migrator.applied_migrations.max.to_s.split("_", 2).first.to_i
-  }.call
+  }
 
   desc "Prepare the database for a fresh setup"
   task :setup do
     FileUtils.mkdir_p File.dirname(Relay::DB.opts[:database])
     Rake::Task["db:migrate"].invoke
+  end
+
+  desc "Drop the configured database"
+  task :drop do
+    abort "db:drop only supports sqlite" unless Relay::DB.database_type == :sqlite
+    Relay::DB.disconnect
+    FileUtils.rm_f Relay::DB.opts[:database]
   end
 
   desc "Run database migrations"
@@ -19,8 +26,9 @@ namespace :db do
 
   desc "Rollback the latest migration"
   task :rollback do
-    abort "no migrations applied" if version.zero?
-    Sequel::Migrator.run(Relay::DB, Relay.migrations_dir, target: version - 1)
+    current = version.call
+    abort "no migrations applied" if current.zero?
+    Sequel::Migrator.run(Relay::DB, Relay.migrations_dir, target: current - 1)
   end
 
   desc "Seed the database with initial data"
@@ -30,7 +38,7 @@ namespace :db do
 
   desc "Print the current migration version"
   task :version do
-    puts version
+    puts version.call
   end
 
   namespace :migration do
