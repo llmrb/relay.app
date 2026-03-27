@@ -1,4 +1,4 @@
-## About
+# Relay
 
 Relay is a developer environment for working with LLMs in real time.
 Built with [llm.rb](https://github.com/llmrb/llm.rb#readme), HTMX,
@@ -34,6 +34,7 @@ keeping the frontend light and the architecture Ruby-centric.
 - 🗂️  Session support through Roda's session plugin
 - ⚡ In-memory cache support via `Relay.cache`
 - 🔐 Automatic `.env` loading during app boot
+- ♻️ Zeitwerk hot reloading in development
 
 ## Quick start
 
@@ -63,6 +64,10 @@ else before running `bundle exec rake db:seed`:
     bundle exec rake db:setup
     bundle exec rake db:seed
     bundle exec rake dev:start
+
+During development, Relay now enables Zeitwerk reloading and refreshes
+autoloaded constants between requests so code changes under `app/`
+are picked up without restarting the web server.
 
 **Secrets**
 
@@ -293,12 +298,21 @@ Run the full test suite:
 rake test
 ```
 
+Create the test directory structure (if needed):
+
+```bash
+rake test:create
+```
+
 ### Test Structure
 
-- **`test/setup.rb`** - Shared test setup and Rack::Test bootstrapping
+- **`test/test_helper.rb`** - Base test class with Rack::Test setup
 - **`test/routes/`** - Route-specific tests
+  - `base_test.rb` - Tests for root redirect, health check, and 404 handling
+  - `list_models_test.rb` - Tests for authentication requirements on API endpoints
+  - `sign_in_test.rb` - Tests for sign-in page accessibility and form validation
 
-The `rake test` task loads all files matching `test/**/*_test.rb`.
+Tests are automatically discovered from files matching `test/**/*_test.rb`.
 
 ## Sources
 
