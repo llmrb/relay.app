@@ -2,7 +2,8 @@
 
 require_relative "app/init"
 
-if Relay.development?
+case Relay.environment
+when "development"
   use Rack::Reloader
   use Rack::Lint
   use Rack::TempfileReaper
@@ -10,18 +11,8 @@ if Relay.development?
   use Rack::ETag
   use Rack::ConditionalGet
   use Rack::Head
-
-  use Rack::Builder.new {
-    use Rack::Config do
-      Relay.loader.reload
-    end
-
-    run ->(env) { @app.call(env) }
-  }
-end
-
-map "/sidekiq" do
-  run Sidekiq::Web
+  use Rack::Config { Relay.loader.reload }
+  map "/sidekiq" { run Sidekiq::Web }
 end
 
 use Rack::Static, urls: ["/g", "/images", "/stylesheets", "/js"], root: "public"
