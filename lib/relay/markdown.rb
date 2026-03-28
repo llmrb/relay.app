@@ -2,7 +2,7 @@
 
 module Relay
   require "redcarpet"
-  
+
   ##
   # Renders markdown to HTML
   # @param [String] text
@@ -16,7 +16,7 @@ module Relay
   # @return [Redcarpet::Markdown]
   #  Returns the shared markdown renderer
   def self.renderer
-    @renderer ||= Redcarpet::Markdown.new(
+    Redcarpet::Markdown.new(
       Markdown.new(filter_html: true, safe_links_only: true),
       autolink: true,
       fenced_code_blocks: true,
