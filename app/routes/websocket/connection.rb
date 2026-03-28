@@ -49,10 +49,8 @@ class Relay::Routes::Websocket
       vars[:messages].concat [{role: :user, content: message}, {role: :assistant, content: +""}]
       write(conn, fragment(:status, status: "Thinking..."))
       write(conn, fragment(:remove_empty_state)) if vars[:messages].length == 2
-      message = vars[:messages][-2]
-      write(conn, fragment(:append_message, message:))
-      message = vars[:messages][-1]
-      write(conn, fragment(:append_message, message:))
+      write(conn, fragment(:append_message, message: vars[:messages][-2]))
+      write(conn, fragment(:append_message, message: vars[:messages][-1]))
       write(conn, fragment(:input))
       send(ctx, message, params)
       invoke(ctx, ctx.functions, conn, params)
