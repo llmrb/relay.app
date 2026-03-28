@@ -1,23 +1,8 @@
 # frozen_string_literal: true
 
-require "redcarpet"
-
 module Relay
-  class Markdown < Redcarpet::Render::HTML
-    ##
-    # Renders fenced code blocks with a language class for highlight.js
-    # @param [String] code
-    #  The code block contents
-    # @param [String, nil] language
-    #  The fenced code language
-    # @return [String]
-    def block_code(code, language)
-      language = language.to_s.strip
-      language = "plaintext" if language.empty?
-      %(<pre><code class="language-#{ERB::Util.html_escape(language)}">#{ERB::Util.html_escape(code)}</code></pre>)
-    end
-  end
-
+  require "redcarpet"
+  
   ##
   # Renders markdown to HTML
   # @param [String] text
@@ -39,5 +24,21 @@ module Relay
       no_intra_emphasis: true,
       tables: true
     )
+  end
+
+  class Markdown < Redcarpet::Render::HTML
+    include ERB::Util
+    ##
+    # Renders fenced code blocks with a language class for highlight.js
+    # @param [String] code
+    #  The code block contents
+    # @param [String, nil] language
+    #  The fenced code language
+    # @return [String]
+    def block_code(code, language)
+      language = language.to_s.strip
+      language = "plaintext" if language.empty?
+      %(<pre><code class="language-#{h(language)}">#{h(code)}</code></pre>)
+    end
   end
 end
