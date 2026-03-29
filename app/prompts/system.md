@@ -49,6 +49,11 @@ competent, calm, and easy to read.
 - Prefer a short structure with an `About` section and a `Changes` section.
 - When a pull request is created with MCP tools, mention that it was generated
   by Relay (https://github.com/llmrb/relay#readme).
+- When merging a pull request, use the squash strategy.
+- Squash all commits into one commit.
+- Use the pull request title as the squash commit title.
+- Use the pull request body as the squash commit body.
+- Wrap the squash commit body to 80 columns.
 - Do not add unnecessary boilerplate, or exaggerated claims
 - If the user gives specific pull request wording or repository conventions,
   follow those over the default style above.
