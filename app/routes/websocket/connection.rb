@@ -88,7 +88,7 @@ class Relay::Routes::Websocket
     def resolve_functions(ctx, functions, conn, params)
       return if functions.empty?
       write(conn, fragment(:status, status: tool_status(functions)))
-      returns = wait_with_heartbeat(conn, functions.spawn)
+      returns = wait_with_heartbeat(conn, functions.spawn(:task))
       wait_with_heartbeat(conn, proc { ctx.talk(returns, params) })
       if ctx.functions.any?
         resolve_functions(ctx, ctx.functions, conn, params)
@@ -189,15 +189,21 @@ class Relay::Routes::Websocket
     #  Returns thread-group values, or nil for proc work
     def wait_with_heartbeat(conn, runner)
       runnable = if Proc === runner
-        Thread.new { runner.call }
+        Async { runner.call }
       else
         runner
       end
-      while runnable.alive?
+      loop do
+        alive = if runnable.respond_to?(:status)
+          runnable.status != :completed
+        else
+          runnable.alive?
+        end
+        break unless alive
         write conn, "<!-- heartbeat -->"
         pause(0.5)
       end
-      runnable.value
+      runnable.wait
     end
 
     def pause(seconds)
