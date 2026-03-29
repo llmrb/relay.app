@@ -14,7 +14,7 @@ class Relay::TaskMonitor
   #  A list of task names
   # @return [Relay::TaskMonitor]
   def initialize(tasks:)
-    @tasks = tasks.map { Relay::Task.new(_1)}
+    @tasks = tasks.map { Relay::Task.new(_1) }
     @pids = []
   end
 

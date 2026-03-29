@@ -39,7 +39,7 @@ module Relay::Cache
     # @param [String,Symbol] k
     # @param [Object] v
     # @return [Object]
-    def []=(k,v)
+    def []=(k, v)
       @cache[k.to_s] = v
     end
 

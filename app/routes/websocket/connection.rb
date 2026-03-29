@@ -17,7 +17,7 @@ class Relay::Routes::Websocket
       vars[:messages] = ctx.messages
       write(conn, fragment(:status, status: "Ready", cost: format_cost(ctx.cost), context_window: context_window(ctx)))
       while (message = conn.read)
-        read conn, ctx, parse_message(message), params
+        on_message conn, ctx, parse_message(message), params
       end
     rescue EOFError
       nil
@@ -44,7 +44,7 @@ class Relay::Routes::Websocket
     # @param [String] message
     #  The incoming message
     # @return [void]
-    def read(conn, ctx, message, params)
+    def on_message(conn, ctx, message, params)
       return if message.to_s.empty?
       vars[:messages].concat [{role: :user, content: message}, {role: :assistant, content: +""}]
       write(conn, fragment(:status, status: "Thinking..."))
@@ -52,8 +52,8 @@ class Relay::Routes::Websocket
       write(conn, fragment(:append_message, message: vars[:messages][-2]))
       write(conn, fragment(:append_message, message: vars[:messages][-1]))
       write(conn, fragment(:input))
-      send(ctx, message, params)
-      invoke(ctx, ctx.functions, conn, params)
+      wait_with_heartbeat(conn, proc { talk(ctx, message, params) })
+      resolve_functions(ctx, ctx.functions, conn, params)
       persist(ctx)
       write(conn, fragment(:status, status: "Ready", context_window: context_window(ctx), cost: format_cost(ctx.cost)))
     rescue LLM::NoSuchRegistryError, LLM::NoSuchModelError
@@ -70,7 +70,7 @@ class Relay::Routes::Websocket
     # @param [String] message
     #  The message to send
     # @return [void]
-    def send(ctx, message, params)
+    def talk(ctx, message, params)
       if ctx.messages.empty?
         ctx.talk initial_prompt(message), params
       else
@@ -85,11 +85,13 @@ class Relay::Routes::Websocket
     # @param [Async::WebSocket::Adapters::Rack] conn
     #  The WebSocket connection object
     # @return [void]
-    def invoke(ctx, functions, conn, params)
-      while functions.any?
-        write(conn, fragment(:status, status: tool_status(functions)))
-        ctx.talk functions.map(&:call), params
-        functions = ctx.functions
+    def resolve_functions(ctx, functions, conn, params)
+      return if functions.empty?
+      write(conn, fragment(:status, status: tool_status(functions)))
+      returns = wait_with_heartbeat(conn, functions.spawn)
+      wait_with_heartbeat(conn, proc { ctx.talk(returns, params) })
+      if ctx.functions.any?
+        resolve_functions(ctx, ctx.functions, conn, params)
       end
     end
 
@@ -175,6 +177,31 @@ class Relay::Routes::Websocket
     # @return [Hash]
     def vars
       @temp ||= { messages: [] }
+    end
+
+    ##
+    # Waits for a runnable to finish while sending websocket heartbeats
+    # @param [LLM::Function::ThreadGroup, Proc] runnable
+    #  The runnable value to wait for
+    # @param [Async::WebSocket::Adapters::Rack] conn
+    #  The WebSocket connection object
+    # @return [Array<LLM::Function::Return>, nil]
+    #  Returns thread-group values, or nil for proc work
+    def wait_with_heartbeat(conn, runner)
+      if Proc === runner
+        runnable = Thread.new { runner.call }
+      else
+        runnable = runner
+      end
+      while runnable.alive?
+        write conn, "<!-- heartbeat -->"
+        pause(0.5)
+      end
+      runnable.value
+    end
+
+    def pause(seconds)
+      Async::Task.current.sleep(seconds)
     end
   end
 end

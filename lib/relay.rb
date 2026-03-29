@@ -27,10 +27,10 @@ module Relay
   # @return [LLM::Object]
   def self.mcp
     path = File.join(config_dir, "mcp.yml")
-    if File.readable?(path)
-      @mcp ||= LLM::Object.from YAML.safe_load_file(path)
+    @mcp ||= if File.readable?(path)
+      LLM::Object.from YAML.safe_load_file(path)
     else
-      @mcp ||= LLM::Object.from(stdio: [])
+      LLM::Object.from(stdio: [])
     end
   end
 
@@ -75,7 +75,7 @@ module Relay
   # @return [String]
   # Returns the path to the app/views/resources directory
   def self.resources_dir
-    @resources_dir ||=  File.join(root, "app", "resources")
+    @resources_dir ||= File.join(root, "app", "resources")
   end
 
   ##

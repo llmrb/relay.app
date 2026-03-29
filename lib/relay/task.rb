@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 
 ##
 # {Relay::Task} represents a Rake task that can be run
@@ -39,7 +39,7 @@ class Relay::Task
       become_group_leader
       invoke_task
       record_success
-    rescue StandardError
+    rescue
       record_error
     end
   end

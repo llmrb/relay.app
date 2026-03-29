@@ -45,8 +45,9 @@ module Relay::Routes
     end
 
     def tool_status(functions)
-      names = functions.map(&:name).uniq.join(", ")
-      "Running #{names}…"
+      names = functions.filter_map(&:name).reject(&:empty?).uniq
+      return "Running tools…" if names.empty?
+      "Running #{names.join(', ')}…"
     end
 
     def instructions
