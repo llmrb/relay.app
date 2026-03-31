@@ -88,7 +88,7 @@ module Relay::Models
     # @return [LLM::Provider]
     #  An instance of LLM::Provider
     def llm
-      @llm ||= LLM.method(provider).call(key: ENV["#{provider.upcase}_SECRET"], timeout: 300)
+      @llm ||= LLM.method(provider).call(key: ENV["#{provider.upcase}_SECRET"], timeout: 300, persistent: true)
     end
 
     private
@@ -97,7 +97,7 @@ module Relay::Models
     # @return [LLM::Session]
     #  Returns the context
     def ctx
-      @ctx ||= LLM::Session.new(llm, model: self[:model]).restore(string: data)
+      @ctx ||= LLM::Context.new(llm, model: self[:model]).restore(string: data)
     end
   end
 end

@@ -6,31 +6,15 @@ window.htmx = htmx
 require("htmx-ext-ws")
 
 import { Jukebox } from "../js/jukebox"
+import { Scroll } from "../js/scroll"
 import { Timer } from "../js/jukebox/timer"
 
 ;(function() {
   document.addEventListener("DOMContentLoaded", () => {
     const jukebox = Jukebox()
     const timer = Timer(document.getElementById("chatbot-status"))
-    const stream = document.getElementById("chatbot-stream")
-    let shouldFollow = true
-    let followFrame = null
-
-    const isNearBottom = (el, threshold = 48) =>
-      !el || (el.scrollHeight - (el.scrollTop + el.clientHeight)) <= threshold
-
-    const scroll = () => {
-      if (!stream || !shouldFollow) return
-      stream.scrollTop = stream.scrollHeight
-    }
-
-    const follow = () => {
-      if (followFrame) return
-      followFrame = requestAnimationFrame(() => {
-        followFrame = null
-        scroll()
-      })
-    }
+    const scroll = Scroll(document.getElementById("chatbot-stream"))
+    const composer = document.getElementById("chat-composer")
 
     const syntaxHighlight = (el) =>{
       hljs.highlightElement(el)
@@ -49,13 +33,6 @@ import { Timer } from "../js/jukebox/timer"
         jukebox.scanForMusic(nodes[nodes.length - 1])
     }
 
-    if (stream) {
-      shouldFollow = isNearBottom(stream)
-      stream.addEventListener("scroll", () => {
-        shouldFollow = isNearBottom(stream)
-      }, { passive: true })
-    }
-
     document.body.addEventListener("htmx:oobAfterSwap", (event) => {
       const elt = event.detail.elt || event.target
       if (elt.id === "chatbot-status") {
@@ -64,7 +41,7 @@ import { Timer } from "../js/jukebox/timer"
         return
       }
       enhance(elt)
-      follow()
+      scroll?.follow()
     })
 
     document.body.addEventListener("htmx:afterSwap", (event) => {
@@ -72,7 +49,12 @@ import { Timer } from "../js/jukebox/timer"
       enhance(elt)
     })
 
+    composer?.addEventListener("submit", () => {
+      scroll?.force()
+    })
+
     enhance()
-    follow()
+    requestAnimationFrame(() => scroll?.force())
+    window.addEventListener("load", () => scroll?.force(), { once: true })
   })
 })()
