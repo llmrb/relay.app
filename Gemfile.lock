@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/llmrb/llm.rb.git
-  revision: 6463d0f0cdf14a2d77a4711e765567c5dc85cb3b
+  revision: 1050a27a2c951dc5a2c37acac075614ece83da20
   specs:
-    llm.rb (4.14.0)
+    llm.rb (4.15.0.beta)
 
 GEM
   remote: https://rubygems.org/
