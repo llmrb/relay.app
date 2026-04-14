@@ -20,20 +20,33 @@ module Relay::Tools
       when "llm.rb" then {directions:, documentation: llmrb_documentation}
       else {error: "unknown topic: #{topic}"}
       end
-    rescue SystemCallError
-      {error: "file not found"}
     end
 
     private
 
     def relay_documentation
-      docs = File.join(Relay.root, "README.md")
-      File.read(docs)
+      relay_resources.each_with_object({}) do |(key, url), h|
+        res = Net::HTTP.get_response URI.parse(url)
+        h[key] = res.body
+      end
+    end
+
+    def relay_resources
+      {"readme" => "https://raw.githubusercontent.com/llmrb/relay/refs/heads/main/README.md"}
     end
 
     def llmrb_documentation
-      docs = File.join(Relay.root, "..", "llm.rb", "README.md")
-      File.read(docs)
+      llmrb_resources.each_with_object({}) do |(key, url), h|
+        res = Net::HTTP.get_response URI.parse(url)
+        h[key] = res.body
+      end
+    end
+
+    def llmrb_resources
+      {
+        "readme"   => "https://raw.githubusercontent.com/llmrb/llm.rb/refs/heads/main/README.md",
+        "deepdive" => "https://raw.githubusercontent.com/llmrb/llm.rb/refs/heads/main/resources/deepdive.md"
+      }
     end
 
     def directions
