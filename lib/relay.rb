@@ -117,4 +117,10 @@ module Relay
   def self.fragments_dir
     @fragments_dir ||= File.join(views_dir, "fragments")
   end
+
+  ##
+  # @return [String]
+  def self.logs_dir
+    @logs_dir ||= File.join(root, "tmp")
+  end
 end

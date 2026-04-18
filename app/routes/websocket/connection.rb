@@ -54,7 +54,6 @@ class Relay::Routes::Websocket
       write(conn, fragment(:input))
       wait_with_heartbeat(conn, proc { talk(ctx, message, params) })
       resolve_functions(ctx, conn, params)
-      persist(ctx)
       write(conn, fragment(:status, status: "Ready", context_window: context_window(ctx), cost: format_cost(ctx.cost)))
     rescue LLM::NoSuchRegistryError, LLM::NoSuchModelError
       write(conn, fragment(:status, cost: "unknown", status: "Ready"))
@@ -92,15 +91,6 @@ class Relay::Routes::Websocket
       if ctx.functions.any?
         resolve_functions(ctx, conn, params)
       end
-    end
-
-    ##
-    # Persists the current context after a websocket turn completes
-    # @param [Relay::Models::Context] ctx
-    #  The current context
-    # @return [Relay::Models::Context]
-    def persist(ctx)
-      ctx.persist!
     end
 
     ##
