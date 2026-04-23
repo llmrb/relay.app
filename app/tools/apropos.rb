@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require File.expand_path("../../../../0x1eef/test-cmd.rb/lib/test-cmd", __dir__)
-
 module Relay::Tools
   class Apropos < Base
     name "apropos"

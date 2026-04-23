@@ -17,6 +17,7 @@ gem "rackup"
 gem "sequel"
 gem "sidekiq"
 gem "sqlite3"
+gem "test-cmd.rb"
 gem "tilt"
 gem "zeitwerk"
 

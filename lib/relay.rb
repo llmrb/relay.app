@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Relay
+  require "test-cmd"
   require_relative "relay/cache"
   require_relative "relay/jukebox"
   require_relative "relay/markdown"

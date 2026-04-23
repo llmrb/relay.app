@@ -173,6 +173,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.26.0)
     string-format (0.2.0)
+    test-cmd.rb (0.12.4)
     test-unit (3.7.7)
       power_assert
     tilt (2.7.0)
@@ -215,6 +216,7 @@ DEPENDENCIES
   sidekiq
   sqlite3
   standard
+  test-cmd.rb
   test-unit
   tilt
   xchan.rb
