@@ -14,7 +14,6 @@ module Relay::Tools
         title: presence(title),
         track: url && JukeboxStore.normalize_track(url)
       )
-
       if removed.zero?
         {message: "No jukebox entries matched the request", removed: 0}
       else

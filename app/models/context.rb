@@ -8,7 +8,7 @@ module Relay::Models
   # so future turns can continue from the same context window.
   class Context < Sequel::Model
     include Relay::Model
-    plugin :llm, provider: :set_provider, tracer: :set_tracer
+    plugin :llm, provider: :set_provider, tracer: :set_tracer, context: :set_context
 
     set_dataset :contexts
     many_to_one :user
@@ -36,6 +36,15 @@ module Relay::Models
     def set_tracer
       path = File.join(Relay.logs_dir, "#{provider}-#{Date.today.iso8601}.log")
       LLM::Tracer::Logger.new(llm, path:)
+    end
+
+    def set_context
+      {
+        compactor: {
+          message_threshold: 40,
+          retention_window: 8
+        }
+      }
     end
   end
 end

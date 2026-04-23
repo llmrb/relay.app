@@ -1,7 +1,4 @@
 ---
-- name: Dimitri Vegas & Like Mike vs W&W & Moguai
-  title: Arcade Mammoth
-  track: https://www.youtube-nocookie.com/embed/3Qq7kNjg-KY
 - name: Reach Eargasm
   title: La Vie
   track: https://www.youtube-nocookie.com/embed/CyzdOtyYnng
@@ -29,15 +26,6 @@
 - name: Cleffy
   title: Hide behind my disguise
   track: https://www.youtube-nocookie.com/embed/fGyUygO-ftM
-- name: MusicAI
-  title: "♠️ Банда за брата стреляет ♠️"
-  track: https://www.youtube-nocookie.com/embed/O2qbf3YfJTs
-- name: MusicAI
-  title: "☆СУЕТА☆| Пацанский Трек 2026"
-  track: https://www.youtube-nocookie.com/embed/F10tX7dNlUg
-- name: Мир В ЧерномБелом
-  title: ТЫ УМРЕШЬ МОЛОДЫМ
-  track: https://www.youtube-nocookie.com/embed/SmlDMpXLT_k
 - name: 2Pac
   title: Died in your arms tonight
   track: https://www.youtube-nocookie.com/embed/5z2YgWL5178
@@ -91,3 +79,6 @@
 - name: The Offspring
   title: The kids aren't alright
   track: https://www.youtube-nocookie.com/embed/s4P_gjrUnVw
+- name: Lynyrd Skynyrd
+  title: Simple Man
+  track: https://www.youtube-nocookie.com/embed/8eNoms9wsGc
