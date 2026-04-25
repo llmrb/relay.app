@@ -12,6 +12,66 @@ It also serves as a reference implementation for building
 production-style, tool-enabled LLM applications with llm.rb while
 keeping the frontend light and the architecture Ruby-centric.
 
+## Quick start
+
+If you just want Relay running locally, this is the shortest path.
+
+**Requirements**
+
+- Ruby
+- Node.js
+- Webpack
+- SQLite
+
+**1. Install dependencies**
+
+```sh
+bundle install
+```
+
+**2. Configure secrets**
+
+Create a `.env` file:
+
+```sh
+OPENAI_SECRET=...
+GOOGLE_SECRET=...
+ANTHROPIC_SECRET=...
+DEEPSEEK_SECRET=...
+XAI_SECRET=...
+SESSION_SECRET=...
+REDIS_URL=
+```
+
+You only need provider secrets for the providers you plan to use.
+
+**3. Set up the database**
+
+```sh
+bundle exec rake db:setup
+bundle exec rake db:seed
+```
+
+The seed creates a default local user:
+
+- email: `0x1eef@hardenedbsd.org`
+- password: `relay`
+
+Change the seeded values in [db/seeds.rb](./db/seeds.rb) first if you
+do not want those defaults.
+
+**4. Start Relay**
+
+```sh
+bundle exec rake dev:start
+```
+
+Then open Relay in your browser and sign in with the seeded account.
+
+During development, Relay enables Zeitwerk reloading and refreshes
+autoloaded constants between requests, so changes under `app/` are
+picked up without restarting the web server.
+
 ## Screencast
 
 [![Watch the Relay screencast](https://img.youtube.com/vi/Jb7LNUYlCf4/maxresdefault.jpg)](https://www.youtube.com/watch?v=x1K4wMeO_QA)
@@ -48,53 +108,6 @@ Relay is a good fit if you want to:
 - ⚡ In-memory cache support via `Relay.cache`
 - 🔐 Automatic `.env` loading during app boot
 - ♻️ Zeitwerk hot reloading in development
-
-## Quick start
-
-**Requirements**
-
-Relay is easy to start locally. Right now it only requires:
-
-- Ruby
-- a web server, via `bundle exec rake dev:start`
-- Node.js
-- Webpack
-- SQLite
-
-The architecture supports more, including Sidekiq and Redis, but those
-are optional for the current local setup.
-
-**Setup**
-
-The following commands should get you setup with a local instance of Relay
-once the requirements mentioned above are met. The `db/seeds.rb` file
-creates a default user with email `0x1eef@hardenedbsd.org` and
-password `relay`. That account can be used to sign in locally, or
-change the seeded values in [`db/seeds.rb`](./db/seeds.rb) to something
-else before running `bundle exec rake db:seed`:
-
-    bundle install
-    bundle exec rake db:setup
-    bundle exec rake db:seed
-    bundle exec rake dev:start
-
-During development, Relay now enables Zeitwerk reloading and refreshes
-autoloaded constants between requests so code changes under `app/`
-are picked up without restarting the web server.
-
-**Secrets**
-
-Set your secrets in `.env`:
-
-```sh
-OPENAI_SECRET=...
-GOOGLE_SECRET=...
-ANTHROPIC_SECRET=...
-DEEPSEEK_SECRET=...
-XAI_SECRET=...
-SESSION_SECRET=
-REDIS_URL=
-```
 
 ## Cost considerations
 
@@ -212,6 +225,7 @@ Some important notes:
 * HTTP routing is handled by Roda, with templates rendered from
   `app/views` and static assets served from `public/`.
 * Webpack builds the JavaScript and CSS assets from `app/assets`.
+* `bundle exec rake dev:start` runs Relay's local development stack.
 
 The codebase is organized by responsibility:
 
