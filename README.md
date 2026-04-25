@@ -1,14 +1,11 @@
 ## About
 
 Relay is a self-hostable LLM environment for building and trying out AI
-apps, workflows, and interface ideas.
-
-It gives you one place to work with providers, models, tools, MCP
-servers, attachments, saved contexts, and streaming conversations.
-
-Relay works both as a practical self-hosted workspace and as a
-reference app for exploring how AI products can be put together and
-extended over time.
+apps, workflows, and interface ideas. It gives you one place to work
+with providers, models, tools, MCP servers, attachments, saved
+contexts, and streaming conversations, and works both as a practical
+self-hosted workspace and as a reference app for exploring how AI
+products can be put together and extended over time.
 
 ## Quick start
 
