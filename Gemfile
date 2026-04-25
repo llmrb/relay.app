@@ -6,7 +6,7 @@ gem "async-websocket", require: %w[async/websocket/adapters/rack]
 gem "falcon"
 gem "bcrypt"
 gem "erubi"
-gem "llm.rb", github: "llmrb/llm.rb", require: %w[llm sequel/plugins/llm]
+gem "llm.rb", require: %w[llm sequel/plugins/llm]
 gem "xchan.rb"
 gem "net-http-persistent"
 gem "rake"
