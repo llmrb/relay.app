@@ -7,7 +7,7 @@ contexts, and streaming conversations, and works both as a practical
 self-hosted workspace and as a reference app for exploring how AI
 products can be put together and extended over time.
 
-![Relay screenshot](https://img.youtube.com/vi/Jb7LNUYlCf4/maxresdefault.jpg)
+![Relay screenshot](./screenshot.png)
 
 ## Quick start
 
