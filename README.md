@@ -106,12 +106,11 @@ picked up without restarting the web server.
 
 Relay is a good fit if you want to:
 
-- self-host an LLM workspace
-- build on top of llm.rb
-- connect models to local tools
-- use MCP servers from one interface
-- switch between providers and models
-- study or extend a production-style Ruby-centric LLM app
+- use Relay directly as a self-hosted LLM workspace
+- study a production-style llm.rb reference implementation
+- fork it as a base for your own llm.rb product
+- work with local tools and MCP servers from one interface
+- explore multi-provider and long-context application patterns
 
 ## Features
 
