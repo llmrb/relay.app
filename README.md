@@ -1,13 +1,46 @@
 ## About
 
-Relay is a self-hostable LLM environment for building and trying out AI
-apps, workflows, and interface ideas. It gives you one place to work
-with providers, models, tools, MCP servers, attachments, saved
-contexts, and streaming conversations, and works both as a practical
-self-hosted workspace and as a reference app for exploring how AI
-products can be put together and extended over time.
+Relay is a production-style, self-hostable LLM environment built on
+[llm.rb](https://github.com/llmrb/llm.rb#readme). It gives you one
+place to work with providers, models, tools, MCP servers, attachments,
+saved contexts, and streaming conversations, and serves both as a
+usable application and as a reference implementation for building
+products on top of llm.rb.
 
 ![Relay screenshot](./screenshot.png)
+
+## The llm.rb connection
+
+#### Built on llm.rb
+Relay is meant to show what llm.rb can power in a real application:
+
+- multi-provider conversational products
+- persistent contexts and long-lived sessions
+- built-in tools and MCP-backed capabilities
+- streaming interfaces
+- cost and context-window visibility
+
+#### From runtime to product
+
+| llm.rb capability | How Relay uses it |
+| --- | --- |
+| `LLM::Context` | Saved conversations and long-lived chat sessions |
+| Provider abstraction | Provider and model switching in the UI |
+| Tools runtime | Built-in tools and local tool execution |
+| MCP integration | External capability and server integration |
+| Streaming/context execution | Live streamed responses over the chat UI |
+| Cost and context tracking | Sidebar and status indicators for usage and context budget |
+
+#### Why Relay matters
+
+Relay demonstrates that llm.rb can support:
+
+- multi-provider conversational applications
+- persistent session and context management
+- user-visible tools and MCP servers
+- streaming user interfaces
+- long-context workflows
+- operational features like cost and context-window tracking
 
 ## Quick start
 
@@ -74,10 +107,11 @@ picked up without restarting the web server.
 Relay is a good fit if you want to:
 
 - self-host an LLM workspace
+- build on top of llm.rb
 - connect models to local tools
 - use MCP servers from one interface
 - switch between providers and models
-- study or extend a Ruby-first LLM app
+- study or extend a production-style Ruby-centric LLM app
 
 ## Features
 
