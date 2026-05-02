@@ -1,3 +1,9 @@
+GIT
+  remote: http://git.home.network/llmrb/llm.rb
+  revision: 8caeaeef86cc861483192d697afd6568193f9be1
+  specs:
+    llm.rb (7.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,7 +74,6 @@ GEM
     json (2.19.3)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
-    llm.rb (6.1.0)
     localhost (1.7.0)
     lockf.rb (3.0.0)
       fiddle (~> 1.1)
@@ -199,7 +204,7 @@ DEPENDENCIES
   bcrypt
   erubi
   falcon
-  llm.rb
+  llm.rb!
   net-http-persistent
   rack
   rack-test
