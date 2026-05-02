@@ -32,7 +32,7 @@
   }
 
   .status-strip {
-    @apply grid grid-cols-[minmax(0,1fr)_minmax(15rem,22rem)_auto] items-center gap-6 border-t px-5 py-3 text-sm;
+    @apply grid grid-cols-[minmax(0,1fr)_minmax(15rem,22rem)_minmax(0,1fr)] items-center gap-6 border-t px-5 py-3 text-sm;
     border-color: color-mix(in srgb, var(--theme-panel-border) 82%, transparent);
     background-color: color-mix(in srgb, var(--theme-surface) 68%, transparent);
   }
@@ -44,6 +44,18 @@
 
   .status-block {
     @apply min-w-0;
+  }
+
+  .status-block--center {
+    justify-self: center;
+    width: 100%;
+    max-width: 18rem;
+    text-align: center;
+  }
+
+  .status-block--right {
+    justify-self: end;
+    text-align: right;
   }
 
   .status-label {
@@ -66,7 +78,7 @@
 
   @include compact-shell {
     .status-strip {
-      @apply grid-cols-[minmax(0,1fr)_minmax(13rem,17rem)_auto] gap-4 px-4 py-2.5;
+      @apply grid-cols-[minmax(0,1fr)_minmax(13rem,17rem)_minmax(0,1fr)] gap-4 px-4 py-2.5;
     }
   }
 }
