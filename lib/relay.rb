@@ -18,7 +18,7 @@ module Relay
   # Returns the current Rack environment
   # @return [String]
   def self.environment
-    ENV.fetch("RACK_ENV", "development")
+    ENV["RACK_ENV"] || "development"
   end
 
   ##
@@ -56,18 +56,6 @@ module Relay
   #  Returns the tools directory
   def self.tools_dir
     @tools_dir ||= File.join(root, "app", "tools")
-  end
-
-  ##
-  # Reload Relay (useful in development enviroments)
-  # @param [Boolean] reload
-  # @return [Array<String>]
-  def self.reload
-    LLM::Tool.clear_registry!
-    Relay.loader.reload
-    Dir[File.join(tools_dir, "*.rb")].sort.each do |path|
-      load(path)
-    end
   end
 
   ##
@@ -116,5 +104,27 @@ module Relay
   # @return [String]
   def self.logs_dir
     @logs_dir ||= File.join(root, "tmp")
+  end
+
+  ##
+  # Renders an erb template
+  # @param [String] path
+  # @param [Hash] locals
+  # @return [String]
+  def self.erb(path, locals = {})
+    tmpl = File.read File.join(views_dir, path)
+    ERB.new(tmpl).result_with_hash(locals)
+  end
+
+  ##
+  # Reload Relay (useful in development enviroments)
+  # @param [Boolean] reload
+  # @return [Array<String>]
+  def self.reload
+    LLM::Tool.clear_registry!
+    Relay.loader.reload
+    Dir[File.join(tools_dir, "*.rb")].sort.each do |path|
+      load(path)
+    end
   end
 end
