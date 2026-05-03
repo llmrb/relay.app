@@ -4,4 +4,4 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "llm.rb", path: "../llm.rb", require: %w[llm sequel/plugins/llm]
+gem "llm.rb", github: "llmrb/llm.rb", require: %w[llm sequel/plugins/llm]

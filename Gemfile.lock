@@ -1,5 +1,6 @@
-PATH
-  remote: ../llm.rb
+GIT
+  remote: https://github.com/llmrb/llm.rb.git
+  revision: 26d0e3001da4fd8adf38253d89db57f423e17d5c
   specs:
     llm.rb (7.0.0)
 
@@ -194,7 +195,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
-    xchan.rb (0.20.0)
+    xchan.rb (0.21.0)
       lockf.rb (~> 3.0)
     zeitwerk (2.7.5)
 

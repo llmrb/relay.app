@@ -2,9 +2,9 @@
 
 module Relay::Hooks
   module RequireUser
-    def call(*args)
+    def call(*args, **kwargs)
       @user = Relay::Models::User[session["user_id"]]
-      @user.nil? ? r.redirect("/sign-in") : super(*args)
+      @user.nil? ? r.redirect("/sign-in") : super(*args, **kwargs)
     end
   end
 end
