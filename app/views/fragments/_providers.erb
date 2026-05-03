@@ -12,11 +12,14 @@
       hx-swap="outerHTML"
       hx-trigger="change"
     >
-      <option <%= "selected" if provider == "deepseek" %> value="deepseek">DeepSeek</option>
-      <option <%= "selected" if provider == "google" %> value="google">Google</option>
-      <option <%= "selected" if provider == "openai" %> value="openai">OpenAI</option>
-      <option <%= "selected" if provider == "anthropic" %> value="anthropic">Anthropic</option>
-      <option <%= "selected" if provider == "xai" %> value="xai">xAI</option>
+      <% Relay.providers.each do |_, builder| %>
+        <% llm = builder.call %>
+        <option
+          <%= "selected" if llm.name.to_s == provider.to_s %>
+          value="<%= llm.name %>">
+          <%= format_name(llm.name) %>
+        </option>
+      <% end %>
     </select>
   </form>
   <span class="theme-muted text-[11px]">Choose where responses come from</span>

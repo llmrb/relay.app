@@ -88,5 +88,17 @@ module Relay::Concerns
     rescue LLM::NoSuchModelError, LLM::NoSuchRegistryError
       "unknown"
     end
+
+    ##
+    # @param [LLM::Provider]
+    # @return [String]
+    def format_name(name)
+      case name
+      when :openai then "OpenAI"
+      when :xai then "xAI"
+      when :deepseek then "DeepSeek"
+      else name.to_s.capitalize
+      end
+    end
   end
 end
