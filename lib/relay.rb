@@ -6,13 +6,28 @@ module Relay
   require_relative "relay/attachment"
   require_relative "relay/jukebox"
   require_relative "relay/markdown"
-  require_relative "relay/model_info/sync"
   require_relative "relay/theme"
   require_relative "relay/task_monitor"
   require_relative "relay/task"
   require_relative "relay/tool"
   require_relative "relay/model"
   require_relative "relay/reloader"
+
+  PROVIDERS = {
+    "anthropic" => -> { LLM.anthropic(key: ENV["ANTHROPIC_SECRET"]) },
+    "deepseek" => -> { LLM.deepseek(key: ENV["DEEPSEEK_SECRET"]) },
+    "google" => -> { LLM.google(key: ENV["GOOGLE_SECRET"]) },
+    "openai" => -> { LLM.openai(key: ENV["OPENAI_SECRET"]) },
+    "xai" => -> { LLM.xai(key: ENV["XAI_SECRET"]) }
+  }.freeze
+  private_constant :PROVIDERS
+
+  ##
+  # Returns all known providers
+  # @return [LLM::Object]
+  def self.providers
+    @providers ||= LLM::Object.from(PROVIDERS)
+  end
 
   ##
   # Returns the current Rack environment

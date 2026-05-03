@@ -104,10 +104,10 @@ module Relay::Concerns
     end
 
     ##
-    # @return [Array<Relay::Models::ModelInfo>]
-    #  Chat-capable models for the current provider.
-    def chat_models
-      Relay::Models::ModelInfo.where(provider:, chat: true).order(:name).all
+    # @return [Array<Relay::Models::ModelRecord>]
+    #  Models for the current provider.
+    def models
+      Relay::Models::ModelRecord.where(provider:).order(:name).all
     end
 
     ##
@@ -126,7 +126,7 @@ module Relay::Concerns
     # @param [String, nil] id
     # @return [Boolean]
     def valid_model?(id)
-      chat_models.any? { _1.model_id == id }
+      models.any? { _1.model_id == id }
     end
 
     ##
