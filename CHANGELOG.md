@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.3.0
+
+Gem packaging reliability release.
+
 ### Fix
 
 * **Ship `app/init.rb` in the packaged gem** <br>
