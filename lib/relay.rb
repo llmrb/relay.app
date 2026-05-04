@@ -169,7 +169,7 @@ module Relay
   # @return [Array<String>]
   def self.reload
     LLM::Tool.clear_registry!
-    Relay.loader.reload
+    Relay.loader.reload if development?
     paths = Dir[File.join(tools_dir, "*.rb")]
     paths.concat Dir[File.join(home, "tools", "*.rb")]
     paths.sort.each do
