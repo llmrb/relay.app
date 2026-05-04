@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "relay"
+
+bootstrap = File.join(Relay.root, "libexec", "relay", "bootstrap")
+configure = File.join(Relay.root, "libexec", "relay", "configure")
+
+system(bootstrap) || exit(1)
+system(configure) || exit(1)
