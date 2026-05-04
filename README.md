@@ -87,6 +87,19 @@ you can think of. They're a powerful way to extend the capabilities of an LLM.
 An MCP server can also expose pre-packaged tools, and those can be especially
 powerful for talking to GitHub or your own Forgejo instance.
 
+## What are the default tools?
+
+The `relay-knowledge` tool returns documentation for both Relay
+and [llm.rb](https://github.com/llmrb/llm.rb) - ask about either
+of those, and you will be able to have an informed conversation
+about both. Good for learning how to use llm.rb, and write your
+own tools.
+
+There is also a set of tools that manage a playlist of songs that
+can be played inline in the chat, and you can also add your own
+songs or remove existing ones through the same tools. The only
+requirement is that it is a YouTube URL.
+
 ## What provider is the best value?
 
 DeepSeek. I highly recommend it. The context window is 1M. I have been using it
