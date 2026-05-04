@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.2.0
+
+Gem packaging and installation release.
+
 ### Change
 
 * **Refine gem packaging and release metadata** <br>
