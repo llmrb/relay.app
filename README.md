@@ -76,7 +76,7 @@ class Shell < LLM::Tool
 end
 ```
 
-## Which provider is the best value?
+## What provider is the best value?
 
 DeepSeek. I highly recommend it. The context window is 1M. I have been using it
 all the time - especially for Relay development, and despite my heavy usage, it
