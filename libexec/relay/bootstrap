@@ -7,4 +7,3 @@ warn "relay: bootstrap the database"
 Sequel.extension :migration
 Sequel::Migrator.run(Relay::DB, Relay.migrations_dir)
 load File.join(Relay.root, "db", "seeds.rb")
-Relay::Models::ModelRecord.refresh_all

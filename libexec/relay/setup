@@ -5,6 +5,8 @@ require "relay"
 
 bootstrap = File.join(Relay.root, "libexec", "relay", "bootstrap")
 configure = File.join(Relay.root, "libexec", "relay", "configure")
+download_models = File.join(Relay.root, "libexec", "relay", "download-models")
 
 system(bootstrap) || exit(1)
 system(configure) || exit(1)
+system(download_models) || exit(1)
