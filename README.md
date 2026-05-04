@@ -29,6 +29,16 @@ relay setup
 relay start
 ```
 
+## Features
+
+* Install and setup in 2 minutes
+* Localize your chats and mcp settings to your user account
+* Connect to multiple providers (OpenAI, xAI, Anthropic, Google, DeepSeek, zAI)
+* Connect to MCP servers
+* Cancel in-flight requests and tool execution cleanly
+* Run tools concurrently
+* Extend and customize with your own tools and system prompt
+
 ## Sounds cool, how does it look?
 
 **Sign-in**
