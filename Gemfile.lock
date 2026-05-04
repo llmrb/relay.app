@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/llmrb/llm.rb.git
-  revision: 26d0e3001da4fd8adf38253d89db57f423e17d5c
-  specs:
-    llm.rb (7.0.0)
-
 PATH
   remote: .
   specs:
@@ -13,7 +7,7 @@ PATH
       erb
       erubi
       falcon
-      llm.rb
+      llm.rb (~> 8.0)
       net-http-persistent
       rack
       rackup
@@ -97,6 +91,7 @@ GEM
     json (2.19.3)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    llm.rb (8.0.0)
     localhost (1.7.0)
     lockf.rb (3.0.0)
       fiddle (~> 1.1)
@@ -214,7 +209,6 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  llm.rb!
   rack-test
   rake
   relay!

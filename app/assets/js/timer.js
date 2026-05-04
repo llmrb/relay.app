@@ -10,7 +10,7 @@ const Timer = function(parentEl) {
   self.el = null
 
   const getSpan = (parent = self.parentEl) => {
-    return parent?.querySelector(".status-value")
+    return parent?.querySelector(".status-value-inline")
   }
 
   const getTextEl = (parent = self.parentEl) => {
@@ -57,7 +57,7 @@ const Timer = function(parentEl) {
     self.el = null
   }
 
-  const start = (statusText) => {
+  const start = () => {
     if (self.timeout)
       clearTimeout(self.timeout)
     self.startTime = Date.now()
@@ -85,7 +85,7 @@ const Timer = function(parentEl) {
       statusText.startsWith("Running") ||
       statusText.startsWith("Compacting")
     )
-      start(statusText)
+      start()
     else
       stop()
   }

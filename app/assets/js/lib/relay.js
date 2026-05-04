@@ -2,7 +2,7 @@ import { FileUpload } from "../file_upload"
 import { ActivityController } from "./controllers/ActivityController"
 import { ContentController } from "./controllers/ContentController"
 import { Scroll } from "../scroll"
-import { Timer } from "../jukebox/timer"
+import { Timer } from "../timer"
 
 export const Relay = () => {
   const target = document
