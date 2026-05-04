@@ -54,6 +54,12 @@ relay start
 
 ![Relay screenshot](./relay2.png)
 
+## How easy is it to setup?
+
+Very easy.
+
+![demo](./demo.gif)
+
 ## How do I add my own tool?
 
 Before running `relay start` you should add a `~/.relay/tools/<yourtool>.rb`.
