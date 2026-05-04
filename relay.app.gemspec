@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.executables = ["relay"]
 
   spec.files = Dir[
-    "app/client/images/**/*",
     "app/concerns/**/*",
     "app/config/**/*",
     "app/forms/**/*",
