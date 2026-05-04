@@ -2,62 +2,21 @@
 # frozen_string_literal: true
 
 require "fileutils"
-require "json"
+require "shellwords"
 
 require_relative "../../lib/relay"
 
 module Relay
-  class Configure
-    RELAY_DIR = Relay.home
-    CONFIG_PATH = File.join(RELAY_DIR, "config.json")
-    DB_PATH = File.join(RELAY_DIR, "relay.db")
+  module CLI
+    module_function
 
-    def initialize(options = {})
-      @options = options
-      @existing = load_config
-    end
-
-    def call
-      setup_directories
-      config = merge_config
-      write_config(config)
-      puts "Relay configured at #{RELAY_DIR}"
-      config
-    end
-
-    private
-
-    def setup_directories
-      FileUtils.mkdir_p(RELAY_DIR)
-      FileUtils.mkdir_p(File.join(RELAY_DIR, "tools"))
-      FileUtils.mkdir_p(File.join(RELAY_DIR, "db"))
-    end
-
-    def load_config
-      File.exist?(CONFIG_PATH) ? JSON.parse(File.read(CONFIG_PATH)) : {}
-    rescue JSON::ParserError
-      {}
-    end
-
-    def merge_config
-      providers = (%w[openai anthropic google deepseek xai zai] + ["llamacpp", "ollama"]).select do |name|
-        ENV["#{name.upcase}_KEY"] || ENV["#{name.upcase}_TOKEN"]
-      end
-
-      {
-        **@existing,
-        **@options,
-        "providers" => @existing.fetch("providers", providers),
-        "updated_at" => Time.now.utc.iso8601
-      }
-    end
-
-    def write_config(config)
-      File.write(CONFIG_PATH, JSON.pretty_generate(config))
+    def configure
+      puts "Setting up Relay in #{Relay::HOME}..."
+      FileUtils.mkdir_p(File.join(Relay::HOME, "tools"))
+      FileUtils.mkdir_p(File.join(Relay::HOME, "db"))
+      puts "Done. Relay is ready to start."
     end
   end
 end
 
-if __FILE__ == $PROGRAM_NAME
-  Relay::Configure.new.call
-end
+Relay::CLI.configure if __FILE__ == $PROGRAM_NAME
