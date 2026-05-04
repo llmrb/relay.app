@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## v0.5.0
+
+Model catalog workflow release.
+
+### Change
+
+* **Add `relay download-models`** <br>
+  Introduce a dedicated command for downloading provider model catalogs,
+  expose it through `bin/relay`, and have `relay setup` call it after
+  configuration so first-time installs still populate model records.
+
 ## v0.4.0
 
 Gem startup and setup reliability release.
