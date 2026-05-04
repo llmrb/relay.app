@@ -7,9 +7,9 @@ set of dependencies - built on Roda, Sequel, Falcon, [llm.rb](https://github.com
 HTMX and web sockets.
 
 There is support for connecting to MCP servers too - both HTTP and stdio. You can
-add your own tools to `~/.relay/tools` which is a neat way to extend the environment
-with your own functionality. The database uses SQLite3 to keep things simple - the
-goal is to have something you can setup in under two minutes.
+add your own tools to `~/.config/relay/tools` which is a neat way to extend the
+environment with your own functionality. The database uses SQLite3 to keep things
+simple - the goal is to have something you can setup in under two minutes.
 
 ## Getting started
 
@@ -62,7 +62,7 @@ Very easy.
 
 ## How do I add my own tool?
 
-Before running `relay start` you should add a `~/.relay/tools/<yourtool>.rb`.
+Before running `relay start` you should add `~/.config/relay/tools/<yourtool>.rb`.
 The tool will be automatically made available to the LLM. This is how a tool
 might look - it is not very useful because it does not emit command output
 but it serves as a simple example that you can modify and change to meet

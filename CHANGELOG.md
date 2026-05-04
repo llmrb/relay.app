@@ -4,6 +4,11 @@
 
 ### Change
 
+* **Move the default Relay home to `~/.config/relay`** <br>
+  Change Relay's default writable home directory from `~/.relay` to
+  `~/.config/relay`, and update the README examples for user-installed
+  tools to match the new location.
+
 * **Prepopulate provider API key prompts from environment** <br>
   Let `relay configure` reuse existing provider secrets from process
   environment variables such as `OPENAI_API_KEY` and

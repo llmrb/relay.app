@@ -81,7 +81,7 @@ module Relay
   # Returns the writable Relay home directory
   # @return [String]
   def self.home
-    @home ||= ENV["RELAY_HOME"] || File.join(Dir.home, ".relay")
+    @home ||= ENV["RELAY_HOME"] || File.join(Dir.home, ".config", "relay")
   end
 
   ##
