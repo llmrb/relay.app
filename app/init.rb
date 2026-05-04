@@ -45,4 +45,6 @@ module Relay
   require_relative "init/env"
   require_relative "init/database"
   require_relative "init/router"
+
+  Relay.reload
 end

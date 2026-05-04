@@ -170,7 +170,14 @@ module Relay
   def self.reload
     LLM::Tool.clear_registry!
     Relay.loader.reload
-    paths = Dir[File.join(tools_dir, "*.rb")].sort
-    paths.each { load(_1) }
+    paths = Dir[File.join(tools_dir, "*.rb")]
+    paths.concat Dir[File.join(home, "tools", "*.rb")]
+    paths.sort.each do
+      load(_1)
+    rescue => ex
+      warn "tool error\n"
+            "#{ex.class}: #{ex.message}\n"
+            "#{ex.backtrace.join("\n")}"
+    end
   end
 end
