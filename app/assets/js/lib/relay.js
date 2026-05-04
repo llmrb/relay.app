@@ -25,22 +25,27 @@ export const Relay = () => {
     controllers.forEach((controller) => controller.enhance(root))
   }
 
+  const syncTimer = () => {
+    const status = document.getElementById("chatbot-status")
+    if (!timer || !status)
+      return
+    timer.parentEl = status
+    timer.handle(status)
+  }
+
   const fileUpload = FileUpload({afterUpload: enhance})
 
   const handleOobSwap = (event) => {
     const elt = event.detail.elt || event.target
-    if (elt.id === "chatbot-status") {
-      timer.parentEl = elt
-      timer.handle(elt)
-      return
-    }
     enhance(elt)
+    syncTimer()
     scroll?.followIfNeeded()
   }
 
   const handleAfterSwap = (event) => {
     const elt = event.detail.elt || event.target
     enhance(elt)
+    syncTimer()
     scroll?.followIfNeeded()
   }
 
@@ -85,7 +90,7 @@ export const Relay = () => {
       controllers.forEach((controller) => controller.start())
       bindEvents()
       enhance()
-      timer?.handle(timer.parentEl)
+      syncTimer()
       requestAnimationFrame(() => scroll?.force())
     },
     stop() {
