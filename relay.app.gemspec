@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
     "app/config/**/*",
     "app/forms/**/*",
     "app/hooks/**/*",
+    "app/init.rb",
     "app/init/**/*",
     "app/models/**/*",
     "app/pages/**/*",

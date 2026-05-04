@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Fix
+
+* **Ship `app/init.rb` in the packaged gem** <br>
+  Include the top-level app boot file in `spec.files` so `relay bootstrap`
+  and other libexec commands can require `app/init` successfully after gem
+  installation.
+
 ## v0.2.0
 
 Gem packaging and installation release.
