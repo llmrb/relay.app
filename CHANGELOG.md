@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Change
+
+* **Refine gem packaging and release metadata** <br>
+  Tighten the packaged file list to runtime assets and application code,
+  and refresh the gem summary and description to position Relay as a
+  self-hostable LLM environment you can get running in under 2 minutes.
+
+### Fix
+
+* **Compile the dark theme into `application.css`** <br>
+  Include the dark theme in the main stylesheet and remove the dead
+  `/themes/*` runtime path so packaged gem installs no longer depend on
+  source CSS files under `app/assets`.
+
 ## v0.1.0
 
 First stable release.

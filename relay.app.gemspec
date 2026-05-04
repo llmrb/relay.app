@@ -7,8 +7,11 @@ Gem::Specification.new do |spec|
   spec.version = Relay::VERSION
   spec.authors = ["Antar Azri", "0x1eef"]
   spec.email = ["azantar@proton.me", "0x1eef@hardenedbsd.org"]
-  spec.summary = "Self-hosted LLM workspace built on llm.rb"
-  spec.description = "Relay is a production-style, self-hostable LLM environment built on llm.rb."
+  spec.summary = "Self-hostable LLM environment you can run in under 2 minutes"
+  spec.description = "Relay is a self-hostable LLM environment built on llm.rb " \
+    "that you can set up and get running in under 2 minutes. Extend it " \
+    "with your own tools, connect MCP servers, and run an AI workspace " \
+    "on your own infrastructure."
   spec.homepage = "https://github.com/llmrb/relay"
   spec.license = "0BSD"
   spec.required_ruby_version = ">= 3.3"
