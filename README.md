@@ -83,12 +83,11 @@ all the time - especially for Relay development, and despite my heavy usage, it
 cost only 80 cents overall. It's almost free. I used it **a lot**. I'd estimate
 that a 1M context window costs 14 cents or so.
 
-## What about connecting to Ollama, LlamaCpp, etc?
+## What about Ollama and friends?
 
-[llm.rb](https://github.com/llmrb/llm.rb#readme) provides support for both but Relay
-does not surface it as a feature. I haven't had the time or resources to setup
-either ollama or llamacpp locally.
-
+[llm.rb](https://github.com/llmrb/llm.rb#readme) provides support ollama, llama.cpp,
+and any OpenAI-compatible endpoint. But Relay does not surface it as a feature. I haven't
+had the time or resources to setup either ollama or llamacpp locally.
 
 ## Sources
 
