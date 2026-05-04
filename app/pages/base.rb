@@ -20,6 +20,5 @@ module Relay::Pages
     def page(name, **locals)
       view(File.join("pages", name), locals:, layout_opts: {locals:})
     end
-
   end
 end

@@ -19,7 +19,7 @@ module Relay::Tools
           title: entry["title"],
           track: entry["track"],
           html: Relay.erb("fragments/_iframe.erb", {entry:}),
-          directions:,
+          directions:
         }
       end
     end

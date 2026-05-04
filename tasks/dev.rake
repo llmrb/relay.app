@@ -15,5 +15,4 @@ namespace :dev do
     sh "env RACK_MULTIPART_BUFFERED_UPLOAD_BYTESIZE_LIMIT=67108864 $(cat #{Relay.env_path}) " \
        "bundle exec falcon serve --bind http://0.0.0.0:9292"
   end
-
 end

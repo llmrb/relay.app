@@ -71,7 +71,7 @@ module Relay::Models
     end
 
     def set_context
-      { model: self[:model], compactor: { retention_window: 8, token_threshold: "95%" } }
+      {model: self[:model], compactor: {retention_window: 8, token_threshold: "95%"}}
     end
 
     def set_tracer

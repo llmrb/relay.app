@@ -37,9 +37,9 @@ class Relay::Routes::Websocket
     #  The mutable request params for the current turn
     # @return [void]
     def dispatch(conn, ctx, payload, params)
-      case
-      when interrupt?(payload) then interrupt!(conn, ctx)
-      when request_in_flight?
+      if interrupt?(payload)
+        interrupt!(conn, ctx)
+      elsif request_in_flight?
         write(conn, fragment(:status, status_bar(status: "Busy", ctx:)))
       else
         @task = Async { on_message(conn, ctx, payload, params) }

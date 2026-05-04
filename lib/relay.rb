@@ -175,8 +175,8 @@ module Relay
     paths.sort.each do
       load(_1)
     rescue => ex
-      warn "tool error\n"
-            "#{ex.class}: #{ex.message}\n"
+      warn "tool error\n" \
+            "#{ex.class}: #{ex.message}\n" \
             "#{ex.backtrace.join("\n")}"
     end
   end

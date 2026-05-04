@@ -37,7 +37,7 @@ end
 def prompt(label, current: nil, secret: false)
   suffix = current.to_s.empty? ? "" : " [configured]"
   print "#{label}#{suffix}: "
-  value = secret ? STDIN.noecho(&:gets).to_s.chomp : STDIN.gets.to_s.chomp
+  value = secret ? $stdin.noecho(&:gets).to_s.chomp : $stdin.gets.to_s.chomp
   puts if secret
   value.empty? ? current.to_s : value
 end
@@ -45,7 +45,7 @@ end
 def prompt_required(label)
   loop do
     print "#{label}: "
-    value = STDIN.gets.to_s.strip
+    value = $stdin.gets.to_s.strip
     return value unless value.empty?
     warn "#{label} is required."
   end
@@ -54,10 +54,10 @@ end
 def prompt_password
   loop do
     print "Password: "
-    password = STDIN.noecho(&:gets).to_s.chomp
+    password = $stdin.noecho(&:gets).to_s.chomp
     puts
     print "Confirm password: "
-    confirm = STDIN.noecho(&:gets).to_s.chomp
+    confirm = $stdin.noecho(&:gets).to_s.chomp
     puts
     return password unless password.empty? || password != confirm
     warn "Passwords must match and cannot be empty."
@@ -67,7 +67,7 @@ end
 ##
 # main
 def main
-  unless STDIN.tty? && $stdout.tty?
+  unless $stdin.tty? && $stdout.tty?
     warn "relay configure requires an interactive terminal"
     throw(:exit, 1)
   end
