@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "relay"
+require "optparse"
+
+DEFAULT_BIND = "http://0.0.0.0:9292"
+
+##
+# utils
+def option_parser(bind)
+  OptionParser.new do |o|
+    o.banner = "Usage: relay start [OPTIONS] [URL]"
+    o.on("--bind URL", "Bind Falcon to a URL") { bind.replace(_1) }
+  end
+end
+
+##
+# main
+def main(argv)
+  bind = String.new(DEFAULT_BIND)
+  option_parser(bind).parse!(argv)
+  bind = argv.shift || bind
+  exec "falcon", "serve", "--bind", bind
+end
+
+excode = catch(:exit) {
+  main(ARGV)
+  0
+}
+exit excode

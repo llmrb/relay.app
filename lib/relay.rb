@@ -23,6 +23,17 @@ module Relay
   private_constant :PROVIDERS
 
   ##
+  # @return [String]
+  def self.banner
+    " ____      _             \n" \
+    "|  _ \\ ___| | __ _ _   _ \n" \
+    "| |_) / _ \\ |/ _` | | | |\n" \
+    "|  _ <  __/ | (_| | |_| |\n" \
+    "|_| \\_\\___|_|\\__,_|\\__, |\n" \
+    "                   |___/ \n\n"
+  end
+
+  ##
   # Returns all known providers
   # @return [LLM::Object]
   def self.providers

@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
     "bin/*",
     "db/**/*",
     "lib/**/*",
+    "libexec/**/*",
     "public/images/**/*",
     "public/js/**/*",
     "public/stylesheets/**/*",

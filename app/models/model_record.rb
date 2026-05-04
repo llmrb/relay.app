@@ -22,7 +22,9 @@ module Relay::Models
     def self.refresh_all
       Relay.providers.each do |_, provider|
         provider = provider.call
-        insert!(provider)
+        refresh(provider)
+      rescue LLM::Error
+        next
       end
     end
 
@@ -37,12 +39,13 @@ module Relay::Models
     # @return [void]
     def self.refresh(provider)
       now = Time.now.utc
+      name = provider.name.to_s
       db.transaction do
-        where(provider:).delete
+        where(provider: name).delete
         models = provider.models.all.filter_map do
           next unless _1.chat?
           {
-            provider: provider.name,
+            provider: name,
             model_id: _1.id,
             name: _1.name.to_s,
             data: JSON.dump(_1.to_h),

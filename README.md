@@ -1,21 +1,69 @@
 ## About
 
-Relay is a production-style, self-hostable LLM environment built on
-[llm.rb](https://github.com/llmrb/llm.rb#readme). It is both a usable
-workspace and a reference implementation: a real product that shows how
-llm.rb can power providers, tools, MCP servers, attachments, saved
-contexts, and streaming conversations in one application.
+Relay is a self-hostable LLM environment with support for OpenAI, DeepSeek,
+Anthropic, xAI and zAI out of the box. It is incredibly simple to setup
+and get started. The application is distributed as a RubyGem. It has a minimal
+set of dependencies - built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
+HTMX and web sockets.
 
-## Think different
+There is support for connecting to MCP servers too - both HTTP and stdio. You can
+add your own tools to `~/.relay/tools` which is a neat way to extend the environment
+with your own functionality. The database uses SQLite3 to keep things simple - the
+goal is to have something you can setup in under two minutes.
 
-Relay is built on Ruby, distributed as a RubyGem, and easy to use. But
-it is different. It is not built on Rails. It is built on Roda, and
-Sequel. The database is SQLite. It packs a punch but is relatively
-simple to self host. It thinks different.
+## Getting started
 
-## Screenshot
+#### Install
 
-![Relay screenshot](./screenshot.png)
+Install the gem:
+
+```sh
+gem install relay.app
+```
+
+Go through interactive setup, start the server, and visit
+http://localhost:9292.
+
+```sh
+relay setup
+relay start
+```
+
+## Sounds cool, how does it look?
+
+**Sign-in**
+
+![Relay screenshot](./relay3.png)
+
+**Chat**
+
+![Relay screenshot](./relay1.png)
+
+**MCP**
+
+![Relay screenshot](./relay2.png)
+
+## How do I add my own tool?
+
+Before running `relay start` you should add a `~/.relay/tools/<yourtool>.rb`.
+The tool will be automatically made available to the LLM. This is how a tool
+might look - it is not very useful because it does not emit command output
+but it serves as a simple example that you can modify and change to meet
+your requirements:
+
+```ruby
+class Shell < LLM::Tool
+  name "shell"
+  description "Run a shell command"
+  parameter :command, String, "The command to run"
+  parameter :arguments, Array[String], "The command arguments"
+  required %i[command]
+
+  def call(command:, arguments:)
+    {ok: system(command, *arguments)}
+  end
+end
+```
 
 ## Sources
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "relay"
+require File.join(Relay.root, "app", "init")
+Sequel.extension :migration
+Sequel::Migrator.run(Relay::DB, Relay.migrations_dir)
+load File.join(Relay.root, "db", "seeds.rb")
+Relay::Models::ModelRecord.refresh_all

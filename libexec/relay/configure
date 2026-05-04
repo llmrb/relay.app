@@ -1,0 +1,100 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "relay"
+require "fileutils"
+require "io/console"
+
+PROVIDER_KEYS = {
+  "OPENAI_SECRET" => "OpenAI API key",
+  "GOOGLE_SECRET" => "Google API key",
+  "ANTHROPIC_SECRET" => "Anthropic API key",
+  "DEEPSEEK_SECRET" => "DeepSeek API key",
+  "XAI_SECRET" => "xAI API key"
+}.freeze
+
+##
+# utils
+def load_env
+  return {} unless File.readable?(Relay.env_path)
+  File.readlines(Relay.env_path, chomp: true).each_with_object({}) do |line, env|
+    next if line.empty? || line.start_with?("#")
+    key, value = line.split("=", 2)
+    env[key] = value.to_s
+  end
+end
+
+def write_env(env)
+  FileUtils.mkdir_p Relay.home
+  lines = env.sort.filter_map do |key, value|
+    next if value.to_s.empty?
+    "#{key}=#{value}"
+  end
+  File.write(Relay.env_path, "#{lines.join("\n")}\n")
+end
+
+def prompt(label, current: nil, secret: false)
+  suffix = current.to_s.empty? ? "" : " [configured]"
+  print "#{label}#{suffix}: "
+  value = secret ? STDIN.noecho(&:gets).to_s.chomp : STDIN.gets.to_s.chomp
+  puts if secret
+  value.empty? ? current.to_s : value
+end
+
+def prompt_required(label)
+  loop do
+    print "#{label}: "
+    value = STDIN.gets.to_s.strip
+    return value unless value.empty?
+    warn "#{label} is required."
+  end
+end
+
+def prompt_password
+  loop do
+    print "Password: "
+    password = STDIN.noecho(&:gets).to_s.chomp
+    puts
+    print "Confirm password: "
+    confirm = STDIN.noecho(&:gets).to_s.chomp
+    puts
+    return password unless password.empty? || password != confirm
+    warn "Passwords must match and cannot be empty."
+  end
+end
+
+##
+# main
+def main
+  unless STDIN.tty? && $stdout.tty?
+    warn "relay configure requires an interactive terminal"
+    throw(:exit, 1)
+  end
+  env = load_env
+  puts Relay.banner
+  puts "Relay configuration\n"
+  PROVIDER_KEYS.each do |key, label|
+    env[key] = prompt(label, current: env[key], secret: true)
+  end
+  name = prompt_required("Name")
+  email = prompt_required("Email")
+  password = prompt_password
+  write_env(env)
+  require File.join(Relay.root, "app", "init")
+  unless Relay::DB.table_exists?(:users)
+    warn "Relay has not been bootstrapped"
+    throw(:exit, 1)
+  end
+  user = Relay::Models::User.where(email:).first || Relay::Models::User.new(email:)
+  user.name = name
+  user.password = password
+  user.save
+  puts "\nConfigured Relay."
+  puts "Email: #{email}"
+end
+
+excode = catch(:exit) {
+  main
+  0
+}
+exit excode

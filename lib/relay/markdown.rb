@@ -27,6 +27,7 @@ module Relay
   end
 
   class Markdown < Redcarpet::Render::HTML
+    require "erb"
     include ERB::Util
     ##
     # Renders fenced code blocks with a language class for highlight.js

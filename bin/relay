@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def wait
+  Process.wait
+rescue Interrupt
+  retry
+end
+
+def libexec
+  File.realpath File.join(__dir__, "..", "libexec", "relay")
+end
+
+def main(argv)
+  case argv[0]
+  when "setup"
+    Process.spawn File.join(libexec, "setup"), *argv[1..]
+    Process.wait
+  when "migrate"
+    Process.spawn File.join(libexec, "migrate"), *argv[1..]
+    Process.wait
+  when "start"
+    Process.spawn File.join(libexec, "start"), *argv[1..]
+    Process.wait
+  else
+    require "relay"
+    warn Relay.banner
+    warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
+         "Commands:\n" \
+         "  setup             Setup Relay for the first time\n" \
+         "  start             Start Relay\n" \
+         "  migrate           Run database migrations\n"
+  end
+rescue Interrupt
+  wait
+end
+
+main(ARGV)
