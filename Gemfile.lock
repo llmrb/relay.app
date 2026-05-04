@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relay.app (0.1.0)
+    relay.app (0.2.0)
       async-websocket
       bcrypt
       erb
