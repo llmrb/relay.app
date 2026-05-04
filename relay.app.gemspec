@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
     "app/validators/**/*",
     "app/views/**/*",
     "bin/*",
+    "db/config.yml",
     "db/migrate/**/*",
     "db/seeds.rb",
     "lib/**/*",

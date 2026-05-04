@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+## v0.4.0
+
+Gem startup and setup reliability release.
+
+### Fix
+
+* **Start Falcon from the bundled app root** <br>
+  Change `relay start` to run from `Relay.root` so Falcon resolves the
+  gem's bundled `config.ru` instead of looking in the user's current
+  working directory.
+
+* **Ship `db/config.yml` in the packaged gem** <br>
+  Include the database config file in `spec.files` so `relay setup` and
+  other boot paths can initialize Sequel successfully after gem
+  installation.
+
 ## v0.3.0
 
 Gem packaging reliability release.

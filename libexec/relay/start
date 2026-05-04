@@ -21,7 +21,9 @@ def main(argv)
   bind = String.new(DEFAULT_BIND)
   option_parser(bind).parse!(argv)
   bind = argv.shift || bind
-  exec "falcon", "serve", "--bind", bind
+  Dir.chdir(Relay.root) do
+    exec "falcon", "serve", "--bind", bind
+  end
 end
 
 excode = catch(:exit) {
