@@ -37,7 +37,8 @@ relay start
 * Connect to MCP servers
 * Cancel in-flight requests and tool execution cleanly
 * Run tools concurrently
-* Extend and customize with your own tools and system prompt
+* Make it yours: extend and customize with your own tools and system prompt
+* Lightweight architecture
 
 ## Sounds cool, how does it look?
 
