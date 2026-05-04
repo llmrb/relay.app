@@ -1,103 +1,63 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "relay"
-require "llm"
 require "fileutils"
-require "io/console"
+require "json"
 
-PROVIDERS = [
-  LLM::Object.from(label: "OpenAI API key", keys: ["OPENAI_SECRET", "OPENAI_API_KEY"]),
-  LLM::Object.from(label: "Google API key", keys: ["GOOGLE_SECRET", "GOOGLE_API_KEY"]),
-  LLM::Object.from(label: "Anthropic API key", keys: ["ANTHROPIC_SECRET", "ANTHROPIC_API_KEY"]),
-  LLM::Object.from(label: "DeepSeek API key", keys: ["DEEPSEEK_SECRET", "DEEPSEEK_API_KEY"]),
-  LLM::Object.from(label: "xAI API key", keys: ["XAI_SECRET", "XAI_API_KEY"])
-].freeze
+require_relative "../../lib/relay"
 
-##
-# utils
-def load_env
-  return {} unless File.readable?(Relay.env_path)
-  File.readlines(Relay.env_path, chomp: true).each_with_object({}) do |line, env|
-    next if line.empty? || line.start_with?("#")
-    key, value = line.split("=", 2)
-    env[key] = value.to_s
+module Relay
+  class Configure
+    RELAY_DIR = Relay.home
+    CONFIG_PATH = File.join(RELAY_DIR, "config.json")
+    DB_PATH = File.join(RELAY_DIR, "relay.db")
+
+    def initialize(options = {})
+      @options = options
+      @existing = load_config
+    end
+
+    def call
+      setup_directories
+      config = merge_config
+      write_config(config)
+      puts "Relay configured at #{RELAY_DIR}"
+      config
+    end
+
+    private
+
+    def setup_directories
+      FileUtils.mkdir_p(RELAY_DIR)
+      FileUtils.mkdir_p(File.join(RELAY_DIR, "tools"))
+      FileUtils.mkdir_p(File.join(RELAY_DIR, "db"))
+    end
+
+    def load_config
+      File.exist?(CONFIG_PATH) ? JSON.parse(File.read(CONFIG_PATH)) : {}
+    rescue JSON::ParserError
+      {}
+    end
+
+    def merge_config
+      providers = (%w[openai anthropic google deepseek xai zai] + ["llamacpp", "ollama"]).select do |name|
+        ENV["#{name.upcase}_KEY"] || ENV["#{name.upcase}_TOKEN"]
+      end
+
+      {
+        **@existing,
+        **@options,
+        "providers" => @existing.fetch("providers", providers),
+        "updated_at" => Time.now.utc.iso8601
+      }
+    end
+
+    def write_config(config)
+      File.write(CONFIG_PATH, JSON.pretty_generate(config))
+    end
   end
 end
 
-def write_env(env)
-  FileUtils.mkdir_p Relay.home
-  lines = env.sort.filter_map do |key, value|
-    next if value.to_s.empty?
-    "#{key}=#{value}"
-  end
-  File.write(Relay.env_path, "#{lines.join("\n")}\n")
+if __FILE__ == $PROGRAM_NAME
+  Relay::Configure.new.call
 end
-
-def prompt(label, current: nil, secret: false)
-  suffix = current.to_s.empty? ? "" : " [configured]"
-  print "#{label}#{suffix}: "
-  value = secret ? $stdin.noecho(&:gets).to_s.chomp : $stdin.gets.to_s.chomp
-  puts if secret
-  value.empty? ? current.to_s : value
-end
-
-def prompt_required(label)
-  loop do
-    print "#{label}: "
-    value = $stdin.gets.to_s.strip
-    return value unless value.empty?
-    warn "#{label} is required."
-  end
-end
-
-def prompt_password
-  loop do
-    print "Password: "
-    password = $stdin.noecho(&:gets).to_s.chomp
-    puts
-    print "Confirm password: "
-    confirm = $stdin.noecho(&:gets).to_s.chomp
-    puts
-    return password unless password.empty? || password != confirm
-    warn "Passwords must match and cannot be empty."
-  end
-end
-
-##
-# main
-def main
-  unless $stdin.tty? && $stdout.tty?
-    warn "relay configure requires an interactive terminal"
-    throw(:exit, 1)
-  end
-  env = load_env
-  puts Relay.banner
-  puts "Relay configuration\n"
-  PROVIDERS.each do |provider|
-    key = provider.keys[0]
-    current = env[key] || provider.keys.find_map { ENV[_1] }
-    env[key] = prompt(provider.label, current:, secret: true)
-  end
-  name = prompt_required("Name")
-  email = prompt_required("Email")
-  password = prompt_password
-  write_env(env)
-  require File.join(Relay.root, "app", "init")
-  unless Relay::DB.table_exists?(:users)
-    warn "Relay has not been bootstrapped"
-    throw(:exit, 1)
-  end
-  user = Relay::Models::User.where(email:).first || Relay::Models::User.new(email:)
-  user.name = name
-  user.password = password
-  user.save
-  puts "\nConfigured Relay."
-  puts "Email: #{email}"
-end
-
-excode = catch(:exit) {
-  main
-  0
-}
-exit excode
