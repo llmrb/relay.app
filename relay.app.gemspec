@@ -3,7 +3,7 @@
 require_relative "lib/relay/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "relay"
+  spec.name = "relay.app"
   spec.version = Relay::VERSION
   spec.authors = ["Antar Azri", "0x1eef"]
   spec.email = ["azantar@proton.me", "0x1eef@hardenedbsd.org"]
@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
     "resources/**/*",
     "tasks/**/*",
     "test/**/*",
+    "CHANGELOG.md",
     "Gemfile",
     "LICENSE",
     "README.md",

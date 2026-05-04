@@ -18,7 +18,7 @@ goal is to have something you can setup in under two minutes.
 Install the gem:
 
 ```sh
-gem install relay.app
+gem install relay.app --pre
 ```
 
 Go through interactive setup, start the server, and visit
@@ -75,6 +75,20 @@ class Shell < LLM::Tool
   end
 end
 ```
+
+## Which provider is the best value?
+
+DeepSeek. I highly recommend it. The context window is 1M. I have been using it
+all the time - especially for Relay development, and despite my heavy usage, it
+cost only 80 cents overall. It's almost free. I used it **a lot**. I'd estimate
+that a 1M context window costs 14 cents or so.
+
+## What about connecting to Ollama, LlamaCpp, etc?
+
+[llm.rb](https://github.com/llmrb/llm.rb#readme) provides support for both but Relay
+does not surface it as a feature. I haven't had the time or resources to setup
+either ollama or llamacpp locally.
+
 
 ## Sources
 

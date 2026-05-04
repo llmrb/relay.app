@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relay (0.1.0)
+    relay.app (0.1.0.beta)
       async-websocket
       bcrypt
       erb
@@ -211,7 +211,7 @@ PLATFORMS
 DEPENDENCIES
   rack-test
   rake
-  relay!
+  relay.app!
   standard
   test-unit
 
