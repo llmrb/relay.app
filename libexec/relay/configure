@@ -2,16 +2,17 @@
 # frozen_string_literal: true
 
 require "relay"
+require "llm"
 require "fileutils"
 require "io/console"
 
-PROVIDER_KEYS = {
-  "OPENAI_SECRET" => "OpenAI API key",
-  "GOOGLE_SECRET" => "Google API key",
-  "ANTHROPIC_SECRET" => "Anthropic API key",
-  "DEEPSEEK_SECRET" => "DeepSeek API key",
-  "XAI_SECRET" => "xAI API key"
-}.freeze
+PROVIDERS = [
+  LLM::Object.from(label: "OpenAI API key", keys: ["OPENAI_SECRET", "OPENAI_API_KEY"]),
+  LLM::Object.from(label: "Google API key", keys: ["GOOGLE_SECRET", "GOOGLE_API_KEY"]),
+  LLM::Object.from(label: "Anthropic API key", keys: ["ANTHROPIC_SECRET", "ANTHROPIC_API_KEY"]),
+  LLM::Object.from(label: "DeepSeek API key", keys: ["DEEPSEEK_SECRET", "DEEPSEEK_API_KEY"]),
+  LLM::Object.from(label: "xAI API key", keys: ["XAI_SECRET", "XAI_API_KEY"])
+].freeze
 
 ##
 # utils
@@ -73,8 +74,10 @@ def main
   env = load_env
   puts Relay.banner
   puts "Relay configuration\n"
-  PROVIDER_KEYS.each do |key, label|
-    env[key] = prompt(label, current: env[key], secret: true)
+  PROVIDERS.each do |provider|
+    key = provider.keys[0]
+    current = env[key] || provider.keys.find_map { ENV[_1] }
+    env[key] = prompt(provider.label, current:, secret: true)
   end
   name = prompt_required("Name")
   email = prompt_required("Email")

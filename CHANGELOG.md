@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Change
+
+* **Prepopulate provider API key prompts from environment** <br>
+  Let `relay configure` reuse existing provider secrets from process
+  environment variables such as `OPENAI_API_KEY` and
+  `DEEPSEEK_API_KEY`, while still writing Relay's canonical `*_SECRET`
+  keys to `~/.relay/env`.
+
 ## v0.5.0
 
 Model catalog workflow release.
