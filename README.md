@@ -76,6 +76,17 @@ class Shell < LLM::Tool
 end
 ```
 
+## Wait, what is a tool?
+
+A tool contains a name, a description, and optional parameters. It is attached
+to a method, and that method that can be called. The model or LLM decides when
+and how to call a tool. A tool can do anything you can imagine, and it can extend
+the abilities of the LLM. Suddenly a LLM can search the web, run code, and anything
+you can think of. They're a powerful way to extend the capabilities of an LLM.
+
+An MCP server can also expose pre-packaged tools, and those can be especially
+powerful for talking to GitHub or your own Forgejo instance.
+
 ## What provider is the best value?
 
 DeepSeek. I highly recommend it. The context window is 1M. I have been using it
