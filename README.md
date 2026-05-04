@@ -18,7 +18,7 @@ goal is to have something you can setup in under two minutes.
 Install the gem:
 
 ```sh
-gem install relay.app --pre
+gem install relay.app
 ```
 
 Go through interactive setup, start the server, and visit

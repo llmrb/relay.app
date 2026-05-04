@@ -10,20 +10,6 @@ module Relay::Concerns
   # separates view concerns from session/context resolution.
   module View
     ##
-    # @return [String]
-    #  Returns the active theme identifier.
-    def theme
-      Relay::THEME
-    end
-
-    ##
-    # @return [String]
-    #  Returns the current theme stylesheet path.
-    def theme_href
-      "/themes/#{theme}.css"
-    end
-
-    ##
     # @param [#to_s] text
     # @return [String]
     #  Returns up to two initials for compact UI badges.

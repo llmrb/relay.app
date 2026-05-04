@@ -11,10 +11,9 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon-64x64.png">
     <link rel="apple-pptouch-icon" href="/images/apple-touch-icon.png">
     <link rel="stylesheet" href="/stylesheets/application.css">
-    <link rel="stylesheet" href="<%= theme_href %>" id="theme-stylesheet">
     <script src="/js/relay.js"></script>
   </head>
-  <body data-theme="<%= theme %>" class="font-sans">
+  <body data-theme="<%= Relay::THEME %>" class="font-sans">
     <%== yield %>
   </body>
 </html>
