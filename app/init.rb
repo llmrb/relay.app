@@ -4,6 +4,7 @@ module Relay
   require "async"
   require "async/websocket"
   require "async/websocket/adapters/rack"
+  require_relative "../lib/relay"
   require "llm"
   require "roda"
   require "bcrypt"
@@ -12,7 +13,6 @@ module Relay
   require "zeitwerk"
   require "sequel"
   require "yaml"
-  require_relative "../lib/relay"
 
   loader = Zeitwerk::Loader.new
   loader.inflector.inflect(

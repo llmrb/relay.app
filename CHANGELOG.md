@@ -19,6 +19,11 @@
   Zeitwerk loader so development reloads unload and recreate user tools
   instead of reopening existing classes.
 
+* **Activate the `llm.rb` gem before `require \"llm\"`** <br>
+  Avoid RubyGems loading the unrelated `llm` gem when both gems are
+  installed by explicitly activating `llm.rb` before requiring its
+  `llm` entrypoint.
+
 * **Prepopulate provider API key prompts from environment** <br>
   Let `relay configure` reuse existing provider secrets from process
   environment variables such as `OPENAI_API_KEY` and

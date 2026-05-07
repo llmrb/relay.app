@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module Relay
+  begin
+    gem "llm.rb"
+  rescue Gem::LoadError
+    nil
+  end
+
   require_relative "relay/version"
   require_relative "relay/cache"
   require_relative "relay/attachment"
