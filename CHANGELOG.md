@@ -14,6 +14,14 @@
   initialization, and extend `relay configure` to prompt for AWS access
   key credentials.
 
+* **Prepopulate provider API key prompts from environment** <br>
+  Let `relay configure` reuse existing provider secrets from process
+  environment variables such as `OPENAI_API_KEY` and
+  `DEEPSEEK_API_KEY`, while still writing Relay's canonical `*_SECRET`
+  keys to `~/.relay/env`.
+
+### Fix
+
 * **Load user-installed tools through Zeitwerk** <br>
   Replace manual loading of `~/.config/relay/tools/*.rb` with a dedicated
   Zeitwerk loader so development reloads unload and recreate user tools
@@ -23,12 +31,6 @@
   Avoid RubyGems loading the unrelated `llm` gem when both gems are
   installed by explicitly activating `llm.rb` before requiring its
   `llm` entrypoint.
-
-* **Prepopulate provider API key prompts from environment** <br>
-  Let `relay configure` reuse existing provider secrets from process
-  environment variables such as `OPENAI_API_KEY` and
-  `DEEPSEEK_API_KEY`, while still writing Relay's canonical `*_SECRET`
-  keys to `~/.relay/env`.
 
 ## v0.5.0
 
