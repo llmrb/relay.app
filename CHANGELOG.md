@@ -14,6 +14,11 @@
   initialization, and extend `relay configure` to prompt for AWS access
   key credentials.
 
+* **Load user-installed tools through Zeitwerk** <br>
+  Replace manual loading of `~/.config/relay/tools/*.rb` with a dedicated
+  Zeitwerk loader so development reloads unload and recreate user tools
+  instead of reopening existing classes.
+
 * **Prepopulate provider API key prompts from environment** <br>
   Let `relay configure` reuse existing provider secrets from process
   environment variables such as `OPENAI_API_KEY` and
