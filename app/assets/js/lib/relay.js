@@ -1,3 +1,4 @@
+import { Draft } from "../draft"
 import { FileUpload } from "../file_upload"
 import { ActivityController } from "./controllers/ActivityController"
 import { ContentController } from "./controllers/ContentController"
@@ -10,6 +11,7 @@ export const Relay = () => {
   const activity = ActivityController({target})
   const content = ContentController({target})
   const controllers = [activity, content]
+  const draft = Draft()
   let scroll = Scroll(document.getElementById("chatbot-stream"))
 
   const refreshScroll = () => {
@@ -23,6 +25,7 @@ export const Relay = () => {
   const enhance = (root = document.body) => {
     refreshScroll()
     controllers.forEach((controller) => controller.enhance(root))
+    draft.restore()
   }
 
   const syncTimer = () => {
@@ -54,6 +57,7 @@ export const Relay = () => {
       return
     if (fileUpload.blockSubmit(event))
       return
+    draft.clear(event.target)
     scroll?.force()
   }
 
@@ -66,6 +70,7 @@ export const Relay = () => {
   const handleInput = (event) => {
     if (!event.target.matches("#chat-composer textarea"))
       return
+    draft.persist(event.target)
     scroll?.force()
   }
 

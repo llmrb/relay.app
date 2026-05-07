@@ -22,6 +22,8 @@
     <form
       id="chat-composer"
       class="flex min-w-0 flex-1 items-end gap-3"
+      data-provider="<%= provider %>"
+      data-model="<%= model %>"
       hx-on::after-settle="this.querySelector('textarea')?.focus()"
       ws-send
     >
