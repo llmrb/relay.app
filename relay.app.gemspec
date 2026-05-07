@@ -67,7 +67,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "tilt"
   spec.add_dependency "xchan.rb"
   spec.add_dependency "zeitwerk"
-
+  spec.add_dependency "logger"
+  
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rack-test"
   spec.add_development_dependency "standard"
