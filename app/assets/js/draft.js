@@ -10,9 +10,9 @@ const Draft = () => {
   }
 
   const key = (form = composer()) => {
-    if (!form?.dataset.provider || !form?.dataset.model)
+    if (!form?.dataset.contextId)
       return null
-    return [prefix, form.dataset.provider, form.dataset.model].join(":")
+    return [prefix, form.dataset.contextId].join(":")
   }
 
   const restore = () => {
