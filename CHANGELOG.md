@@ -9,6 +9,11 @@
   `~/.config/relay`, and update the README examples for user-installed
   tools to match the new location.
 
+* **Add AWS Bedrock provider support** <br>
+  Add Bedrock to Relay's provider registry and persisted context
+  initialization, and extend `relay configure` to prompt for AWS access
+  key credentials.
+
 * **Prepopulate provider API key prompts from environment** <br>
   Let `relay configure` reuse existing provider secrets from process
   environment variables such as `OPENAI_API_KEY` and

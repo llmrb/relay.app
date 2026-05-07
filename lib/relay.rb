@@ -18,7 +18,8 @@ module Relay
     "deepseek" => -> { LLM.deepseek(key: ENV["DEEPSEEK_SECRET"]) },
     "google" => -> { LLM.google(key: ENV["GOOGLE_SECRET"]) },
     "openai" => -> { LLM.openai(key: ENV["OPENAI_SECRET"]) },
-    "xai" => -> { LLM.xai(key: ENV["XAI_SECRET"]) }
+    "xai" => -> { LLM.xai(key: ENV["XAI_SECRET"]) },
+    "bedrock" => -> { LLM.bedrock(access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]) }
   }.freeze
   private_constant :PROVIDERS
 
@@ -37,7 +38,7 @@ module Relay
   # Returns all known providers
   # @return [LLM::Object]
   def self.providers
-    @providers ||= LLM::Object.from(PROVIDERS)
+    @providers ||= LLM::Object.from(PROVIDERS).transform_values!(&:call)
   end
 
   ##

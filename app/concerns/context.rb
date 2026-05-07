@@ -94,13 +94,7 @@ module Relay::Concerns
     # @return [Hash<String, LLM::Provider>]
     #  A map of initialized LLM providers.
     def llms
-      @llms ||= {
-        "openai" => LLM.openai(key: ENV["OPENAI_SECRET"]),
-        "google" => LLM.google(key: ENV["GOOGLE_SECRET"]),
-        "anthropic" => LLM.anthropic(key: ENV["ANTHROPIC_SECRET"]),
-        "deepseek" => LLM.deepseek(key: ENV["DEEPSEEK_SECRET"]),
-        "xai" => LLM.xai(key: ENV["XAI_SECRET"])
-      }.transform_values(&:persist!)
+      @llms ||= Relay.providers
     end
 
     ##

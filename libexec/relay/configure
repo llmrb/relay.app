@@ -1,17 +1,43 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "relay"
+require_relative "../../lib/relay"
 require "llm"
 require "fileutils"
 require "io/console"
 
 PROVIDERS = [
-  LLM::Object.from(label: "OpenAI API key", keys: ["OPENAI_SECRET", "OPENAI_API_KEY"]),
-  LLM::Object.from(label: "Google API key", keys: ["GOOGLE_SECRET", "GOOGLE_API_KEY"]),
-  LLM::Object.from(label: "Anthropic API key", keys: ["ANTHROPIC_SECRET", "ANTHROPIC_API_KEY"]),
-  LLM::Object.from(label: "DeepSeek API key", keys: ["DEEPSEEK_SECRET", "DEEPSEEK_API_KEY"]),
-  LLM::Object.from(label: "xAI API key", keys: ["XAI_SECRET", "XAI_API_KEY"])
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "OpenAI API key", key: "OPENAI_SECRET", aliases: ["OPENAI_API_KEY"], secret: true)
+    ]
+  ),
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "Google API key", key: "GOOGLE_SECRET", aliases: ["GOOGLE_API_KEY"], secret: true)
+    ]
+  ),
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "Anthropic API key", key: "ANTHROPIC_SECRET", aliases: ["ANTHROPIC_API_KEY"], secret: true)
+    ]
+  ),
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "DeepSeek API key", key: "DEEPSEEK_SECRET", aliases: ["DEEPSEEK_API_KEY"], secret: true)
+    ]
+  ),
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "xAI API key", key: "XAI_SECRET", aliases: ["XAI_API_KEY"], secret: true)
+    ]
+  ),
+  LLM::Object.from(
+    fields: [
+      LLM::Object.from(label: "AWS access key ID", key: "AWS_ACCESS_KEY_ID", aliases: [], secret: false),
+      LLM::Object.from(label: "AWS secret access key", key: "AWS_SECRET_ACCESS_KEY", aliases: [], secret: true)
+    ]
+  )
 ].freeze
 
 ##
@@ -40,6 +66,15 @@ def prompt(label, current: nil, secret: false)
   value = secret ? $stdin.noecho(&:gets).to_s.chomp : $stdin.gets.to_s.chomp
   puts if secret
   value.empty? ? current.to_s : value
+end
+
+def prompt_provider(env, provider)
+  provider.fields.each do |field|
+    key = field.key
+    aliases = Array(field.aliases)
+    current = env[key] || aliases.filter_map { ENV[_1] }.first || ENV[key]
+    env[key] = prompt(field.label, current:, secret: field.secret)
+  end
 end
 
 def prompt_required(label)
@@ -75,9 +110,7 @@ def main
   puts Relay.banner
   puts "Relay configuration\n"
   PROVIDERS.each do |provider|
-    key = provider.keys[0]
-    current = env[key] || provider.keys.find_map { ENV[_1] }
-    env[key] = prompt(provider.label, current:, secret: true)
+    prompt_provider(env, provider)
   end
   name = prompt_required("Name")
   email = prompt_required("Email")

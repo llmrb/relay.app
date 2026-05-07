@@ -12,8 +12,7 @@
       hx-swap="outerHTML"
       hx-trigger="change"
     >
-      <% Relay.providers.each do |_, builder| %>
-        <% llm = builder.call %>
+      <% Relay.providers.each do |_, llm| %>
         <option
           <%= "selected" if llm.name.to_s == provider.to_s %>
           value="<%= llm.name %>">

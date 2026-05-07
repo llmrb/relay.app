@@ -67,7 +67,16 @@ module Relay::Models
     private
 
     def set_provider
-      LLM.method(provider).call(key: ENV["#{provider.upcase}_SECRET"], persistent: true)
+      case provider
+      when "bedrock"
+        LLM.bedrock(
+          access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+          secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
+          persistent: true
+        )
+      else
+        LLM.method(provider).call(key: ENV["#{provider.upcase}_SECRET"], persistent: true)
+      end
     end
 
     def set_context
