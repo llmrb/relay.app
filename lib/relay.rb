@@ -110,7 +110,7 @@ module Relay
   # Returns the path to generated images
   # @return [String]
   def self.images_dir
-    @images_dir ||= File.join(home, "g")
+    @images_dir ||= File.join(public_dir, "g")
   end
 
   ##
