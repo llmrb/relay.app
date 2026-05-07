@@ -37,6 +37,23 @@ module Relay
   end
   @loader = loader
 
+  user_tools_dir = File.join(home, "tools")
+  FileUtils.mkdir_p user_tools_dir
+
+  user_loader = Zeitwerk::Loader.new
+  user_loader.tag = "relay-user-tools"
+  user_loader.push_dir(user_tools_dir)
+  user_loader.enable_reloading if development?
+  user_loader.setup
+
+  ##
+  # Returns the Zeitwerk loader used for user-installed tools
+  # @return [Zeitwerk::Loader]
+  def self.user_loader
+    @user_loader
+  end
+  @user_loader = user_loader
+
   FileUtils.mkdir_p Relay.home
   FileUtils.mkdir_p File.join(Relay.home, "db")
   FileUtils.mkdir_p Relay.images_dir

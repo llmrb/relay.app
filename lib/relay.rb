@@ -171,14 +171,8 @@ module Relay
   def self.reload
     LLM::Tool.clear_registry!
     Relay.loader.reload if development?
-    paths = Dir[File.join(tools_dir, "*.rb")]
-    paths.concat Dir[File.join(home, "tools", "*.rb")]
-    paths.sort.each do
-      load(_1)
-    rescue => ex
-      warn "tool error\n" \
-            "#{ex.class}: #{ex.message}\n" \
-            "#{ex.backtrace.join("\n")}"
-    end
+    Relay.user_loader.reload if development?
+    Relay.user_loader.eager_load
+    Relay.loader.eager_load_dir(tools_dir)
   end
 end
