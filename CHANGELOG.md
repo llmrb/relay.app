@@ -19,7 +19,7 @@
   Zeitwerk loader so development reloads unload and recreate user tools
   instead of reopening existing classes.
 
-* **Activate the `llm.rb` gem before `require \"llm\"`** <br>
+* **Activate the `llm.rb` gem before `require "llm"`** <br>
   Avoid RubyGems loading the unrelated `llm` gem when both gems are
   installed by explicitly activating `llm.rb` before requiring its
   `llm` entrypoint.
