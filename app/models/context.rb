@@ -44,13 +44,13 @@ module Relay::Models
 
     ##
     # @note
-    #  This method excludes tool calls and system messages.
+    #  This method excludes tool calls, tool returns, and system messages.
     #  It is safe to render in the UI.
     # @return [Array<Hash>]
     #  Returns persisted user and assistant messages
     def messages
       ctx.messages.filter_map do |message|
-        next if message.tool_call? || message.compaction?
+        next if message.tool_call? || message.tool_return? || message.compaction?
         next unless message.user? || message.assistant?
         {role: message.role.to_sym, content: message.content.to_s}
       end
