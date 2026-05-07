@@ -26,7 +26,7 @@ def main(argv)
     Process.spawn File.join(libexec, "start"), *argv[1..]
     Process.wait
   else
-    require "relay"
+    require_relative "../lib/relay"
     warn Relay.banner
     warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
          "Commands:\n" \

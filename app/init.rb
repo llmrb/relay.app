@@ -12,7 +12,7 @@ module Relay
   require "zeitwerk"
   require "sequel"
   require "yaml"
-  require "relay"
+  require_relative "../lib/relay"
 
   loader = Zeitwerk::Loader.new
   loader.inflector.inflect(

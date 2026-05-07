@@ -13,6 +13,6 @@ namespace :dev do
   desc "Serve the server"
   task :server do
     sh "env RACK_MULTIPART_BUFFERED_UPLOAD_BYTESIZE_LIMIT=67108864 $(cat #{Relay.env_path}) " \
-       "bundle exec falcon serve --bind http://0.0.0.0:9292"
+       "bundle exec relay start"
   end
 end

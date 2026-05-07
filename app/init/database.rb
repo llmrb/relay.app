@@ -8,7 +8,7 @@ module Relay::Database
   # @param [String] env
   # @return [Hash]
   def load(env:)
-    erb = ERB.new(File.read(File.join(__dir__, "..", "..", "db", "config.yml")))
+    erb = ERB.new(File.read(File.join(Relay.home, "db", "config.yml")))
     config = YAML.safe_load(erb.result, aliases: true)
     config.fetch(env)
   end
