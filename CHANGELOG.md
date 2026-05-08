@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.6.0
+
+Changes since v0.5.0.
+
 ### Change
 
 * **Move the default Relay home to `~/.config/relay`** <br>
