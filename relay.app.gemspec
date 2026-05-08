@@ -55,7 +55,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "erubi"
   spec.add_dependency "erb"
   spec.add_dependency "falcon"
-  spec.add_dependency "llm.rb", "~> 8.1"
+  spec.add_dependency "llm.rb", "= 8.1.0"
   spec.add_dependency "net-http-persistent"
   spec.add_dependency "rack"
   spec.add_dependency "rackup"

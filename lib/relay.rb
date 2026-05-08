@@ -2,12 +2,7 @@
 
 module Relay
   require "fileutils"
-
-  begin
-    gem "llm.rb"
-  rescue Gem::LoadError
-    nil
-  end
+  gem "llm.rb", "= 8.1.0"
 
   require_relative "relay/version"
   require_relative "relay/cache"
