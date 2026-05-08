@@ -22,7 +22,7 @@ jobs:
           bundler-cache: true
 
       - name: Set up database
-        run: bundle exec rake db:setup
+        run: bundle exec relay bootstrap
 
       - name: Run Rubocop
         run: bundle exec rake rubocop
