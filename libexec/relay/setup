@@ -2,16 +2,10 @@
 # frozen_string_literal: true
 
 require_relative "../../lib/relay"
-require "fileutils"
 
 bootstrap = File.join(Relay.root, "libexec", "relay", "bootstrap")
 configure = File.join(Relay.root, "libexec", "relay", "configure")
 download_models = File.join(Relay.root, "libexec", "relay", "download-models")
-
-source = File.join(Relay.root, "db", "config.yml")
-destination = File.join(Relay.home, "db", "config.yml")
-FileUtils.mkdir_p File.dirname(destination)
-FileUtils.cp(source, destination) unless File.exist?(destination)
 
 system(bootstrap) || exit(1)
 system(configure) || exit(1)

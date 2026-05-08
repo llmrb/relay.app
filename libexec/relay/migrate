@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require_relative "../../lib/relay"
+Relay.bootstrap!
 require File.join(Relay.root, "app", "init")
 Sequel.extension :migration
 Sequel::Migrator.run(Relay::DB, Relay.migrations_dir)

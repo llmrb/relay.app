@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Relay
+  require "fileutils"
+
   begin
     gem "llm.rb"
   rescue Gem::LoadError
@@ -96,6 +98,21 @@ module Relay
   # @return [String]
   def self.env_path
     @env_path ||= File.join(home, "env")
+  end
+
+  ##
+  # Creates the Relay home layout and copies bundled defaults into it.
+  # @return [String]
+  def self.bootstrap!
+    FileUtils.mkdir_p home
+    FileUtils.mkdir_p File.join(home, "db")
+    FileUtils.mkdir_p File.join(home, "tools")
+    FileUtils.mkdir_p images_dir
+    FileUtils.mkdir_p logs_dir
+    source = File.join(root, "db", "config.yml")
+    destination = File.join(home, "db", "config.yml")
+    FileUtils.cp(source, destination) if File.exist?(source) && !File.exist?(destination)
+    home
   end
 
   ##
