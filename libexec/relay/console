@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../../lib/relay"
+require File.join(Relay.root, "app", "init")
+require "irb"
+
+IRB.start(__FILE__)

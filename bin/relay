@@ -13,7 +13,7 @@ end
 
 def main(argv)
   case argv[0]
-  when "start", "setup", "download-models", "migrate", "bootstrap"
+  when "start", "setup", "download-models", "migrate", "bootstrap", "console"
     Process.spawn File.join(libexec, argv[0]), *argv[1..]
     Process.wait
   else
@@ -24,7 +24,8 @@ def main(argv)
         "  setup             Setup Relay for the first time\n" \
         "  download-models   Download provider model catalogs\n" \
         "  start             Start Relay\n" \
-        "  migrate           Run database migrations\n"
+        "  migrate           Run database migrations\n" \
+        "  console           Start an IRB console with Relay booted\n"
   end
 rescue Interrupt
   wait

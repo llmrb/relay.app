@@ -9,6 +9,10 @@
   `~/.config/relay`, and update the README examples for user-installed
   tools to match the new location.
 
+* **Add `relay console`** <br>
+  Add a console command that boots Relay and starts IRB in the loaded
+  application process for interactive debugging.
+
 * **Add AWS Bedrock provider support** <br>
   Add Bedrock to Relay's provider registry and persisted context
   initialization, and extend `relay configure` to prompt for AWS access
