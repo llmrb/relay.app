@@ -2,15 +2,14 @@
 
 Relay is a self-hostable LLM web application that can be extended
 with your own tools and skills that live in your `${HOME}` directory.
+It is for programmers, AI engineers, hackers, and anyone who wants
+their own AI environment with the option to extend it with code.
 
 It includes support for DeepSeek, OpenAI, Anthropic, AWS Bedrock, Google, xAI
 and zAI out of the box. Ollama and llamacpp support is planned.
-
 It includes MCP server support too - connect Relay to MCP servers,
-the default presets include GitHub and Forgejo.
-
-The database is SQLite3, and each user has their own isolated
-environment.
+the default presets include GitHub and Forgejo. The database is SQLite3,
+and each user has their own isolated environment.
 
 It is simple to setup and get started. The application is
 distributed as a RubyGem. It has a minimal set of dependencies -
