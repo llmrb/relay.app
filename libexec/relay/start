@@ -3,6 +3,7 @@
 
 require_relative "../../lib/relay"
 require "optparse"
+require "rbconfig"
 
 DEFAULT_BIND = "http://0.0.0.0:9292"
 
@@ -22,7 +23,7 @@ def main(argv)
   option_parser(bind).parse!(argv)
   bind = argv.shift || bind
   Dir.chdir(Relay.root) do
-    exec "falcon", "serve", "--bind", bind
+    exec RbConfig.ruby, "-S", "falcon", "serve", "--bind", bind
   end
 end
 

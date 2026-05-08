@@ -22,6 +22,11 @@
 
 ### Fix
 
+* **Launch Falcon with the current Ruby interpreter** <br>
+  Change `relay start` to exec Falcon through `RbConfig.ruby -S` so the
+  server process uses the same Ruby and gem environment as Relay instead
+  of whichever `falcon` binary appears first on `PATH`.
+
 * **Load user-installed tools through Zeitwerk** <br>
   Replace manual loading of `~/.config/relay/tools/*.rb` with a dedicated
   Zeitwerk loader so development reloads unload and recreate user tools
