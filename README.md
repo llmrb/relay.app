@@ -3,7 +3,7 @@
 Relay is a self-hostable LLM web application that can be extended
 with your own tools and skills that live in your `${HOME}` directory.
 
-It includes support for DeepSeek, OpenAI Anthropic, AWS Bedrock, Google, xAI
+It includes support for DeepSeek, OpenAI, Anthropic, AWS Bedrock, Google, xAI
 and zAI out of the box. Ollama and llamacpp support is planned.
 
 It includes MCP server support too - connect Relay to MCP servers,
@@ -43,14 +43,14 @@ relay start
 
 ## Features
 
-* Install and setup in 2 minutes
-* Localize your chats and mcp settings to your user account
-* Connect to multiple providers (DeepSeek, OpenAI, xAI, zAI, AWS Bedrock, Anthropic, Google)
-* Connect to MCP servers
-* Cancel in-flight requests and tool execution cleanly
-* Run tools concurrently
-* Make it yours: extend and customize with your own tools and system prompt
-* Lightweight architecture
+* Setup is fast enough that you can be chatting in a couple of minutes
+* Self-host it and keep each user's chats and MCP settings isolated
+* Use the model providers you actually want: DeepSeek, OpenAI, xAI, zAI, AWS Bedrock, Anthropic, and Google
+* Plug into MCP servers and give the assistant access to real systems like GitHub and Forgejo
+* Add your own tools and shape the assistant around your workflow instead of someone else's
+* Cancel long-running requests and tool calls without leaving the app in a weird state
+* Run tools concurrently when one step at a time is too slow
+* Built on a small Ruby stack that is easy to understand, extend, and run yourself
 
 ## Sounds cool, how does it look?
 
