@@ -1,9 +1,9 @@
 ## About
 
-Relay is a self-hostable LLM environment with support for OpenAI, DeepSeek,
-Anthropic, xAI and zAI out of the box. It is incredibly simple to setup
-and get started. The application is distributed as a RubyGem. It has a minimal
-set of dependencies - built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
+Relay is a self-hostable LLM environment with support for DeepSeek, OpenAI
+Anthropic, AWS Bedrock, Google, xAI and zAI out of the box. It is incredibly
+simple to setup and get started. The application is distributed as a RubyGem.
+It has a minimal set of dependencies - built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
 HTMX and web sockets.
 
 There is support for connecting to MCP servers too - both HTTP and stdio. You can
