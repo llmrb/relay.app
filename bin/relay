@@ -13,32 +13,18 @@ end
 
 def main(argv)
   case argv[0]
-  when "setup"
-    Process.spawn File.join(libexec, "setup"), *argv[1..]
-    Process.wait
-  when "download-models"
-    Process.spawn File.join(libexec, "download-models"), *argv[1..]
-    Process.wait
-  when "migrate"
-    Process.spawn File.join(libexec, "migrate"), *argv[1..]
-    Process.wait
-  when "start"
-    Process.spawn File.join(libexec, "start"), *argv[1..]
+  when "start", "setup", "download-models", "migrate", "bootstrap"
+    Process.spawn File.join(libexec, argv[0]), *argv[1..]
     Process.wait
   else
-    if File.exist? File.join(libexec, argv[0])
-      Process.spawn File.join(libexec, argv[0]), *argv[1..]
-      Process.wait
-    else
-      require_relative "../lib/relay"
-      warn Relay.banner
-      warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
-          "Commands:\n" \
-          "  setup             Setup Relay for the first time\n" \
-          "  download-models   Download provider model catalogs\n" \
-          "  start             Start Relay\n" \
-          "  migrate           Run database migrations\n"
-    end
+    require_relative "../lib/relay"
+    warn Relay.banner
+    warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
+        "Commands:\n" \
+        "  setup             Setup Relay for the first time\n" \
+        "  download-models   Download provider model catalogs\n" \
+        "  start             Start Relay\n" \
+        "  migrate           Run database migrations\n"
   end
 rescue Interrupt
   wait
