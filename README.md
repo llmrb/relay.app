@@ -33,7 +33,7 @@ relay start
 
 * Install and setup in 2 minutes
 * Localize your chats and mcp settings to your user account
-* Connect to multiple providers (OpenAI, xAI, Anthropic, Google, DeepSeek, zAI)
+* Connect to multiple providers (DeepSeek, OpenAI, xAI, zAI, AWS Bedrock, Anthropic, Google)
 * Connect to MCP servers
 * Cancel in-flight requests and tool execution cleanly
 * Run tools concurrently
