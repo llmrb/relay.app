@@ -1,15 +1,27 @@
 ## About
 
-Relay is a self-hostable LLM environment with support for DeepSeek, OpenAI
-Anthropic, AWS Bedrock, Google, xAI and zAI out of the box. It is incredibly
-simple to setup and get started. The application is distributed as a RubyGem.
-It has a minimal set of dependencies - built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
+Relay is a self-hostable LLM web application that can be extended
+with your own tools and skills that live in your `${HOME}` directory.
+
+It includes support for DeepSeek, OpenAI Anthropic, AWS Bedrock, Google, xAI
+and zAI out of the box. Ollama and llamacpp support is planned.
+
+It includes MCP server support too - connect Relay to MCP servers,
+the default presets include GitHub and Forgejo.
+
+The database is SQLite3, and each user has their own isolated
+environment.
+
+It is simple to setup and get started. The application is
+distributed as a RubyGem. It has a minimal set of dependencies -
+built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
 HTMX and web sockets.
 
-There is support for connecting to MCP servers too - both HTTP and stdio. You can
-add your own tools to `~/.config/relay/tools` which is a neat way to extend the
-environment with your own functionality. The database uses SQLite3 to keep things
-simple - the goal is to have something you can setup in under two minutes.
+## How easy is it to setup?
+
+Very easy.
+
+![demo](./demo.gif)
 
 ## Getting started
 
@@ -54,11 +66,6 @@ relay start
 
 ![Relay screenshot](./relay2.png)
 
-## How easy is it to setup?
-
-Very easy.
-
-![demo](./demo.gif)
 
 ## How do I add my own tool?
 
