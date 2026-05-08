@@ -26,14 +26,19 @@ def main(argv)
     Process.spawn File.join(libexec, "start"), *argv[1..]
     Process.wait
   else
-    require_relative "../lib/relay"
-    warn Relay.banner
-    warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
-         "Commands:\n" \
-         "  setup             Setup Relay for the first time\n" \
-         "  download-models   Download provider model catalogs\n" \
-         "  start             Start Relay\n" \
-         "  migrate           Run database migrations\n"
+    if File.exist? File.join(libexec, argv[0])
+      Process.spawn File.join(libexec, argv[0]), *argv[1..]
+      Process.wait
+    else
+      require_relative "../lib/relay"
+      warn Relay.banner
+      warn "Usage: relay [COMMAND] [OPTIONS]\n\n" \
+          "Commands:\n" \
+          "  setup             Setup Relay for the first time\n" \
+          "  download-models   Download provider model catalogs\n" \
+          "  start             Start Relay\n" \
+          "  migrate           Run database migrations\n"
+    end
   end
 rescue Interrupt
   wait
