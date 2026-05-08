@@ -94,7 +94,7 @@ module Relay::Concerns
     # @return [Hash<String, LLM::Provider>]
     #  A map of initialized LLM providers.
     def llms
-      @llms ||= Relay.providers
+      Relay.providers
     end
 
     ##
@@ -108,7 +108,7 @@ module Relay::Concerns
     # @return [String]
     #  Returns the default chat model for the current provider.
     def default_model
-      case (provider = llms.fetch(self.provider)).name
+      case (provider = llms[self.provider]).name
       when :deepseek then "deepseek-v4-flash"
       when :openai then "gpt-5.4"
       when :xai then "grok-3"
