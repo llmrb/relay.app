@@ -10,24 +10,26 @@ module Relay::Tools
     include Relay::Tool
 
     name "relay-knowledge"
-    description "Returns Relay or llm.rb documentation so answers can cite project details"
-    param :topic, Enum["relay", "llm.rb"], "The knowledge topic", required: true
+    description "Returns Relay, llm.rb or mruby-llm documentation"
+    parameter :topic, Enum["relay", "llm.rb", "mruby-llm"], "The knowledge topic"
+    required %i[topic]
 
     ##
     # Provides the Relay documentation
     # @return [Hash]
     def call(topic:)
       case topic
-      when "relay" then {directions:, documentation: relay_documentation}
-      when "llm.rb" then {directions:, documentation: llmrb_documentation}
+      when "relay" then {directions:, documentation: fetch(relay_resources)}
+      when "llm.rb" then {directions:, documentation: fetch(llmrb_resources)}
+      when "mruby-llm" then {directions:, documentation: fetch(mruby_llm_resources)}
       else {error: "unknown topic: #{topic}"}
       end
     end
 
     private
 
-    def relay_documentation
-      relay_resources.each_with_object({}) do |(key, url), h|
+    def fetch(resources)
+      resources.each_with_object({}) do |(key, url), h|
         res = Net::HTTP.get_response URI.parse(url)
         h[key] = res.body
       end
@@ -37,18 +39,17 @@ module Relay::Tools
       {"readme" => "https://raw.githubusercontent.com/llmrb/relay/refs/heads/main/README.md"}
     end
 
-    def llmrb_documentation
-      llmrb_resources.each_with_object({}) do |(key, url), h|
-        res = Net::HTTP.get_response URI.parse(url)
-        h[key] = res.body
-      end
-    end
-
     def llmrb_resources
       {
         "readme"   => "https://raw.githubusercontent.com/llmrb/llm.rb/refs/heads/main/README.md",
         "deepdive" => "https://raw.githubusercontent.com/llmrb/llm.rb/refs/heads/main/resources/deepdive.md",
         "changelog" => "https://raw.githubusercontent.com/llmrb/llm.rb/refs/heads/main/CHANGELOG.md"
+      }
+    end
+
+    def mruby_llm_resources
+      {
+        "readme" => "https://raw.githubusercontent.com/llmrb/mruby-llm/refs/heads/main/README.md"
       }
     end
 
