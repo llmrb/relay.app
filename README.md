@@ -10,7 +10,7 @@ their own AI environment with the option to extend it with code.
 * Setup is fast enough that you can be chatting in a couple of minutes
 * Self-host it and keep each user's chats and MCP settings isolated
 * Use the model providers you want: DeepSeek, OpenAI, xAI, zAI, AWS Bedrock, Anthropic, and Google
-* Plug into MCP servers and give the assistant access to real systems like GitHub, browsers through Playwright, and Forgejo
+* Plug into MCP servers and give the assistant access to real systems like GitHub, Forgejo, etc
 * Add your own tools and shape the assistant around your workflow instead of someone else's
 * Cancel long-running requests and tool calls without leaving the app in a weird state
 * Run tools concurrently when one step at a time is too slow
