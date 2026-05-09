@@ -1,24 +1,24 @@
 ## About
 
-Relay is a self-hostable LLM web application that can be extended
+Relay is a self-hostable, hackable LLM web environment that can be extended
 with your own tools and skills that live in your `${HOME}` directory.
 It is for programmers, AI engineers, hackers, and anyone who wants
 their own AI environment with the option to extend it with code.
 
+## Capabilities
+
 It includes support for DeepSeek, OpenAI, Anthropic, AWS Bedrock, Google, xAI
 and zAI out of the box. Ollama and llamacpp support is planned.
 It includes MCP server support too - connect Relay to MCP servers,
-the default presets include GitHub and Forgejo. The database is SQLite3,
-and each user has their own isolated environment.
+the default presets include GitHub, Playwright, and Forgejo.
+The database is SQLite3, and each user has their own isolated environment.
+
+## How easy is it to setup?
 
 It is simple to setup and get started. The application is
 distributed as a RubyGem. It has a minimal set of dependencies -
 built on Roda, Sequel, Falcon, [llm.rb](https://github.com/llmrb/llm.rb),
 HTMX and web sockets.
-
-## How easy is it to setup?
-
-Very easy.
 
 ![demo](./demo.gif)
 
@@ -45,7 +45,7 @@ relay start
 * Setup is fast enough that you can be chatting in a couple of minutes
 * Self-host it and keep each user's chats and MCP settings isolated
 * Use the model providers you want: DeepSeek, OpenAI, xAI, zAI, AWS Bedrock, Anthropic, and Google
-* Plug into MCP servers and give the assistant access to real systems like GitHub and Forgejo
+* Plug into MCP servers and give the assistant access to real systems like GitHub, browsers through Playwright, and Forgejo
 * Add your own tools and shape the assistant around your workflow instead of someone else's
 * Cancel long-running requests and tool calls without leaving the app in a weird state
 * Run tools concurrently when one step at a time is too slow
