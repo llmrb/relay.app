@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/llmrb/llm.rb.git
+  revision: 05ff0a3e6cc0349e64f30f7df04dd2267d19bc2c
+  specs:
+    llm.rb (8.1.0)
+
 PATH
   remote: .
   specs:
@@ -92,7 +98,6 @@ GEM
     json (2.19.3)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
-    llm.rb (8.1.0)
     localhost (1.7.0)
     lockf.rb (3.0.0)
       fiddle (~> 1.1)
@@ -211,6 +216,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  llm.rb!
   rack-test
   rake
   relay.app!

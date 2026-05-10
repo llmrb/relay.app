@@ -73,14 +73,14 @@ class Relay::Routes::Websocket
       file = attachment_from_payload(payload) || attachment.consume
       prompt = build_prompt(ctx, payload["message"], file)
       return if prompt.empty?
-      vars[:messages].concat [{role: :user, content: prompt}, {role: :assistant, content: +""}]
-      write(conn, fragment(:status, status_bar(status: "Thinking...", ctx:)))
-      write(conn, fragment(:remove_empty_state)) if vars[:messages].length == 2
-      write(conn, fragment(:append_message, message: vars[:messages][-2]))
-      write(conn, fragment(:append_message, message: vars[:messages][-1]))
-      write(conn, fragment(:input))
       yield_tools(ctx) do |tools|
         params[:tools] = tools
+        vars[:messages].concat [{role: :user, content: prompt}, {role: :assistant, content: +""}]
+        write(conn, fragment(:status, status_bar(status: "Thinking...", ctx:)))
+        write(conn, fragment(:remove_empty_state)) if vars[:messages].length == 2
+        write(conn, fragment(:append_message, message: vars[:messages][-2]))
+        write(conn, fragment(:append_message, message: vars[:messages][-1]))
+        write(conn, fragment(:input))
         wait_with_heartbeat(conn, proc { talk(ctx, prompt, params) })
         resolve_functions(ctx, conn, params)
       end
@@ -121,11 +121,11 @@ class Relay::Routes::Websocket
     #  The WebSocket connection object
     # @return [void]
     def resolve_functions(ctx, conn, params)
-      return if ctx.functions.empty?
-      returns = wait_with_heartbeat(conn, ctx.wait(:task))
-      wait_with_heartbeat(conn, proc { ctx.talk(returns, params) })
-      if ctx.functions.any?
-        resolve_functions(ctx, conn, params)
+      while ctx.functions?
+        returns = wait_with_heartbeat(conn, proc { ctx.wait(:task) })
+        break if returns.empty?
+        write(conn, fragment(:status, status_bar(status: tool_status(ctx.functions), ctx:))) if ctx.functions?
+        wait_with_heartbeat(conn, proc { ctx.talk(returns, params) })
       end
     end
 
