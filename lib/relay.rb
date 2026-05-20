@@ -2,7 +2,7 @@
 
 module Relay
   require "fileutils"
-  gem "llm.rb", "= 9.0.0"
+  gem "llm.rb", "= 10.0.0"
 
   require_relative "relay/version"
   require_relative "relay/cache"
