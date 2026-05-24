@@ -15,24 +15,6 @@ HTMX and web sockets.
 
 ![demo](./demo.gif)
 
-## Getting started
-
-#### Install
-
-Install the gem:
-
-```sh
-gem install relay.app
-```
-
-Go through interactive setup, start the server, and visit
-http://localhost:9292.
-
-```sh
-relay setup
-relay start
-```
-
 ## Sounds cool, how does it look?
 
 **Sign-in**
@@ -46,6 +28,33 @@ relay start
 **MCP**
 
 ![Relay screenshot](./relay2.png)
+
+
+## Getting started
+
+#### Install
+
+Install the gem
+
+```sh
+gem install relay.app
+```
+
+#### Configure
+
+Interactive setup
+
+```sh
+relay setup
+```
+
+#### Serve
+
+Start the server, and visit http://localhost:9292
+
+```sh
+relay start
+```
 
 ## Tools
 
