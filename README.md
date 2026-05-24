@@ -6,7 +6,7 @@ It is for programmers, AI engineers, hackers, and anyone who wants
 their own AI environment with the option to extend it with code.
 
 
-## How easy is it to setup?
+## Setup
 
 It is simple to setup and get started. The application is
 distributed as a RubyGem. It has a minimal set of dependencies -
@@ -15,7 +15,7 @@ HTMX and web sockets.
 
 ![demo](./demo.gif)
 
-## Sounds cool, how does it look?
+## Appearance
 
 **Sign-in**
 
