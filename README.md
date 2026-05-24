@@ -91,7 +91,7 @@ you can think of. They're a powerful way to extend the capabilities of an LLM.
 An MCP server can also expose pre-packaged tools, and those can be especially
 powerful for talking to GitHub or your own Forgejo instance.
 
-### What are the default tools?
+#### What are the default tools?
 
 The `relay-knowledge` tool returns documentation for both Relay
 and [llm.rb](https://github.com/llmrb/llm.rb) - ask about either
