@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    relay.app (0.7.3)
+    relay.app (0.8.0)
       async-websocket
       bcrypt
       erb
       erubi
       falcon
-      llm.rb (= 11.0.0)
+      llm.rb (= 11.1.0)
       logger
       net-http-persistent
       rack
@@ -92,7 +92,7 @@ GEM
     json (2.19.3)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
-    llm.rb (11.0.0)
+    llm.rb (11.1.0)
     localhost (1.7.0)
     lockf.rb (3.0.0)
       fiddle (~> 1.1)
