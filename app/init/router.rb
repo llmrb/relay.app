@@ -143,7 +143,7 @@ module Relay
 
         r.is Integer do |id|
           r.get do
-            Pages::Context.new(self).call(id)
+            Pages::ShowContext.new(self).call(id)
           end
 
           r.delete do
