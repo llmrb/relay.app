@@ -1,0 +1,6 @@
+title: "Relay — Ruby's hackable AI web environment"
+description: Relay is a self-hostable, hackable LLM web environment built on llm.rb,
+  Roda, Sequel, Falcon, HTMX and web sockets.
+url: "https://llmrb.github.io"
+baseurl: "/relay"
+markdown: kramdown

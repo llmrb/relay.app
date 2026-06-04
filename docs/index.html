@@ -1,0 +1,124 @@
+---
+layout: default
+title: Relay
+description: Relay is a self-hostable, hackable LLM web environment built on
+  llm.rb — extend it with your own tools and skills that live in your HOME
+  directory.
+---
+
+<section class="hero">
+  <div class="container">
+    <div class="size-badge">RubyGem</div>
+    <h1>Relay</h1>
+    <p class="subtitle">
+      Relay is a self-hostable, hackable LLM web environment that can be
+      extended with your own tools and skills. It is for programmers, AI
+      engineers, hackers, and anyone who wants their own AI environment
+      with the option to extend it with code.
+    </p>
+    <p class="subtitle">
+      Built on Roda, Sequel, Falcon, <a href="https://github.com/llmrb/llm.rb"
+      style="color: var(--color-accent); text-decoration: underline;">llm.rb</a>,
+      HTMX and web sockets.
+    </p>
+    <a class="install" href="https://github.com/llmrb/relay#readme">
+      <span>View on GitHub</span>
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+</section>
+
+<section>
+  <div class="container-wide">
+    <div class="slideshow">
+      <input type="radio" name="slide" id="slide-1" checked>
+      <input type="radio" name="slide" id="slide-2">
+
+      <div class="slides">
+        <div class="slide slide-1">
+          <img src="./relay1.png" alt="Relay chat interface showing the conversation view">
+        </div>
+        <div class="slide slide-2">
+          <img src="./relay2.png" alt="Relay sign-in screen">
+        </div>
+      </div>
+
+      <div class="nav">
+        <label class="nav-1" for="slide-1"></label>
+        <label class="nav-2" for="slide-2"></label>
+      </div>
+
+      <p class="caption">
+        Chat &middot; Sign-in
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Features</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Extensible tools</h3>
+        <p>Add your own Ruby tools to <code>~/.config/relay/tools/</code> and they are automatically available to the LLM.</p>
+      </div>
+      <div class="feature">
+        <h3>MCP support</h3>
+        <p>Connect MCP servers for GitHub, Forgejo, filesystem access, or any MCP-compatible service.</p>
+      </div>
+      <div class="feature">
+        <h3>Multiple providers</h3>
+        <p>OpenAI, Anthropic, Google Gemini, DeepSeek, xAI, AWS Bedrock, and any OpenAI-compatible endpoint.</p>
+      </div>
+      <div class="feature">
+        <h3>Streaming responses</h3>
+        <p>Real-time streaming via web sockets — output appears as it is generated.</p>
+      </div>
+      <div class="feature">
+        <h3>Powered by <a href="https://github.com/llmrb/llm.rb">llm.rb</a></h3>
+        <p>Built on llm.rb — the same runtime for tools, agents, MCP, A2A, skills, and streaming.</p>
+      </div>
+      <div class="feature">
+        <h3>Self-hosted</h3>
+        <p>Install as a RubyGem and run on your own infrastructure. No third-party dependencies beyond your provider API key.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Getting started</h2>
+    <div class="details-list">
+      <div class="detail-item">
+        <strong>Install</strong> &mdash; <code>gem install relay.app</code>
+      </div>
+      <div class="detail-item">
+        <strong>Configure</strong> &mdash; <code>relay setup</code>
+      </div>
+      <div class="detail-item">
+        <strong>Serve</strong> &mdash; <code>relay start</code>
+      </div>
+      <div class="detail-item">
+        <strong>License</strong> &mdash; 0BSD. Do whatever you want.
+      </div>
+      <div class="detail-item">
+        <strong>Stack</strong> &mdash; Roda, Sequel, Falcon, HTMX, llm.rb.
+      </div>
+      <div class="detail-item">
+        <strong>Version</strong> &mdash; v0.8.0.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="https://github.com/llmrb/relay">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/llmrb/llm.rb">llm.rb</a>
+    &nbsp;&middot;&nbsp;
+    0BSD license
+  </div>
+</footer>
