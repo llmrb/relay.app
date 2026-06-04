@@ -1,5 +1,7 @@
 @theme {
   --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", "JetBrains Mono",
+               "Cascadia Code", "Menlo", "Consolas", monospace;
 }
 
 @keyframes activity-pulse {
@@ -13,4 +15,9 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+@keyframes typewriter {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
 }

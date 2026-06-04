@@ -1,0 +1,47 @@
+@layer components {
+  .reasoning-panel {
+    details {
+      summary {
+        @apply cursor-pointer list-none text-[11px] font-semibold uppercase tracking-[0.18em];
+        color: var(--theme-muted);
+        user-select: none;
+
+        &::-webkit-details-marker {
+          display: none;
+        }
+
+        &:hover {
+          color: var(--theme-text);
+        }
+      }
+
+      .reasoning-content {
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--theme-muted);
+        white-space: pre-wrap;
+        font-family: var(--font-mono);
+      }
+
+      .tool-name {
+        color: var(--theme-accent);
+        font-weight: 600;
+        font-size: 12px;
+        font-family: var(--font-mono);
+      }
+
+      pre {
+        margin-top: 6px;
+        padding: 10px 12px;
+        font-size: 12px;
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        border: 1px solid var(--theme-panel-border);
+        background: var(--theme-surface-2);
+        color: var(--theme-text);
+        border-radius: 0.75rem;
+      }
+    }
+  }
+}

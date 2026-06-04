@@ -3,11 +3,14 @@
     @apply min-h-screen antialiased;
     background-color: var(--theme-bg);
     color: var(--theme-text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   ::selection {
     background-color: var(--theme-accent-soft);
-    color: var(--theme-text);
+    color: var(--theme-accent-strong);
   }
 
   option {

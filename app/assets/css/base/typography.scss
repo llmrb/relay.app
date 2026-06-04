@@ -1,6 +1,8 @@
 @layer components {
   .assistant-content {
     @apply max-w-none whitespace-normal leading-7;
+    font-family: var(--font-mono);
+    font-size: 14px;
 
     p {
       @apply my-4;
@@ -15,7 +17,7 @@
     }
 
     a {
-      @apply font-medium underline underline-offset-3;
+      @apply font-medium underline underline-offset-2;
       color: var(--theme-link);
       text-decoration-color: var(--theme-link);
 
@@ -38,19 +40,21 @@
     }
 
     pre {
-      @apply my-4 overflow-x-auto rounded-2xl border p-3;
-      border-color: var(--theme-panel-border);
-      background-color: var(--theme-surface-2);
+      @apply my-4 overflow-x-auto p-4 text-[13px];
+      border: 1px solid var(--theme-panel-border);
+      background-color: var(--theme-bg);
 
       code.hljs {
-        @apply block rounded-xl p-0 text-[13px] leading-6;
-        background-color: var(--theme-surface-2);
+        @apply block p-0 text-[13px] leading-6;
+        background-color: var(--theme-bg);
         color: var(--theme-text);
       }
     }
 
     code {
-      @apply font-mono;
+      font-family: var(--font-mono);
+      color: var(--theme-accent);
+      font-size: 13px;
     }
 
     .hljs-keyword,
@@ -59,7 +63,7 @@
     .hljs-section,
     .hljs-built_in,
     .hljs-type {
-      color: var(--theme-link);
+      color: var(--theme-accent);
     }
 
     .hljs-string,
@@ -83,29 +87,32 @@
     }
 
     blockquote {
-      @apply my-4 border-l-4 pl-4;
-      border-color: var(--theme-accent-border);
-      color: var(--theme-text);
+      @apply my-4 border-l-2 pl-4;
+      border-color: var(--theme-accent);
+      color: var(--theme-muted);
     }
 
     img {
-      @apply mt-2 h-auto max-h-[32rem] w-full max-w-2xl rounded-2xl object-contain;
+      @apply mt-2 h-auto max-h-[32rem] w-full max-w-2xl object-contain;
+      border: 1px solid var(--theme-panel-border);
     }
 
   }
 
   .label {
     @apply block text-[11px] font-semibold uppercase tracking-[0.18em];
-    color: color-mix(in srgb, var(--theme-accent) 80%, white 10%);
+    color: var(--theme-muted);
+    font-family: var(--font-mono);
   }
 
   .section-kicker {
     @apply text-[11px] font-semibold uppercase tracking-[0.18em];
-    color: color-mix(in srgb, var(--theme-accent) 78%, white 10%);
+    color: var(--theme-muted);
+    font-family: var(--font-mono);
   }
 
   .theme-accent {
-    color: color-mix(in srgb, var(--theme-accent) 80%, white 10%);
+    color: var(--theme-accent);
   }
 
   .theme-divider {
@@ -119,5 +126,22 @@
 
   .theme-muted {
     color: var(--theme-muted);
+  }
+
+  /* Polished streaming cursor */
+  .streaming-cursor::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--theme-accent);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    opacity: 0.9;
+    animation: typewriter 0.7s step-end infinite;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
   }
 }

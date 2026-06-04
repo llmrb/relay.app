@@ -1,6 +1,8 @@
 <%
   role = message.respond_to?(:role) ? message.role.to_sym : message[:role]
   content = message.respond_to?(:content) ? message.content : message[:content]
+  reasoning = message.respond_to?(:reasoning_content) ? message.reasoning_content : nil
+  tool_calls = message.respond_to?(:tool_calls) ? message.tool_calls : nil
 %>
 <% if role == :user %>
   <div class="mt-3 flex justify-end first:mt-0">
@@ -23,9 +25,37 @@
     <div class="message-avatar">AI</div>
     <div class="message-stack max-w-[88%]">
       <div class="message-label">Assistant</div>
-      <div class="assistant-content chat-bubble-assistant">
-        <div><%== markdown(content) %></div>
-      </div>
+      <% if reasoning %>
+        <div class="reasoning-panel mb-2">
+          <details>
+            <summary>Reasoning</summary>
+            <div class="reasoning-content"><%= reasoning %></div>
+          </details>
+        </div>
+      <% end %>
+      <% if content %>
+        <div class="assistant-content chat-bubble-assistant">
+          <div><%== markdown(content) %></div>
+        </div>
+      <% end %>
+      <% if tool_calls %>
+        <div class="reasoning-panel mt-2">
+          <details>
+            <summary>Tool Calls</summary>
+            <% tool_calls.each do |tc| %>
+              <div class="mt-2">
+                <span class="tool-name"><%= tc.name %></span>
+                <% if tc.arguments %>
+                  <pre><%= JSON.pretty_generate(tc.arguments) rescue tc.arguments.inspect %></pre>
+                <% end %>
+                <% if tc.result %>
+                  <pre><%= tc.result.inspect %></pre>
+                <% end %>
+              </div>
+            <% end %>
+          </details>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>

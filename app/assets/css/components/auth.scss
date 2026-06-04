@@ -4,20 +4,24 @@
   }
 
   .auth-panel {
-    @apply rounded-[2rem] border;
-    border-color: color-mix(in srgb, var(--theme-panel-border) 88%, black 10%);
-    background-color: color-mix(in srgb, var(--theme-panel) 94%, var(--theme-surface-2) 6%);
+    border: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
   }
 
   .auth-field {
-    @apply rounded-2xl px-4 py-3.5;
-    background-color: color-mix(in srgb, var(--theme-surface) 92%, black 8%);
+    @apply px-4 py-3;
+    border: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
+    font-family: var(--font-mono);
+    color: var(--theme-text);
   }
 
   .auth-button {
-    @apply w-full rounded-2xl px-4 py-3 text-sm font-semibold transition;
+    @apply w-full px-4 py-3 text-sm font-semibold transition;
     background-color: var(--theme-accent);
     color: var(--theme-accent-foreground);
+    border: 1px solid var(--theme-accent);
+    font-family: var(--font-mono);
 
     &:hover {
       filter: brightness(1.08);

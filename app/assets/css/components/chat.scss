@@ -7,8 +7,7 @@
   }
 
   .panel {
-    @apply rounded-3xl border backdrop-blur-sm;
-    border-color: var(--theme-panel-border);
+    border: 1px solid var(--theme-panel-border);
     background-color: var(--theme-panel);
   }
 
@@ -22,22 +21,23 @@
   }
 
   .chat-surface {
-    @apply flex h-full min-h-0 flex-col overflow-hidden rounded-[1.5rem] border;
-    border-color: color-mix(in srgb, var(--theme-panel-border) 88%, black 12%);
-    background-color: color-mix(in srgb, var(--theme-panel) 96%, transparent);
+    @apply flex h-full min-h-0 flex-col overflow-hidden;
+    border: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-panel);
   }
 
   .chat-meta {
-    @apply flex items-center justify-between gap-3 border-b px-5 py-4;
-    border-color: color-mix(in srgb, var(--theme-panel-border) 82%, transparent);
-    background-color: color-mix(in srgb, var(--theme-panel) 88%, transparent);
+    @apply flex items-center justify-between gap-3 px-5 py-4;
+    border-bottom: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
   }
 
   .chat-meta-badge {
-    @apply inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em];
-    border-color: var(--theme-accent-border);
+    @apply inline-flex items-center px-3 py-1 text-[11px] font-medium;
+    border: 1px solid var(--theme-accent-border);
     background-color: var(--theme-accent-soft);
-    color: color-mix(in srgb, var(--theme-accent) 78%, white 12%);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
   }
 
   .chat-footer {
@@ -47,49 +47,56 @@
   }
 
   .chat-stream {
-    @apply min-h-0 flex-1 px-5 py-5 text-[15px] leading-7;
+    @apply min-h-0 flex-1 px-5 py-5 text-[14px] leading-7;
     background-color: transparent;
     color: var(--theme-text);
+    font-family: var(--font-mono);
   }
 
   .chat-bubble-user {
-    @apply rounded-2xl border px-4 py-3 leading-7;
-    border-color: var(--theme-accent-border);
+    @apply w-fit max-w-[75%] px-4 py-3 leading-7;
+    border: 1px solid var(--theme-accent-border);
     background-color: var(--theme-accent-soft);
     color: var(--theme-text);
+    font-family: var(--font-mono);
   }
 
   .chat-bubble-assistant {
-    @apply rounded-2xl border px-4 py-3 leading-7;
-    border-color: var(--theme-panel-border);
+    @apply px-4 py-3 leading-7;
+    border: 1px solid var(--theme-panel-border);
     background-color: var(--theme-panel);
     color: var(--theme-text);
+    font-family: var(--font-mono);
   }
 
   .chat-empty-state {
-    @apply rounded-[1.75rem] border px-5 py-5 text-sm leading-7;
-    border-color: var(--theme-panel-border);
-    background-color: color-mix(in srgb, var(--theme-panel) 92%, transparent);
-    box-shadow: 0 10px 24px rgb(0 0 0 / 0.12);
+    @apply px-5 py-5 text-sm leading-7;
+    border: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
+    font-family: var(--font-mono);
+    color: var(--theme-muted);
   }
 
   .message-avatar {
-    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold;
-    background-color: color-mix(in srgb, var(--theme-accent-soft) 72%, transparent);
-    color: var(--theme-text);
+    @apply flex h-7 w-9 shrink-0 items-center justify-center text-xs font-medium;
+    border: 1px solid var(--theme-accent-border);
+    background-color: var(--theme-accent-soft);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
   }
 
   .message-row {
-    @apply mt-3 flex gap-3 first:mt-0;
+    @apply mt-4 flex gap-3 first:mt-0;
   }
 
   .message-stack {
-    @apply min-w-0;
+    @apply min-w-0 flex-1;
   }
 
   .message-label {
-    @apply mb-1 text-xs font-medium;
+    @apply mb-1 text-[11px] font-medium;
     color: var(--theme-muted);
+    font-family: var(--font-mono);
   }
 
   @include compact-shell {
@@ -97,16 +104,12 @@
       @apply gap-3 px-3 py-3.5;
     }
 
-    .chat-surface {
-      @apply rounded-[1.35rem];
-    }
-
     .chat-meta {
       @apply px-4 py-3;
     }
 
     .chat-stream {
-      @apply px-4 py-4 text-[14px] leading-6;
+      @apply px-4 py-4 text-[13px] leading-6;
     }
 
     .chat-footer {
@@ -114,11 +117,11 @@
     }
 
     .message-row {
-      @apply mt-2.5 gap-2.5;
+      @apply mt-3 gap-2.5;
     }
 
     .message-avatar {
-      @apply h-8 w-8 text-[11px];
+      @apply h-6 w-8 text-[11px];
     }
   }
 }

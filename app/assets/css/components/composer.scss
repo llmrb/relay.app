@@ -4,6 +4,7 @@
   .upload-indicator {
     @apply hidden;
     color: var(--theme-muted);
+    font-family: var(--font-mono);
 
     &.is-active {
       @apply block;
@@ -11,53 +12,71 @@
   }
 
   .composer-input {
-    @apply max-h-60 min-h-14 flex-1 resize-none overflow-y-auto rounded-2xl border px-4 py-3 text-[15px] outline-none focus:ring-4;
-    border-color: var(--theme-panel-border);
-    background-color: var(--theme-surface-3);
+    @apply max-h-60 min-h-12 flex-1 resize-none overflow-y-auto px-4 py-3 text-[14px] outline-none;
+    border: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
     color: var(--theme-text);
-    --tw-ring-color: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+    font-family: var(--font-mono);
+    line-height: 1.6;
 
     &::placeholder {
       color: var(--theme-placeholder);
     }
+
+    &:focus {
+      border-color: var(--theme-accent-border);
+    }
   }
 
   .composer-submit {
-    @apply min-w-24 shrink-0 rounded-full px-4 py-3 text-sm font-semibold transition focus:ring-4 focus:outline-none;
-    background-color: var(--theme-panel);
-    color: var(--theme-text);
-    --tw-ring-color: color-mix(in srgb, var(--theme-accent) 12%, transparent);
+    @apply shrink-0 px-4 py-3 text-[12px] font-medium transition;
+    border: 1px solid var(--theme-accent-border);
+    background-color: var(--theme-bg);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
+    cursor: pointer;
 
     &:hover {
-      background-color: var(--theme-surface-3);
+      background-color: var(--theme-accent-soft);
     }
+  }
+
+  .composer-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
   }
 
   .button-subtle {
     border: 1px solid var(--theme-panel-border);
-    background-color: color-mix(in srgb, var(--theme-panel) 82%, transparent);
+    background-color: var(--theme-bg);
+    color: var(--theme-muted);
+    font-family: var(--font-mono);
 
     &:hover {
-      background-color: color-mix(in srgb, var(--theme-surface-3) 72%, transparent);
+      border-color: var(--theme-accent-border);
+      color: var(--theme-accent);
     }
   }
 
   .button-primary {
     background-color: var(--theme-accent);
     color: var(--theme-accent-foreground);
+    border: 1px solid var(--theme-accent);
+    font-family: var(--font-mono);
 
     &:hover {
-      filter: brightness(1.05);
+      filter: brightness(1.08);
     }
   }
 
   @include compact-shell {
     .composer-input {
-      @apply min-h-12 px-3.5 py-2.5 text-[14px];
+      @apply min-h-10 px-3.5 py-2.5 text-[13px];
     }
 
     .composer-submit {
-      @apply min-w-20 px-3.5 py-2.5 text-[13px];
+      @apply px-3.5 py-2.5 text-[11px];
     }
   }
 }

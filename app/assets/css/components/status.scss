@@ -2,44 +2,46 @@
 
 @layer components {
   .context-progress {
-    color: var(--theme-progress-end);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
 
     &::-webkit-progress-bar {
       background-color: var(--theme-surface-3);
-      border-radius: 9999px;
     }
 
     &::-webkit-progress-value {
       background: var(--theme-progress-start);
-      border-radius: 9999px;
     }
 
     &::-moz-progress-bar {
       background: var(--theme-progress-start);
-      border-radius: 9999px;
     }
   }
 
   .timer-value {
     @apply ml-2 inline-flex items-center justify-center text-[12px] font-semibold tabular-nums tracking-[0.02em];
-    color: color-mix(in srgb, var(--theme-accent) 82%, var(--theme-text) 18%);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
   }
 
   .status-active {
-    @apply inline-flex items-center rounded-full px-2.5 py-1 text-sm font-medium;
-    background-color: color-mix(in srgb, var(--theme-accent-soft) 64%, var(--theme-panel) 36%);
-    color: var(--theme-text);
+    @apply inline-flex items-center px-2.5 py-1 text-sm;
+    background-color: var(--theme-accent-soft);
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
   }
 
   .status-strip {
-    @apply grid grid-cols-[minmax(0,1fr)_minmax(15rem,22rem)_minmax(0,1fr)] items-center gap-6 border-t px-5 py-3 text-sm;
-    border-color: color-mix(in srgb, var(--theme-panel-border) 82%, transparent);
-    background-color: color-mix(in srgb, var(--theme-surface) 68%, transparent);
+    @apply grid grid-cols-[minmax(0,1fr)_minmax(15rem,22rem)_minmax(0,1fr)] items-center gap-6 px-4 py-2 text-sm;
+    border-top: 1px solid var(--theme-panel-border);
+    background-color: var(--theme-bg);
+    font-family: var(--font-mono);
   }
 
   .status-meta {
-    @apply text-[11px] font-medium tracking-[0.04em];
+    @apply text-[11px];
     color: var(--theme-muted);
+    font-family: var(--font-mono);
   }
 
   .status-block {
@@ -60,12 +62,14 @@
 
   .status-label {
     @apply text-[11px] font-semibold uppercase tracking-[0.18em];
-    color: color-mix(in srgb, var(--theme-accent) 78%, white 10%);
+    color: var(--theme-muted);
+    font-family: var(--font-mono);
   }
 
   .status-value-inline {
-    @apply mt-1 flex min-w-0 items-center gap-2 font-medium;
-    color: var(--theme-text);
+    @apply mt-1 flex min-w-0 items-center gap-2;
+    color: var(--theme-accent);
+    font-family: var(--font-mono);
   }
 
   .status-text {
