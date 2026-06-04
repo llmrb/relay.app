@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Dependencies
-        run: apt install libcurl-dev
+        run: sudo apt install libcurl-dev
 
       - name: Check out code
         uses: actions/checkout@v4
