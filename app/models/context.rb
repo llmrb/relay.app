@@ -52,7 +52,11 @@ module Relay::Models
       ctx.messages.filter_map do |message|
         next if message.tool_call? || message.tool_return? || message.compaction?
         next unless message.user? || message.assistant?
-        {role: message.role.to_sym, content: message.content.to_s}
+        LLM::Object.from({
+          role: message.role.to_sym,
+          content: message.content.to_s,
+          reasoning_content: message.reasoning_content
+        })
       end
     end
 
