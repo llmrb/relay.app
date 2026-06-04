@@ -19,15 +19,11 @@ HTMX and web sockets.
 
 #### Sign-in
 
-![Relay screenshot](./relay3.png)
+![Relay screenshot](./relay2.png)
 
 #### Chat
 
 ![Relay screenshot](./relay1.png)
-
-#### MCP
-
-![Relay screenshot](./relay2.png)
 
 
 ## Getting started
@@ -89,7 +85,7 @@ your own code that could can search the web, read documentation, etc.
 
 An MCP server can also expose pre-packaged tools, and those can be especially
 useful for talking to GitHub, your own Forgejo instance or any other
-kind of MCP server. 
+kind of MCP server.
 
 #### What are the default tools?
 
