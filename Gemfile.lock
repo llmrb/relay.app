@@ -4,6 +4,7 @@ PATH
     relay.app (0.8.0)
       async-websocket
       bcrypt
+      curb
       erb
       erubi
       falcon
@@ -66,6 +67,7 @@ GEM
       fiber-annotation
       fiber-local (~> 1.1)
       json
+    curb (1.3.5)
     erb (6.0.4)
     erubi (1.13.1)
     falcon (0.55.2)

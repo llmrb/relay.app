@@ -17,18 +17,24 @@ module Relay
   require_relative "relay/reloader"
 
   PROVIDERS = {
-    "anthropic" => -> { ENV["ANTHROPIC_SECRET"].nil? ? nil : LLM.anthropic(key: ENV["ANTHROPIC_SECRET"]) },
-    "deepseek" => -> { ENV["DEEPSEEK_SECRET"].nil? ? nil : LLM.deepseek(key: ENV["DEEPSEEK_SECRET"]) },
-    "google" => -> { ENV["GOOGLE_SECRET"].nil? ? nil : LLM.google(key: ENV["GOOGLE_SECRET"]) },
-    "openai" => -> { ENV["OPENAI_SECRET"].nil? ? nil : LLM.openai(key: ENV["OPENAI_SECRET"]) },
+    "anthropic" => -> { ENV["ANTHROPIC_SECRET"].nil? ? nil : LLM.anthropic(key: ENV["ANTHROPIC_SECRET"], transport:) },
+    "deepseek" => -> { ENV["DEEPSEEK_SECRET"].nil? ? nil : LLM.deepseek(key: ENV["DEEPSEEK_SECRET"], transport:) },
+    "google" => -> { ENV["GOOGLE_SECRET"].nil? ? nil : LLM.google(key: ENV["GOOGLE_SECRET"], transport:) },
+    "openai" => -> { ENV["OPENAI_SECRET"].nil? ? nil : LLM.openai(key: ENV["OPENAI_SECRET"], transport:) },
     "xai" => -> { ENV["XAI_SECRET"].nil? ? nil : LLM.xai(key: ENV["XAI_SECRET"]) },
     "bedrock" => -> do
       (ENV["AWS_ACCESS_KEY_ID"].nil? || ENV["AWS_SECRET_ACCESS_KEY"].nil?) ?
         nil :
-        LLM.bedrock(access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"])
+        LLM.bedrock(access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"], transport:)
     end
   }.freeze
   private_constant :PROVIDERS
+
+  ##
+  # @return [Symbol]
+  def self.transport
+    (ENV["RELAY_TRANSPORT"] || :net_http_persistent).to_sym
+  end
 
   ##
   # @return [String]

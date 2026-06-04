@@ -6,12 +6,14 @@ require "optparse"
 require "rbconfig"
 
 DEFAULT_BIND = "http://0.0.0.0:9292"
+DEFAULT_TRANSPORT = "net_http_persistent"
 
 ##
 # utils
-def option_parser(bind)
+def option_parser(bind, transport)
   OptionParser.new do |o|
     o.banner = "Usage: relay start [OPTIONS] [URL]"
+    o.on("--transport TRANSPORT", "curl, net_http, or net_http_persistent.") { transport.replace(_1) }
     o.on("--bind URL", "Bind Falcon to a URL") { bind.replace(_1) }
   end
 end
@@ -19,10 +21,12 @@ end
 ##
 # main
 def main(argv)
-  bind = String.new(DEFAULT_BIND)
-  option_parser(bind).parse!(argv)
+  bind = DEFAULT_BIND.dup
+  transport = DEFAULT_TRANSPORT.dup
+  option_parser(bind, transport).parse!(argv)
   bind = argv.shift || bind
   Dir.chdir(Relay.root) do
+    ENV["RELAY_TRANSPORT"] = transport
     exec RbConfig.ruby, "-S", "falcon", "serve", "--bind", bind
   end
 end
