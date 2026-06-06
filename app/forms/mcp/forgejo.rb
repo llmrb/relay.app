@@ -45,9 +45,10 @@ class Relay::Forms::MCP
     #  Returns the preset-specific MCP data overrides
     def data
       {
-        "env" => {
-          "FORGEJO_URL" => url,
-          "FORGEJO_TOKEN" => token
+        "argv" => {
+          "-url" => url,
+          "-token" => token,
+          "-transport" => "stdio"
         }
       }
     end

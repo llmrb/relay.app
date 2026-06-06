@@ -85,7 +85,8 @@ your own code that could can search the web, read documentation, etc.
 
 An MCP server can also expose pre-packaged tools, and those can be especially
 useful for talking to GitHub, your own Forgejo instance or any other
-kind of MCP server.
+kind of MCP server. For Forgejo, Relay expects and recommends `forgejo-mcp`
+from https://codeberg.org/goern/forgejo-mcp.
 
 #### What are the default tools?
 

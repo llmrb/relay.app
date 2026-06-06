@@ -34,8 +34,8 @@ module Relay::Validators
       when "github"
         model.errors.add(:token, "is required") if model.headers["Authorization"].to_s.delete_prefix("Bearer ").strip.empty?
       when "forgejo"
-        model.errors.add(:url, "is required") if model.env["FORGEJO_URL"].to_s.strip.empty?
-        model.errors.add(:token, "is required") if model.env["FORGEJO_TOKEN"].to_s.strip.empty?
+        model.errors.add(:url, "is required") unless model.argv.include?("-url")
+        model.errors.add(:token, "is required") unless model.argv.include?("-token")
       end
     end
   end

@@ -22,7 +22,7 @@ module Relay::Models
         summary: "Connect a Forgejo instance with URL and token.",
         transport: "stdio",
         data: {"preset" => "forgejo", "argv" => ["forgejo-mcp"], "cwd" => "", "env" => {}},
-        description: "Requires Forgejo support to be installed on this Relay host."
+        description: "Expects and recommends forgejo-mcp from https://codeberg.org/goern/forgejo-mcp."
       }
     }.freeze
 
